@@ -2,20 +2,21 @@ import sprites.*;
 import sprites.maths.*;
 import sprites.utils.*;
 
-Sprite spyro, logo, logo2, ng, hs, control;
+Sprite logo, logo2, ng, hs, control;
 enum State {
   TITLE, GAME, BONUS, GAMEOVER
 };
   State gameState;
-  StopWatch sw;
-  PImage bg;
+StopWatch sw;
+PImage bg;
+Spyro spyro;
 
 void setup()
 {
   size(1200, 800);
   gameState = State.GAME;
   sw = new StopWatch();
-  
+
   logo = new Sprite(this, "Spyro_logo.png", 1);
   logo.setXY(width/2, height/2 - 150);
   logo.setScale(2);
@@ -31,26 +32,22 @@ void setup()
   control = new Sprite(this, "controls.png", 1);
   control.setXY(width/2-150, height/2 + 300);
   control.setScale(2);
-  
+
   logo.setVisible(false);
   logo2.setVisible(false);
   ng.setVisible(false);
   hs.setVisible(false);
   control.setVisible(false);
-  
-  
-  spyro = new Sprite(this, "walking.png", 14, 1, 1);
-  spyro.setScale(5);
-  spyro.setXY(300, 300);
-  spyro.setVisible(true);
-  
+
+
+  spyro = new Spyro(this);
+
   registerMethod("pre", this);
-  
 }
 
 /*
 Drawing is done here
-*/
+ */
 void draw()
 {
   if (gameState == State.GAME)
@@ -78,13 +75,13 @@ void keyPressed()
     {
     case RIGHT:
       {
-       //spyro.moveRight
-       break;
+        spyro.moveRight ();
+        break;
       }
     case LEFT:
       {
-      
-        //spyro.moveLeft
+
+        spyro.moveLeft();
         break;
       }
     case UP:
@@ -104,12 +101,14 @@ void keyPressed()
 }
 void keyReleased()
 {
-  if (keyCode == RIGHT && gameState == State.GAME)
+  if (keyCode == RIGHT  && gameState == State.GAME)
   {
-    spyro.stopImageAnim();
-    spyro.setVelX(0);
-    spyro.setFrame(0);
-  }
+    spyro.stopMovingRight();
+}
+if (keyCode == LEFT  && gameState == State.GAME)
+  {
+    spyro.stopMovingLeft();
+}
 }
 
 /*
