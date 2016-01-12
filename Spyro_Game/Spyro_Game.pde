@@ -78,7 +78,8 @@ void keyPressed()
     {
     case RIGHT:
       {
-       //spyro.moveRightr   break;
+       //spyro.moveRight
+       break;
       }
     case LEFT:
       {
