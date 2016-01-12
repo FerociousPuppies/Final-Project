@@ -4,8 +4,8 @@ import sprites.utils.*;
 
 class Spyro
 {
-  //Sprite sprite;
-  //int lives;
+  Sprite sprite;
+  int lives;
 
   Spyro () 
   {
@@ -16,8 +16,8 @@ class Spyro
 
 
     void moveRight () {
-      spryo.setVelX(70);
-      spyro.setFrameSequence(0, 9, 0.1);
+      pryo.setVelX(70);
+      pyro.setFrameSequence(0, 9, 0.1);
     }
 
     void moveLeft () {

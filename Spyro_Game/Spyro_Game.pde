@@ -2,7 +2,7 @@ import sprites.*;
 import sprites.maths.*;
 import sprites.utils.*;
 
-Sprite spyro logo, logo2, ng, hs, control;
+Sprite spyro, logo, logo2, ng, hs, control;
 enum State {
   TITLE, GAME, BONUS, GAMEOVER
 };
