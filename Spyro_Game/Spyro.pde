@@ -6,6 +6,7 @@ class Spyro
 {
   Sprite sprite;
   int lives;
+  float timer;
 
   Spyro (PApplet app) 
   {
@@ -13,6 +14,7 @@ class Spyro
     sprite.setScale(5);
     sprite.setXY(300, 300);
     sprite.setVisible(true);
+    timer = 0;
   }
 
 
@@ -37,5 +39,15 @@ class Spyro
     sprite.stopImageAnim();
     sprite.setVelX(0);
     sprite.setFrame(17);
+  }
+  
+  void jump () {
+   sprite.setVelXY(70,-70);
+   timer = timer + 30;
+   if (timer == 60){
+    sprite.setVelXY(70,70); 
+    timer = 0;
+   }
+    
   }
 }

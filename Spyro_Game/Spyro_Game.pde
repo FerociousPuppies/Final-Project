@@ -86,6 +86,7 @@ void keyPressed()
       }
     case UP:
       {
+        spyro.jump();
         break;
       }
     case DOWN:
