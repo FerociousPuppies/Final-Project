@@ -11,6 +11,9 @@ StopWatch sw;
 PImage bg;
 Spyro spyro;
 
+ArrayList <Enemy> e;
+
+
 void setup()
 {
   size(1200, 800);
@@ -38,6 +41,10 @@ void setup()
   ng.setVisible(false);
   hs.setVisible(false);
   control.setVisible(false);
+  
+  e = new ArrayList <Enemy>();
+
+
 
 
   spyro = new Spyro(this);
