@@ -5,7 +5,7 @@ import sprites.utils.*;
 class Enemy 
 {
   Sprite sprite;
-  boolean reverse = true;
+  boolean reverse = false;
   float timer;
   
   Enemy (PApplet app) 
@@ -21,29 +21,26 @@ class Enemy
   
   void show ()
   {
-    if (reverse = false)
+    timer ++;
+    if (timer < 150)
     {
-    println("here");
     sprite.setVelX(70);
     sprite.setFrameSequence(3,5, 0.2);
-    timer ++;
-    
-    }
-    if (timer == 10)
-    {
-      println (timer);
-      reverse = true;
 
     }
-    if (reverse = true)
+    if (timer > 150)
     {
     sprite.setVelX(-70);
     sprite.setFrameSequence(0,2, 0.2);
-    println ("hello");
     }
-    if (sprite.X == 500)
+    if (timer == 300)
     {
-     reverse = false; 
+    reverse = true;
+    }
+    if (reverse)
+    {
+     timer = 0;
+     reverse = false;
     }
   }
     
