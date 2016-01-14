@@ -11,6 +11,7 @@ StopWatch sw;
 PImage bg;
 Spyro spyro;
 Enemy enemy;
+
 //ArrayList <Enemy> e;
 
 
@@ -59,7 +60,7 @@ void draw()
 {
   if (gameState == State.GAME)
   {
-    background(0);
+    background(255);
   }
   S4P.drawSprites();
 }

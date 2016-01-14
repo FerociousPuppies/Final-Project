@@ -7,19 +7,20 @@ class Enemy
   Sprite sprite;
 
   
-  Enemy (PApplet app) {
-    sprite =new Sprite (app, "EnemyRam.png", 6, 1, 10);
+  Enemy (PApplet app) 
+  {
+    sprite =new Sprite (app, "EnemyRam.png", 6, 1, 1);
     sprite.setScale(3);
     sprite.setXY(300,500);
-    sprite.setVisible(true);
+    sprite.setVisible(false);
     
     
   }
   
   void show ()
   {
-    sprite.setVelX(70);
-    sprite.setFrameSequence(3, 5, 0.2);
+    sprite.setVelX(-70);
+    sprite.setFrameSequence(0,2, 0.2);
     
   }
     

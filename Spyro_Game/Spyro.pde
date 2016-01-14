@@ -7,47 +7,65 @@ class Spyro
   Sprite sprite;
   int lives;
   float timer;
+  boolean right = false;
+  boolean left= false;
+
 
   Spyro (PApplet app) 
   {
-    sprite = new Sprite(app, "walking2.png", 18, 1, 1);
+    sprite = new Sprite(app, "WALK RIGHT LEFT TURN.gif", 31, 1, 1);
     sprite.setScale(5);
     sprite.setXY(300, 300);
-    sprite.setVisible(true);
+    sprite.setVisible(false);
     timer = 0;
   }
 
 
 
 
-  void moveRight () {
-    sprite.setVelX(70);
+  void moveRight () 
+  {
+    sprite.setVelX(7);
     sprite.setFrameSequence(0, 8, 0.1);
+    right = true;
+    if (left == true)
+    {
+      sprite.setFrameSequence(22, 26, 0.2);
+      left = false;
+    }
   }
 
-  void moveLeft () {
-    sprite.setVelX(-70);
+  void moveLeft () 
+  {
+    sprite.setVelX(-7);
     sprite.setFrameSequence(17, 9, 0.1);
+    left = true;
+    if (right == true)
+    {
+      sprite.setFrameSequence(18, 21, 0.2);
+      right = false;
+    }
   }
-  
-  void stopMovingRight (){
+
+  void stopMovingRight ()
+  {
     sprite.stopImageAnim();
     sprite.setVelX(0);
     sprite.setFrame(0);
-}
-  void stopMovingLeft (){
+  }
+  void stopMovingLeft ()
+  {
     sprite.stopImageAnim();
     sprite.setVelX(0);
     sprite.setFrame(17);
   }
-  
+
   void jump () {
-   sprite.setVelXY(70,-70);
-   timer = timer + 30;
-   if (timer == 60){
-    sprite.setVelXY(70,70); 
-    timer = 0;
-   }
-    
+    sprite.setVelXY(70, -70);
+    timer = timer + 30;
+    if (timer == 60) {
+      sprite.setVelXY(70, 70); 
+      timer = 0;
+    }
   }
 }
