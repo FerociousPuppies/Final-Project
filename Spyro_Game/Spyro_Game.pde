@@ -10,8 +10,8 @@ enum State {
 StopWatch sw;
 PImage bg;
 Spyro spyro;
-
-ArrayList <Enemy> e;
+Enemy enemy;
+//ArrayList <Enemy> e;
 
 
 void setup()
@@ -42,11 +42,11 @@ void setup()
   hs.setVisible(false);
   control.setVisible(false);
   
-  e = new ArrayList <Enemy>();
+  //e = new ArrayList <Enemy>(this);
 
 
 
-
+  enemy = new Enemy(this);
   spyro = new Spyro(this);
 
   registerMethod("pre", this);
@@ -98,6 +98,7 @@ void keyPressed()
       }
     case DOWN:
       {
+        enemy.show ();
         break;
       }
     case ' ':
