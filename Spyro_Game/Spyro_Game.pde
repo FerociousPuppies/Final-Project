@@ -63,6 +63,7 @@ void draw()
     background(255);
   }
   S4P.drawSprites();
+  enemy.show ();
 }
 
 /*
@@ -99,7 +100,6 @@ void keyPressed()
       }
     case DOWN:
       {
-        enemy.show ();
         break;
       }
     case ' ':
