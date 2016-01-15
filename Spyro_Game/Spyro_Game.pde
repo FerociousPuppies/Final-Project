@@ -12,7 +12,7 @@ PImage bg;
 Spyro spyro;
 Enemy enemy;
 
-//ArrayList <Enemy> e;
+//ayList <Enemy> e;
 
 
 void setup()
@@ -63,7 +63,7 @@ void draw()
     background(255);
   }
   S4P.drawSprites();
-  enemy.show ();
+  enemy.showRam ();
 }
 
 /*
