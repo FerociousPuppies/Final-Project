@@ -10,7 +10,7 @@ enum State {
 StopWatch sw;
 PImage bg;
 Spyro spyro;
-Enemy enemy;
+Gem gems;
 int x;
 ArrayList remove;
 
