@@ -10,11 +10,13 @@ enum State {
 StopWatch sw;
 PImage bg;
 Spyro spyro;
-Gem gems;
+Enemy enemy;
+Gem gem;
 int x;
 ArrayList remove;
-
+ArrayList <Gem> gems;
 ArrayList <Enemy> e;
+int score;
 
 
 void setup()
@@ -23,7 +25,7 @@ void setup()
   gameState = State.GAME;
   sw = new StopWatch();
   x=0;
-
+  score = 0;
   remove = new ArrayList();
 
   logo = new Sprite(this, "Spyro_logo.png", 1);
@@ -58,6 +60,13 @@ void setup()
   e.add(new Enemy(this, "EnemyRam.png", 100, 300, 3));
   e.add(new Enemy(this, "Enemy.png", 200, 600, 3));
 
+
+  gems = new ArrayList <Gem> ();
+
+  gems.add(new Gem (this, "RedGems.png", 900, 300, 3));
+
+
+
   spyro = new Spyro(this);
 
   registerMethod("pre", this);
@@ -73,7 +82,15 @@ void draw()
     background(255);
     background_picture.setXY(x, 0);
   }
+  fill(0);
+  textSize (72);
+  text ("Score", width/2 - 200, 100, 3);
+  text (score, width/2, 100, 1);
   S4P.drawSprites();
+  for (Gem g : gems)
+  {  
+    g.show ();
+  }
   for (Enemy i : e)
   {
     i.show();
@@ -139,54 +156,54 @@ void keyReleased()
 
 void processCollisions()
 {
- for(Enemy i : e)
- {
-  if(i.getSprite().pp_collision(spyro.getSprite()))
+  for (Enemy i : e)
   {
-    i.getSprite().setVisible(false);
-    remove.add(e.indexOf(i));
+    if (i.getSprite().pp_collision(spyro.getSprite()))
+    {
+      i.getSprite().setVisible(false);
+      remove.add(e.indexOf(i));
+    }
   }
- }
- for(Object i : remove)
- {
-   e.remove(i);
- }
- remove.clear();
-//for (Fireball f : fareballs)
-//{
- //for (Enemy 1 : e) 
- //{
-   //if(fireball.getSprite().pp_collision(i.getSprite())
-   //{
-     //i.getSprite().setVisble(false);
-     //fireball.getSprtie().setVisible(false);
-     //remove.add(e.indexOf(i));
-     //}
-     //}
-     //}
-     //for(Object i : remove)
- //{
-   //e.remove(i);
- //}
- //remove.clear();
-/*for (Gem g : gems)
-{if (g.getSprite().pp_collision(sptro.getSprite()))
-{
-  g.gteSprite().setVisible(false);
-  remove.add(gems.indexOf(g));
+  for (Object i : remove)
+  {
+    e.remove(i);
+  }
+  remove.clear();
+  //for (Fireball f : fareballs)
+  //{
+  //for (Enemy 1 : e) 
+  //{
+  //if(fireball.getSprite().pp_collision(i.getSprite())
+  //{
+  //i.getSprite().setVisble(false);
+  //fireball.getSprtie().setVisible(false);
+  //remove.add(e.indexOf(i));
+  //}
+  //}
+  //}
+  //for(Object i : remove)
+  //{
+  //e.remove(i);
+  //}
+  //remove.clear();
+  for (Gem g : gems)
+  {
+    if (g.getSprite().pp_collision(spyro.getSprite()))
+    {
+      g.getSprite().setVisible(false);
+      remove.add(gems.indexOf(g));
+    }
+  }
+  for (Object i : remove)
+  {
+    e.remove(i);
+    score += 100;
+  }
+  remove.clear();
 }
-}
- for(Object i : remove)
- {
-   e.remove(i);
- }
- remove.clear();
-}
-*/
-}
-     
-     
-   
+
+
+
 
 
 
