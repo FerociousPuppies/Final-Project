@@ -10,12 +10,11 @@ enum State {
 StopWatch sw;
 PImage bg;
 Spyro spyro;
-Enemy enemy;
-Gem gem;
 int x;
 ArrayList remove;
 ArrayList <Gem> gems;
 ArrayList <Enemy> e;
+ArrayList <Fireball> fireballs;
 int score;
 
 
@@ -50,20 +49,22 @@ void setup()
   hs.setVisible(false);
   control.setVisible(false);
 
-  e = new ArrayList <Enemy>();
-
 
   background_picture = new Sprite (this, "Artisans800.png", 1);
   background_picture.setXY(0, 0);
   background_picture.setScale(2);
 
+
+  e = new ArrayList <Enemy>();
   e.add(new Enemy(this, "EnemyRam.png", 100, 300, 3));
   e.add(new Enemy(this, "Enemy.png", 200, 600, 3));
 
 
   gems = new ArrayList <Gem> ();
-
   gems.add(new Gem (this, "RedGems.png", 900, 300, 3));
+
+  fireballs = new ArrayList <Fireball> ();
+  fireballs.add(new Fireball (this, "fireball.png", 700, 600, 3));
 
 
 
@@ -90,6 +91,10 @@ void draw()
   for (Gem g : gems)
   {  
     g.show ();
+  }
+  for (Fireball f : fireballs)
+  {
+    f.show ();
   }
   for (Enemy i : e)
   {
@@ -169,23 +174,23 @@ void processCollisions()
     e.remove(i);
   }
   remove.clear();
-  //for (Fireball f : fareballs)
-  //{
-  //for (Enemy 1 : e) 
-  //{
-  //if(fireball.getSprite().pp_collision(i.getSprite())
-  //{
-  //i.getSprite().setVisble(false);
-  //fireball.getSprtie().setVisible(false);
-  //remove.add(e.indexOf(i));
-  //}
-  //}
-  //}
-  //for(Object i : remove)
-  //{
-  //e.remove(i);
-  //}
-  //remove.clear();
+  for (Fireball f : fireballs)
+  {
+    for (Enemy i : e) 
+    {
+      if (f.getSprite().pp_collision(i.getSprite()))
+      {
+        i.getSprite().setVisible(false);
+        f.getSprite().setVisible(false);
+        remove.add(e.indexOf(i));
+      }
+    }
+  }
+  for (Object i : remove)
+  {
+    e.remove(i);
+  }
+  remove.clear();
   for (Gem g : gems)
   {
     if (g.getSprite().pp_collision(spyro.getSprite()))
