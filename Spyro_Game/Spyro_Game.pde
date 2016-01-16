@@ -2,7 +2,7 @@ import sprites.*;
 import sprites.maths.*;
 import sprites.utils.*;
 
-Sprite logo, logo2, ng, hs, control;
+Sprite logo, logo2, ng, hs, control, background_picture;
 enum State {
   TITLE, GAME, BONUS, GAMEOVER
 };
@@ -11,8 +11,10 @@ StopWatch sw;
 PImage bg;
 Spyro spyro;
 Enemy enemy;
+int x;
+ArrayList remove;
 
-//ayList <Enemy> e;
+ArrayList <Enemy> e;
 
 
 void setup()
@@ -20,6 +22,9 @@ void setup()
   size(1200, 800);
   gameState = State.GAME;
   sw = new StopWatch();
+  x=0;
+
+  remove = new ArrayList();
 
   logo = new Sprite(this, "Spyro_logo.png", 1);
   logo.setXY(width/2, height/2 - 150);
@@ -42,12 +47,17 @@ void setup()
   ng.setVisible(false);
   hs.setVisible(false);
   control.setVisible(false);
-  
-  //e = new ArrayList <Enemy>(this);
+
+  e = new ArrayList <Enemy>();
 
 
+  background_picture = new Sprite (this, "Artisans800.png", 1);
+  background_picture.setXY(0, 0);
+  background_picture.setScale(2);
 
-  enemy = new Enemy(this);
+  e.add(new Enemy(this, "EnemyRam.png", 100, 300, 3));
+  e.add(new Enemy(this, "Enemy.png", 200, 600, 3));
+
   spyro = new Spyro(this);
 
   registerMethod("pre", this);
@@ -61,9 +71,13 @@ void draw()
   if (gameState == State.GAME)
   {
     background(255);
+    background_picture.setXY(x, 0);
   }
   S4P.drawSprites();
-  enemy.showRam ();
+  for (Enemy i : e)
+  {
+    i.show();
+  }
 }
 
 /*
@@ -85,12 +99,14 @@ void keyPressed()
     case RIGHT:
       {
         spyro.moveRight ();
+        x -= 10;
         break;
       }
     case LEFT:
       {
 
         spyro.moveLeft();
+        x += 10;
         break;
       }
     case UP:
@@ -114,12 +130,65 @@ void keyReleased()
   if (keyCode == RIGHT  && gameState == State.GAME)
   {
     spyro.stopMovingRight();
-}
-if (keyCode == LEFT  && gameState == State.GAME)
+  }
+  if (keyCode == LEFT  && gameState == State.GAME)
   {
     spyro.stopMovingLeft();
+  }
+}
+
+void processCollisions()
+{
+ for(Enemy i : e)
+ {
+  if(i.getSprite().pp_collision(spyro.getSprite()))
+  {
+    i.getSprite().setVisible(false);
+    remove.add(e.indexOf(i));
+  }
+ }
+ for(Object i : remove)
+ {
+   e.remove(i);
+ }
+ remove.clear();
+//for (Fireball f : fareballs)
+//{
+ //for (Enemy 1 : e) 
+ //{
+   //if(fireball.getSprite().pp_collision(i.getSprite())
+   //{
+     //i.getSprite().setVisble(false);
+     //fireball.getSprtie().setVisible(false);
+     //remove.add(e.indexOf(i));
+     //}
+     //}
+     //}
+     //for(Object i : remove)
+ //{
+   //e.remove(i);
+ //}
+ //remove.clear();
+/*for (Gem g : gems)
+{if (g.getSprite().pp_collision(sptro.getSprite()))
+{
+  g.gteSprite().setVisible(false);
+  remove.add(gems.indexOf(g));
 }
 }
+ for(Object i : remove)
+ {
+   e.remove(i);
+ }
+ remove.clear();
+}
+*/
+}
+     
+     
+   
+
+
 
 /*
  * Method provided by Processing and is called every 
@@ -129,6 +198,7 @@ if (keyCode == LEFT  && gameState == State.GAME)
  */
 public void pre() {
   // Calculate time difference since last call
+  processCollisions();
   float elapsedTime = (float) sw.getElapsedTime();
   S4P.updateSprites(elapsedTime);
 }

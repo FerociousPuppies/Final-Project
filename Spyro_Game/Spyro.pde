@@ -13,9 +13,9 @@ class Spyro
 
   Spyro (PApplet app) 
   {
-    sprite = new Sprite(app, "WALK RIGHT LEFT TURN.gif", 31, 1, 1);
+    sprite = new Sprite(app, "WALK RIGHT LEFT TURN.gif", 31, 1, 3);
     sprite.setScale(5);
-    sprite.setXY(300, 300);
+    sprite.setXY(width/2, 300);
     sprite.setVisible(true);
     timer = 0;
   }
@@ -25,7 +25,7 @@ class Spyro
 
   void moveRight () 
   {
-    sprite.setVelX(70);
+    //sprite.setVelX(70);
     sprite.setFrameSequence(0, 8, 0.1);
     right = true;
     if (left == true)
@@ -33,11 +33,12 @@ class Spyro
       sprite.setFrameSequence(22, 26, 0.2);
       left = false;
     }
+    
   }
 
   void moveLeft () 
   {
-    sprite.setVelX(-70);
+    //sprite.setVelX(-70);
     sprite.setFrameSequence(17, 9, 0.1);
     left = true;
     if (right == true)
@@ -67,5 +68,10 @@ class Spyro
       sprite.setVelXY(70, 70); 
       timer = 0;
     }
+  }
+  
+  Sprite getSprite()
+  {
+   return sprite; 
   }
 }

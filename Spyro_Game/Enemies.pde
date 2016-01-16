@@ -2,76 +2,47 @@ import sprites.*;
 import sprites.maths.*;
 import sprites.utils.*;
 
-class Enemy 
+static class Enemy 
 {
   Sprite sprite;
   boolean reverse = false;
   float timer;
-  
-  Enemy (PApplet app) 
+
+  Enemy (PApplet app, String pic, int x, int y, int scale) 
   {
-    sprite =new Sprite (app, "Enemy.png", 6, 1, 1);
-    sprite.setScale(3);
-    sprite.setXY(600,500);
+    sprite =new Sprite (app, pic, 6, 1, 3);
+    sprite.setScale(scale);
+    sprite.setXY(x, y);
     sprite.setVisible(true);
     timer = 0;
-    
-    
   }
-  
-  void showRam ()
+
+  void show ()
   {
     timer ++;
-    if (timer < 150)
+    if (timer < 100)
     {
-    sprite.setVelX(70);
-    sprite.setFrameSequence(3,5, 0.2);
-
+      sprite.setVelX(70);
+      sprite.setFrameSequence(3, 5, 0.2);
     }
-    if (timer > 150)
+    if (timer > 100)
     {
-    sprite.setVelX(-70);
-    sprite.setFrameSequence(0,2, 0.2);
+      sprite.setVelX(-70);
+      sprite.setFrameSequence(0, 2, 0.2);
     }
     if (timer == 300)
     {
-    reverse = true;
+      reverse = true;
     }
     if (reverse)
     {
-     timer = 0;
-     reverse = false;
+      timer = 0;
+      reverse = false;
     }
   }
-    
-    void showSnake ()
+  
+  Sprite getSprite()
   {
-    timer ++;
-    if (timer < 150)
-    {
-    sprite.setVelX(70);
-    sprite.setFrameSequence(3,5, 0.2);
-
-    }
-    if (timer > 150)
-    {
-    sprite.setVelX(-70);
-    sprite.setFrameSequence(0,2, 0.2);
-    }
-    if (timer == 300)
-    {
-    reverse = true;
-    }
-    if (reverse)
-    {
-     timer = 0;
-     reverse = false;
-    }
-
-}
-  
-    
-  
-  
-  
+   return sprite; 
+  }
 }
