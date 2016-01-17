@@ -117,7 +117,14 @@ void draw()
   }
   if (jump == true)
   {
-   timer++;
+    spyro.getSprite().setVelY(spyro.getSprite().getVelY() + 2);
+    timer ++;
+    println (timer);
+    if (timer == 150)
+    {
+      
+      jump=false;
+    }
   }
 }
 
@@ -170,10 +177,7 @@ void keyPressed()
     case UP:
       { 
         spyro.jumpUp();
-        
-        spyro.jumpDown();
-        
-        spyro.stopJump();
+        jump = true;
       
 
         break;
