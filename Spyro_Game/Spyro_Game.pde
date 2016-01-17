@@ -2,7 +2,7 @@ import sprites.*;
 import sprites.maths.*;
 import sprites.utils.*;
 
-Sprite logo, logo2, ng, hs, control, background_picture;
+Sprite logo, logo2, ng, hs, control, backgroundPicture;
 enum State {
   TITLE, GAME, BONUS, GAMEOVER
 };
@@ -24,7 +24,7 @@ void setup()
   size(1200, 800);
   gameState = State.GAME;
   sw = new StopWatch();
-  x=0;
+  x=2962;
   score = 0;
   remove = new ArrayList();
 
@@ -52,21 +52,20 @@ void setup()
   control.setVisible(false);
 
 
-  background_picture = new Sprite (this, "Artisans.png", 1);
-  background_picture.setXY(0, 0);
-  background_picture.setScale(2);
+  backgroundPicture = new Sprite (this, "Artisans.png", 1);
+
 
 
   e = new ArrayList <Enemy>();
-  e.add(new Enemy(this, "EnemyRam.png", 100, 300, 3));
-  e.add(new Enemy(this, "Enemy.png", 200, 600, 3));
+  e.add(new Enemy(this, "EnemyRam.png", 1000, 675, 3));
+  //e.add(new Enemy(this, "Enemy.png", 200, 600, 3));
 
 
   gems = new ArrayList <Gem> ();
   gems.add(new Gem (this, "RedGems.png", 900, 300, 3));
 
   fireballs = new ArrayList <Fireball> ();
-  fireballs.add(new Fireball (this, "fireball.png", width/2, 300, 3));
+  fireballs.add(new Fireball (this, "fireball.png", width/2, 675, 3));
 
   hearts = new ArrayList <Heart> ();
   hearts.add (new Heart (this, "heart.png", 900, 50));
@@ -87,17 +86,13 @@ void draw()
   if (gameState == State.GAME)
   {
     background(255);
-    background_picture.setXY(x, 0);
+    backgroundPicture.setXY(x, 400);
   }
   fill(0);
   textSize (72);
   text ("Score", width/2 - 200, 100, 3);
   text (score, width/2, 100, 1);
   S4P.drawSprites();
-  for (Gem g : gems)
-  {  
-    g.show ();
-  }
   for (Enemy i : e)
   {
     i.show();

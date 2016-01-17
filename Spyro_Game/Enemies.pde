@@ -30,7 +30,7 @@ static class Enemy
       sprite.setVelX(-70);
       sprite.setFrameSequence(0, 2, 0.2);
     }
-    if (timer == 300)
+    if (timer == 200)
     {
       reverse = true;
     }

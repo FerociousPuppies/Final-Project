@@ -15,7 +15,7 @@ class Spyro
   {
     sprite = new Sprite(app, "WALK RIGHT LEFT TURN.gif", 31, 1, 3);
     sprite.setScale(5);
-    sprite.setXY(width/2, 300);
+    sprite.setXY(width/2, 675);
     sprite.setVisible(true);
     timer = 0;
   }
