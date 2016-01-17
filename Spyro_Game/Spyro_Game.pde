@@ -18,6 +18,7 @@ ArrayList <Fireball> fireballs;
 ArrayList <Heart> hearts;
 int score;
 boolean left;
+int counter;
 
 void setup()
 {
@@ -27,6 +28,7 @@ void setup()
   x=2962;
   score = 0;
   remove = new ArrayList();
+  counter = 0;
 
   logo = new Sprite(this, "Spyro_logo.png", 1);
   logo.setXY(width/2, height/2 - 150);
@@ -133,6 +135,7 @@ void keyPressed()
     case UP:
       {
         spyro.jump();
+ 
         break;
       }
     case DOWN:

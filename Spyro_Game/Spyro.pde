@@ -9,6 +9,8 @@ class Spyro
   float timer;
   boolean right = false;
   boolean left= false;
+  boolean jump = false;
+  int gravity;
 
 
   Spyro (PApplet app) 
@@ -18,9 +20,10 @@ class Spyro
     sprite.setXY(width/2, 675);
     sprite.setVisible(true);
     timer = 0;
+    gravity = 2;
   }
 
- 
+
 
   void moveRight () 
   {
@@ -32,7 +35,6 @@ class Spyro
       sprite.setFrameSequence(22, 26, 0.2);
       left = false;
     }
-    
   }
 
   void moveLeft () 
@@ -60,17 +62,25 @@ class Spyro
     sprite.setFrame(17);
   }
 
-  void jump () {
-    sprite.setVelXY(70, -70);
-    timer = timer + 30;
-    if (timer == 60) {
-      sprite.setVelXY(70, 70); 
-      timer = 0;
+  void jump () 
+  {
+    if (jump == false)
+    {
+      sprite.setVelY (-15);
+      jump = true;
+    }
+    if (jump == true)
+    {
+      sprite.setVelY (-15);
+      sprite.add(gravity);
+    }
+  
+
+
+}
+
+    Sprite getSprite()
+    {
+      return sprite;
     }
   }
-  
-  Sprite getSprite()
-  {
-   return sprite; 
-  }
-}

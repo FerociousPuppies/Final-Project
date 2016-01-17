@@ -41,10 +41,6 @@ static class Enemy
     }
   }
   
-   static void hurtSpyro ()
-  {
-
-  }
   
   Sprite getSprite()
   {
