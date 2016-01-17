@@ -13,9 +13,15 @@ class Fireball
     sprite.setScale (scale);
     sprite.setXY (x, y);
   } 
-  void show ()
+  void fireLeft ()
   {
-    sprite.setVelXY (-15, 0);
+    sprite.setVelXY (-100, 0);
+    sprite.setFrameSequence(5, 0, .2);
+  }
+  
+    void fireRight ()
+  {
+    sprite.setVelXY (100, 0);
     sprite.setFrameSequence(0, 5, .2);
   }
   

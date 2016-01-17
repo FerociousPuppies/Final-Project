@@ -20,8 +20,7 @@ class Spyro
     timer = 0;
   }
 
-
-
+ 
 
   void moveRight () 
   {

@@ -15,8 +15,9 @@ ArrayList remove;
 ArrayList <Gem> gems;
 ArrayList <Enemy> e;
 ArrayList <Fireball> fireballs;
+ArrayList <Heart> hearts;
 int score;
-
+boolean left;
 
 void setup()
 {
@@ -43,6 +44,7 @@ void setup()
   control.setXY(width/2-150, height/2 + 300);
   control.setScale(2);
 
+
   logo.setVisible(false);
   logo2.setVisible(false);
   ng.setVisible(false);
@@ -50,7 +52,7 @@ void setup()
   control.setVisible(false);
 
 
-  background_picture = new Sprite (this, "Artisans800.png", 1);
+  background_picture = new Sprite (this, "Artisans.png", 1);
   background_picture.setXY(0, 0);
   background_picture.setScale(2);
 
@@ -64,14 +66,18 @@ void setup()
   gems.add(new Gem (this, "RedGems.png", 900, 300, 3));
 
   fireballs = new ArrayList <Fireball> ();
-  fireballs.add(new Fireball (this, "fireball.png", 700, 600, 3));
+  fireballs.add(new Fireball (this, "fireball.png", width/2, 300, 3));
 
-
+  hearts = new ArrayList <Heart> ();
+  hearts.add (new Heart (this, "heart.png", 900, 50));
+  hearts.add (new Heart (this, "heart.png", 1000, 50));
+  hearts.add (new Heart (this, "heart.png", 1100, 50));
 
   spyro = new Spyro(this);
 
   registerMethod("pre", this);
 }
+
 
 /*
 Drawing is done here
@@ -91,10 +97,6 @@ void draw()
   for (Gem g : gems)
   {  
     g.show ();
-  }
-  for (Fireball f : fireballs)
-  {
-    f.show ();
   }
   for (Enemy i : e)
   {
@@ -122,6 +124,7 @@ void keyPressed()
       {
         spyro.moveRight ();
         x -= 10;
+        left = false;
         break;
       }
     case LEFT:
@@ -129,6 +132,7 @@ void keyPressed()
 
         spyro.moveLeft();
         x += 10;
+        left = true;
         break;
       }
     case UP:
@@ -138,6 +142,21 @@ void keyPressed()
       }
     case DOWN:
       {
+        if (left == true)
+        {
+          for (Fireball f : fireballs)
+          {
+            f.fireLeft ();
+          }
+        }
+        if (left == false)
+        {
+          for (Fireball f : fireballs)
+          {
+            f.fireRight();
+          }
+        }
+
         break;
       }
     case ' ':
@@ -163,17 +182,17 @@ void processCollisions()
 {
   for (Enemy i : e)
   {
-    if (i.getSprite().pp_collision(spyro.getSprite()))
+    for (Heart h : hearts)
     {
-      i.getSprite().setVisible(false);
-      remove.add(e.indexOf(i));
+      if (i.getSprite().pp_collision(spyro.getSprite()))
+      {
+        i.getSprite().setX(200);
+        x -= 200;
+        h.looseHeart ();
+      }
     }
   }
-  for (Object i : remove)
-  {
-    e.remove(i);
-  }
-  remove.clear();
+  // If Spyro is in contact with a gem, have gem disappear and increase score
   for (Fireball f : fireballs)
   {
     for (Enemy i : e) 
@@ -191,6 +210,7 @@ void processCollisions()
     e.remove(i);
   }
   remove.clear();
+  // If Spyro is in contact with a gem, have gem disappear and increase score
   for (Gem g : gems)
   {
     if (g.getSprite().pp_collision(spyro.getSprite()))
