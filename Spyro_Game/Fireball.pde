@@ -18,15 +18,29 @@ class Fireball
     sprite.setVelXY (-100, 0);
     sprite.setFrameSequence(5, 0, .2);
   }
-  
-    void fireRight ()
+
+  void fireRight ()
   {
     sprite.setVelXY (100, 0);
     sprite.setFrameSequence(0, 5, .2);
   }
-  
+
   Sprite getSprite()
   {
     return sprite;
+  }
+
+  void visible ()
+  {
+    sprite.setVisible(true);
+  }
+  void invisible () 
+  {
+    sprite.setVisible(false);  
+  }
+  
+  void reset ()
+  {
+    sprite.setX(width/2);
   }
 }

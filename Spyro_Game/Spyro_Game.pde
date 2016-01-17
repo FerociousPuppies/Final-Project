@@ -16,9 +16,14 @@ ArrayList <Gem> gems;
 ArrayList <Enemy> e;
 ArrayList <Fireball> fireballs;
 ArrayList <Heart> hearts;
+ArrayList <Platform> platforms;
 int score;
 boolean left;
 int counter;
+boolean fire = false;
+boolean jump = false;
+int timer;
+
 
 void setup()
 {
@@ -29,6 +34,7 @@ void setup()
   score = 0;
   remove = new ArrayList();
   counter = 0;
+  timer = 0;
 
   logo = new Sprite(this, "Spyro_logo.png", 1);
   logo.setXY(width/2, height/2 - 150);
@@ -59,8 +65,8 @@ void setup()
 
 
   e = new ArrayList <Enemy>();
-  e.add(new Enemy(this, "EnemyRam.png", 1000, 675, 3));
-  //e.add(new Enemy(this, "Enemy.png", 200, 600, 3));
+  e.add(new Enemy(this, "EnemyRam.png", 200, 675, 3));
+  e.add(new Enemy(this, "Enemy.png", 800, 675, 3));
 
 
   gems = new ArrayList <Gem> ();
@@ -68,15 +74,25 @@ void setup()
 
   fireballs = new ArrayList <Fireball> ();
   fireballs.add(new Fireball (this, "fireball.png", width/2, 675, 3));
-
+  
   hearts = new ArrayList <Heart> ();
   hearts.add (new Heart (this, "heart.png", 900, 50));
   hearts.add (new Heart (this, "heart.png", 1000, 50));
   hearts.add (new Heart (this, "heart.png", 1100, 50));
 
+  platforms = new ArrayList <Platform> ();
+  platforms.add (new Platform (this, "platform.jpg", 800, 725, 1));
+
   spyro = new Spyro(this);
 
   registerMethod("pre", this);
+  
+  for (Fireball f : fireballs)
+        {
+          f.invisible();
+        }
+  
+ 
 }
 
 
@@ -95,9 +111,13 @@ void draw()
   text ("Score", width/2 - 200, 100, 3);
   text (score, width/2, 100, 1);
   S4P.drawSprites();
-  for (Enemy i : e)
+  for (int i = 0; i < e.size(); i++)
   {
-    i.show();
+    e.get(i).show();
+  }
+  if (jump == true)
+  {
+   timer++;
   }
 }
 
@@ -122,24 +142,47 @@ void keyPressed()
         spyro.moveRight ();
         x -= 10;
         left = false;
+        for (Enemy i : e)
+        {
+          i.getSprite().setX(i.getSprite().getX () - 10);
+        }
+        for (Platform p : platforms)
+        {
+          p.getSprite().setX(p.getSprite().getX () - 10);
+        }
         break;
       }
     case LEFT:
       {
-
         spyro.moveLeft();
         x += 10;
         left = true;
+        for (Enemy i : e)
+        {
+          i.getSprite().setX(i.getSprite().getX () + 10);
+        }
+        for (Platform p : platforms)
+        {
+          p.getSprite().setX(p.getSprite().getX () + 10);
+        }
         break;
       }
     case UP:
-      {
-        spyro.jump();
- 
+      { 
+        spyro.jumpUp();
+        
+        spyro.jumpDown();
+        
+        spyro.stopJump();
+      
+
         break;
       }
     case DOWN:
-      {
+      {for (Fireball f : fireballs)
+        {
+        f.visible();
+        }
         if (left == true)
         {
           for (Fireball f : fireballs)
@@ -178,19 +221,28 @@ void keyReleased()
 
 void processCollisions()
 {
+  //If Spyro is in contact with an enemy, have both characters move back and loose hearts
   for (Enemy i : e)
   {
     for (Heart h : hearts)
     {
       if (i.getSprite().pp_collision(spyro.getSprite()))
       {
-        i.getSprite().setX(200);
-        x -= 200;
+        if (left == false){
+        i.getSprite().setX(i.getSprite().getX() + 50);
+        x += 50;
         h.looseHeart ();
+      }
+      if (left == true ) 
+      {
+        i.getSprite().setX(i.getSprite().getX() - 50);
+        x -= 50;
+        h.looseHeart ();
+      }
       }
     }
   }
-  // If Spyro is in contact with a gem, have gem disappear and increase score
+  // If Enemy is in contact with a fireball, have enemy disappear and increase score
   for (Fireball f : fireballs)
   {
     for (Enemy i : e) 
@@ -200,6 +252,8 @@ void processCollisions()
         i.getSprite().setVisible(false);
         f.getSprite().setVisible(false);
         remove.add(e.indexOf(i));
+        f.reset();
+        score += 200;
       }
     }
   }
@@ -223,8 +277,15 @@ void processCollisions()
     score += 100;
   }
   remove.clear();
-}
 
+  for (Platform p : platforms) 
+  {
+    if (p.getSprite().bb_collision(spyro.getSprite()))
+    {
+      x += 10;
+    }
+  }
+}
 
 
 

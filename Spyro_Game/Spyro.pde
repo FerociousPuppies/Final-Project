@@ -13,6 +13,7 @@ class Spyro
   int gravity;
 
 
+
   Spyro (PApplet app) 
   {
     sprite = new Sprite(app, "WALK RIGHT LEFT TURN.gif", 31, 1, 3);
@@ -21,6 +22,7 @@ class Spyro
     sprite.setVisible(true);
     timer = 0;
     gravity = 2;
+    
   }
 
 
@@ -62,21 +64,20 @@ class Spyro
     sprite.setFrame(17);
   }
 
-  void jump () 
+  void jumpUp () 
   {
-    if (jump == false)
-    {
-      sprite.setVelY (-15);
-      jump = true;
-    }
-    if (jump == true)
-    {
-      sprite.setVelY (-15);
-      sprite.add(gravity);
-    }
+   sprite.setVelY (-70);
+}
+
+void jumpDown ()
+{
+  sprite.setVelY(70);
   
+}
 
-
+void stopJump()
+{
+  sprite.setY (675);
 }
 
     Sprite getSprite()
