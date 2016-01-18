@@ -69,16 +69,6 @@ class Spyro
    sprite.setVelY (-200);
 }
 
-void jumpDown ()
-{
-  sprite.setVelY(70);
-  
-}
-
-void stopJump()
-{
-  sprite.setY (675);
-}
 
     Sprite getSprite()
     {
