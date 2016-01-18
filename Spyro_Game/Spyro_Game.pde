@@ -47,6 +47,7 @@ void setup()
   timer = 0;
   y=675;
   gravity = 2;
+  heartCounter = 3;
 
   logo = new Sprite(this, "Spyro_logo.png", 1);
   logo.setXY(width/2, height/2 - 150);
@@ -132,7 +133,38 @@ void draw()
   textSize (72);
   text ("Score", width/2 - 200, 100, 3);
   text (score, width/2, 100, 1);
+  if (heartCounter == 3)
+  {
+  image (heart1, 900, 50, 100, 100);
+  image (heart2, 1000, 50, 100, 100);
+  image (heart3, 1100, 50, 100, 100);
 }
+if (heartCounter == 2)
+  {
+  image (heart1, 900, 50, 100, 100);
+  image (heart2, 1000, 50, 100, 100);
+  
+}
+if (heartCounter == 1)
+  {
+  image (heart1, 900, 50, 100, 100);
+  
+}
+if (heartCounter == 0)
+  {
+  gameState = State.GAMEOVER;
+  
+}
+if (gameState == State.GAMEOVER) {
+  background (0);
+  fill (255);
+  text ("GAMEOVER", width/2 - 200, height/2);
+  text ("Final Score", width/2 - 200, height/2 + 200);
+  text (score, width/2 -100, height/2+ 300);
+  
+}
+}
+
 /*
 The keyPressed method processes keyboard input to control Spyro's 
  movements.
@@ -268,12 +300,14 @@ void processCollisions()
           i.getSprite().setX(i.getSprite().getX() + 50);
           p.getSprite().setX(p.getSprite().getX () + 50);
           x += 50;
+          heartCounter -= 1;
         }
         if (left == true ) 
         {
           i.getSprite().setX(i.getSprite().getX() - 50);
           p.getSprite().setX(p.getSprite().getX () - 50);
           x -= 50;
+          heartCounter -= 1;
         }
       }
     }
