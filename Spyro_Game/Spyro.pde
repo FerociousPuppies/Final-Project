@@ -10,7 +10,7 @@ class Spyro
   boolean right = false;
   boolean left= false;
   boolean jump = false;
-  int gravity;
+  int y;
 
 
 
@@ -21,7 +21,7 @@ class Spyro
     sprite.setXY(width/2, y);
     sprite.setVisible(true);
     timer = 0;
-    gravity = 2;
+    y = 1;
     
   }
 

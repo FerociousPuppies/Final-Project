@@ -17,6 +17,7 @@ ArrayList <Enemy> e;
 ArrayList <Fireball> fireballs;
 ArrayList <Heart> hearts;
 ArrayList <Platform> platforms;
+ArrayList <Drop> drop;
 int score;
 boolean left;
 int counter;
@@ -31,7 +32,7 @@ void setup()
   size(1200, 800);
   gameState = State.GAME;
   sw = new StopWatch();
-  x=2962;
+  x=1871;
   score = 0;
   remove = new ArrayList();
   counter = 0;
@@ -63,19 +64,20 @@ void setup()
 
 
   backgroundPicture = new Sprite (this, "Artisans.png", 1);
+  
 
 
 
   e = new ArrayList <Enemy>();
-  e.add(new Enemy(this, "EnemyRam.png", 200, 675, 3));
-  e.add(new Enemy(this, "Enemy.png", 800, 675, 3));
+  e.add(new Enemy(this, "EnemyRam.png", 2200, 675, 3));
+  e.add(new Enemy(this, "Enemy.png", 2800, 675, 3));
 
 
   gems = new ArrayList <Gem> ();
   gems.add(new Gem (this, "RedGems.png", 900, 300, 3));
 
   fireballs = new ArrayList <Fireball> ();
-  fireballs.add(new Fireball (this, "fireball.png", width/2, 675, 3));
+  fireballs.add(new Fireball (this, "fireball.png", width/2, y, 3));
   
   hearts = new ArrayList <Heart> ();
   hearts.add (new Heart (this, "heart.png", 900, 50));
@@ -83,8 +85,14 @@ void setup()
   hearts.add (new Heart (this, "heart.png", 1100, 50));
 
   platforms = new ArrayList <Platform> ();
-  platforms.add (new Platform (this, "platform.jpg", 800, 725, 1));
-  platforms.add (new Platform (this, "ArtisanPlaform.jpg", x, 800, 1));
+  platforms.add (new Platform (this, "platform.jpg", 1400, 675, 1));
+  platforms.add (new Platform (this, "platform.jpg", 1520, 575, 1));
+  platforms.add (new Platform (this, "ArtisanPlaform.jpg", 665, 790, 1));
+  platforms.add (new Platform (this, "ArtisanPlatform2.png", 2950, 790, 1));
+  
+  drop = new ArrayList <Drop> ();
+  drop.add (new Drop (this));
+  
 
   spyro = new Spyro(this, y);
 
@@ -122,12 +130,13 @@ void draw()
   {
     spyro.getSprite().setVelY(spyro.getSprite().getVelY() + 2);
     timer ++;
-    if (timer == 150)
+    if (timer == 200)
     {
       jump=false;
     timer =0;
   }
   }
+  println (x);
 }
 
 /*
@@ -163,6 +172,10 @@ void keyPressed()
         {
           g.getSprite().setX(g.getSprite().getX () - 10);
         }
+        for (Drop d : drop)
+        {
+          d.getSprite().setX(d.getSprite().getX () - 10);
+        }
         break;
       }
     case LEFT:
@@ -181,6 +194,10 @@ void keyPressed()
         for (Gem g : gems)
         {
           g.getSprite().setX(g.getSprite().getX () + 10);
+        }
+        for (Drop d : drop)
+        {
+          d.getSprite().setX(d.getSprite().getX () + 10);
         }
         break;
       }
@@ -240,21 +257,27 @@ void processCollisions()
   {
     for (Heart h : hearts)
     {
+      for (Platform p : platforms)
+        {
+          
       if (i.getSprite().pp_collision(spyro.getSprite()))
       {
         if (left == false){
         i.getSprite().setX(i.getSprite().getX() + 50);
+        p.getSprite().setX(p.getSprite().getX () + 50);
         x += 50;
         h.looseHeart ();
       }
       if (left == true ) 
       {
         i.getSprite().setX(i.getSprite().getX() - 50);
+        p.getSprite().setX(p.getSprite().getX () - 50);
         x -= 50;
         h.looseHeart ();
       }
       }
     }
+  }
   }
   // If Enemy is in contact with a fireball, have enemy disappear and increase score
   for (Fireball f : fireballs)
@@ -299,6 +322,14 @@ void processCollisions()
       spyro.getSprite().setVelY(0);
       spyro.getSprite().setY(y - 1);
     }
+  }
+  for (Drop d : drop)
+  {
+   if  (d.getSprite().bb_collision(spyro.getSprite()))
+   {
+     println ("here");
+     spyro.getSprite().setVelY (70);
+   }
   }
 }
 
