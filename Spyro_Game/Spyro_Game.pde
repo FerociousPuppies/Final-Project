@@ -17,6 +17,7 @@ ArrayList <Enemy> e;
 ArrayList <Fireball> fireballs;
 ArrayList <Platform> platforms;
 ArrayList <Drop> drop;
+ArrayList <Tree> tree;
 int score;
 boolean left;
 int counter;
@@ -40,7 +41,7 @@ void setup()
   size(1200, 800);
   gameState = State.GAME;
   sw = new StopWatch();
-  x=1871;
+  x=3454;
   score = 0;
   remove = new ArrayList();
   counter = 0;
@@ -74,6 +75,10 @@ void setup()
 
 
   backgroundPicture = new Sprite (this, "Artisans.png", 1);
+  //backgroundPicture = new Sprite (this, "BeastMakers.png", 1);
+  //backgroundPicture = new Sprite (this, "DreamWeavers.png", 1);
+  //backgroundPicture = new Sprite (this, "Peacekeepers.png", 1);
+  //backgroundPicture = new Sprite (this, "magicCrafters.jpg", 1);
 
   heart1 = loadImage ("heart.png");
   heart2 = loadImage ("heart.png");
@@ -81,8 +86,22 @@ void setup()
 
 
   e = new ArrayList <Enemy>();
-  e.add(new Enemy(this, "EnemyRam.png", 2200, 675, 3));
-  e.add(new Enemy(this, "Enemy.png", 2800, 675, 3));
+  e.add(new Enemy(this, "Line 105 Tran.gif", 2200, 700, 3));
+  e.add(new Enemy(this, "Line 68 Tran.gif", 2800, 700, 3));
+  e.add(new Enemy(this, "Line 4 Trans.gif", 1200, 100, 3));
+  e.add(new Enemy(this, "Line 4 Trans.gif", 2400, 100, 3));
+  
+  /*e.add(new Enemy(this, "Hooded Guy Tran.gif", 2400, 100, 3));
+  e.add(new Enemy(this, "Line 1 Tran.gif", 2200, 700, 3));
+  e.add(new Enemy(this, "Line 28 Tran.gif", 2800, 700, 3));
+  e.add(new Enemy(this, "Line 63 Trans.gif", 1200, 100, 3));
+  e.add(new Enemy(this, "Line 66 Trans.gif", 2400, 100, 3));
+  e.add(new Enemy(this, "Line 67 Tran.gif", 2200, 700, 3));
+  e.add(new Enemy(this, "Line 69 Tran.gif", 2800, 700, 3));
+  e.add(new Enemy(this, "Musroom Trans.gif", 1200, 100, 3));
+  */
+  
+  
 
 
   gems = new ArrayList <Gem> ();
@@ -100,7 +119,10 @@ void setup()
 
   drop = new ArrayList <Drop> ();
   drop.add (new Drop (this));
-
+  
+  tree = new ArrayList <Tree> ();
+  tree.add (new Tree (this, 2000, 400));
+  tree.add (new Tree (this, 3200, 400));  
 
   spyro = new Spyro(this, y);
 
@@ -158,7 +180,7 @@ if (heartCounter == 0)
 if (gameState == State.GAMEOVER) {
   background (0);
   fill (255);
-  text ("GAMEOVER", width/2 - 200, height/2);
+  text ("GAME OVER", width/2 - 200, height/2);
   text ("Final Score", width/2 - 200, height/2 + 200);
   text (score, width/2 -100, height/2+ 300);
   
@@ -202,6 +224,10 @@ void keyPressed()
         {
           d.getSprite().setX(d.getSprite().getX () - 10);
         }
+        for (Tree t : tree)
+        {
+          t.getSprite().setX(t.getSprite().getX () - 10);
+        }
         break;
       }
     case LEFT:
@@ -224,6 +250,10 @@ void keyPressed()
         for (Drop d : drop)
         {
           d.getSprite().setX(d.getSprite().getX () + 10);
+        }
+        for (Tree t : tree)
+        {
+          t.getSprite().setX(t.getSprite().getX () + 10);
         }
         break;
       }

@@ -10,7 +10,7 @@ static class Enemy
 
   Enemy (PApplet app, String pic, int x, int y, int scale) 
   {
-    sprite =new Sprite (app, pic, 6, 1, 3);
+    sprite =new Sprite (app, pic, 12, 1, 3);
     sprite.setScale(scale);
     sprite.setXY(x, y);
     sprite.setVisible(true);
@@ -23,12 +23,12 @@ static class Enemy
     if (timer < 100)
     {
       sprite.setVelX(70);
-      sprite.setFrameSequence(3, 5, 0.2);
+      sprite.setFrameSequence(9, 11, 0.2);
     }
     if (timer > 100)
     {
       sprite.setVelX(-70);
-      sprite.setFrameSequence(0, 2, 0.2);
+      sprite.setFrameSequence(6, 8, 0.2);
     }
     if (timer == 200)
     {
