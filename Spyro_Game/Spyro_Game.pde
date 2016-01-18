@@ -47,7 +47,7 @@ void setup()
   counter = 0;
   timer = 0;
   y=675;
-  gravity = 2;
+  gravity = 20;
   heartCounter = 3;
 
   logo = new Sprite(this, "Spyro_logo.png", 1);
@@ -343,7 +343,7 @@ void processCollisions()
     }
   }
 
-  // If Enemy is in contact with a fireball, have enemy disappear and increase score
+  // If Enemy is in contact with a fireball, have enemy and fire disappear and increase score
   for (Fireball f : fireballs)
   {
     for (Enemy i : e) 
@@ -352,8 +352,8 @@ void processCollisions()
       {
         i.getSprite().setVisible(false);
         f.getSprite().setVisible(false);
+        f.getSprite().setXY(spyro.getSprite().getX(), spyro.getSprite().getY());
         remove.add(e.indexOf(i));
-        f.reset();
         score += 200;
       }
     }
@@ -396,7 +396,8 @@ void processCollisions()
   {
     if  (d.getSprite().bb_collision(spyro.getSprite()))
     {
-      spyro.getSprite().setVelY (70);
+      spyro.getSprite().setVelY (100);
+      spyro.getSprite().setVelX (0);
     }
   }
 

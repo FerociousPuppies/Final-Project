@@ -39,8 +39,4 @@ class Fireball
     sprite.setVisible(false);  
   }
   
-  void reset ()
-  {
-    sprite.setX(width/2);
-  }
 }
