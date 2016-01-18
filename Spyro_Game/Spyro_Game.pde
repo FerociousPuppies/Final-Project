@@ -23,6 +23,7 @@ int counter;
 boolean fire = false;
 boolean jump = false;
 int timer;
+int y;
 
 
 void setup()
@@ -35,6 +36,7 @@ void setup()
   remove = new ArrayList();
   counter = 0;
   timer = 0;
+  y=675;
 
   logo = new Sprite(this, "Spyro_logo.png", 1);
   logo.setXY(width/2, height/2 - 150);
@@ -82,8 +84,9 @@ void setup()
 
   platforms = new ArrayList <Platform> ();
   platforms.add (new Platform (this, "platform.jpg", 800, 725, 1));
+  platforms.add (new Platform (this, "ArtisanPlaform.jpg", x, 800, 1));
 
-  spyro = new Spyro(this);
+  spyro = new Spyro(this, y);
 
   registerMethod("pre", this);
   
@@ -119,12 +122,11 @@ void draw()
   {
     spyro.getSprite().setVelY(spyro.getSprite().getVelY() + 2);
     timer ++;
-    println (timer);
     if (timer == 150)
     {
-      
       jump=false;
-    }
+    timer =0;
+  }
   }
 }
 
@@ -157,6 +159,10 @@ void keyPressed()
         {
           p.getSprite().setX(p.getSprite().getX () - 10);
         }
+        for (Gem g : gems)
+        {
+          g.getSprite().setX(g.getSprite().getX () - 10);
+        }
         break;
       }
     case LEFT:
@@ -171,6 +177,10 @@ void keyPressed()
         for (Platform p : platforms)
         {
           p.getSprite().setX(p.getSprite().getX () + 10);
+        }
+        for (Gem g : gems)
+        {
+          g.getSprite().setX(g.getSprite().getX () + 10);
         }
         break;
       }
@@ -286,7 +296,8 @@ void processCollisions()
   {
     if (p.getSprite().bb_collision(spyro.getSprite()))
     {
-      x += 10;
+      spyro.getSprite().setVelY(0);
+      spyro.getSprite().setY(y - 1);
     }
   }
 }

@@ -14,11 +14,11 @@ class Spyro
 
 
 
-  Spyro (PApplet app) 
+  Spyro (PApplet app, int y) 
   {
     sprite = new Sprite(app, "WALK RIGHT LEFT TURN.gif", 31, 1, 3);
     sprite.setScale(5);
-    sprite.setXY(width/2, 675);
+    sprite.setXY(width/2, y);
     sprite.setVisible(true);
     timer = 0;
     gravity = 2;
