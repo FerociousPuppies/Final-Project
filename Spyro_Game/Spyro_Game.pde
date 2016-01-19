@@ -34,6 +34,7 @@ PImage heart2;
 PImage heart3;
 boolean currentState = false;
 boolean lastState = false;
+int xb;
 
 
 void setup()
@@ -49,6 +50,7 @@ void setup()
   y=675;
   gravity = 20;
   heartCounter = 3;
+  xb = 2500;
 
   logo = new Sprite(this, "Spyro_logo.png", 1);
   logo.setXY(width/2, height/2 - 150);
@@ -79,6 +81,7 @@ void setup()
   //backgroundPicture = new Sprite (this, "DreamWeavers.png", 1);
   //backgroundPicture = new Sprite (this, "Peacekeepers.png", 1);
   //backgroundPicture = new Sprite (this, "magicCrafters.jpg", 1);
+  //backgroundPicture = new Sprite (this, "cloud.jpg", 1);
 
   heart1 = loadImage ("heart.png");
   heart2 = loadImage ("heart.png");
@@ -185,6 +188,31 @@ if (gameState == State.GAMEOVER) {
   text (score, width/2 -100, height/2+ 300);
   
 }
+for (Fireball f : fireballs)
+{
+  if (left == false)
+  {
+  if (f.getSprite().getX() > spyro.getSprite().getX() + 200)
+  {
+    f.invisible();
+    f.getSprite().setXY(spyro.getSprite().getX(), spyro.getSprite().getY());
+  }
+  }
+  if (left == true)
+  {
+  if (f.getSprite().getX() < spyro.getSprite().getX() - 200)
+  {
+    f.invisible();
+    f.getSprite().setXY(spyro.getSprite().getX(), spyro.getSprite().getY());
+  }
+  }
+}
+
+
+if (gameState == State.BONUS)
+{
+  backgroundPicture.setXY(xb, 400);
+}
 }
 
 /*
@@ -208,6 +236,10 @@ void keyPressed()
         spyro.moveRight ();
         x -= 10;
         left = false;
+        for (Fireball f : fireballs)
+        {
+          f.getSprite().setX(f.getSprite().getX () - 10);
+        }
         for (Enemy i : e)
         {
           i.getSprite().setX(i.getSprite().getX () - 10);
@@ -235,6 +267,10 @@ void keyPressed()
         spyro.moveLeft();
         x += 10;
         left = true;
+        for (Fireball f : fireballs)
+        {
+          f.getSprite().setX(f.getSprite().getX () + 10);
+        }
         for (Enemy i : e)
         {
           i.getSprite().setX(i.getSprite().getX () + 10);
