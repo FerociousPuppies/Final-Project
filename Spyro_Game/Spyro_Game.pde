@@ -23,6 +23,7 @@ boolean left;
 int counter;
 boolean fire = false;
 boolean jump = false;
+boolean fireball = false;
 int timer;
 int y;
 boolean jumping;
@@ -208,6 +209,10 @@ void keyPressed()
         spyro.moveRight ();
         x -= 10;
         left = false;
+        for (Fireball f : fireballs)
+        {
+         f.getSprite().setX(f.getSprite().getX() - 10); 
+        }
         for (Enemy i : e)
         {
           i.getSprite().setX(i.getSprite().getX () - 10);
@@ -235,6 +240,10 @@ void keyPressed()
         spyro.moveLeft();
         x += 10;
         left = true;
+        for (Fireball f : fireballs)
+        {
+         f.getSprite().setX(f.getSprite().getX() + 10); 
+        }
         for (Enemy i : e)
         {
           i.getSprite().setX(i.getSprite().getX () + 10);

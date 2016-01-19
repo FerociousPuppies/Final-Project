@@ -16,7 +16,7 @@ class Spyro
 
   Spyro (PApplet app, int y) 
   {
-    sprite = new Sprite(app, "WALK RIGHT LEFT TURN.gif", 31, 1, 3);
+    sprite = new Sprite(app, "WalkingTran.gif", 27, 1, 3);
     sprite.setScale(5);
     sprite.setXY(width/2, y);
     sprite.setVisible(true);
