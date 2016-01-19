@@ -1,0 +1,21 @@
+BUGS:
+
+Fireball moves relative to Spyro,
+so if it's fired one way and Spyro walks the other way,
+the fireball will follow him slowly.
+
+Score will continue to increase after Game Over
+if fireballs hit enemies when the screen is up.
+
+Spyro teleports to the top of the first platform,
+regardless of which side he walks from. It always
+happens at the left end of the platform.
+
+No double jump?
+
+Background scrolling ends at the same time as the level.
+
+Spyro can walk under the ground and never die.
+
+Gravity height scales with x-position;
+Spyro jumps higher in the middle of the stage.
