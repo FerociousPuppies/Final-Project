@@ -35,6 +35,8 @@ PImage heart3;
 boolean currentState = false;
 boolean lastState = false;
 int xb;
+int press;
+boolean fireReady = true;
 
 
 void setup()
@@ -51,6 +53,7 @@ void setup()
   gravity = 20;
   heartCounter = 3;
   xb = 2500;
+  press = 0;
 
   logo = new Sprite(this, "Spyro_logo.png", 1);
   logo.setXY(width/2, height/2 - 150);
@@ -192,18 +195,20 @@ for (Fireball f : fireballs)
 {
   if (left == false)
   {
-  if (f.getSprite().getX() > spyro.getSprite().getX() + 200)
+  if (f.getSprite().getX() > spyro.getSprite().getX() + 600)
   {
     f.invisible();
     f.getSprite().setXY(spyro.getSprite().getX(), spyro.getSprite().getY());
+    fireReady = true;
   }
   }
   if (left == true)
   {
-  if (f.getSprite().getX() < spyro.getSprite().getX() - 200)
+  if (f.getSprite().getX() < spyro.getSprite().getX() - 600)
   {
     f.invisible();
     f.getSprite().setXY(spyro.getSprite().getX(), spyro.getSprite().getY());
+    fireReady = true;
   }
   }
 }
@@ -306,6 +311,9 @@ void keyPressed()
       }
     case DOWN:
       {
+        println ("here");
+        if (fireReady)
+        {
         for (Fireball f : fireballs)
         {
           f.visible();
@@ -323,6 +331,8 @@ void keyPressed()
           {
             f.fireRight();
           }
+        }
+        fireReady = false;
         }
 
         break;
@@ -391,6 +401,7 @@ void processCollisions()
         f.getSprite().setXY(spyro.getSprite().getX(), spyro.getSprite().getY());
         remove.add(e.indexOf(i));
         score += 200;
+        fireReady = true;
       }
     }
   }
@@ -414,6 +425,7 @@ void processCollisions()
     score += 100;
   }
   remove.clear();
+  // if spyro is in contact with a platform, have him stop falling
   for (Platform p : platforms) 
   {
     if (p.getSprite().bb_collision(spyro.getSprite()))
@@ -428,6 +440,7 @@ void processCollisions()
   {
     spyro.getSprite().setVelY(spyro.getSprite().getVelY() + gravity);
   }
+  //if sptro is in contact with the ole have him fall
   for (Drop d : drop)
   {
     if  (d.getSprite().bb_collision(spyro.getSprite()))
