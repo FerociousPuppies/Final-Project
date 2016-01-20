@@ -37,12 +37,13 @@ boolean lastState = false;
 int xb;
 int press;
 boolean fireReady = true;
+int backgroundSW;
 
 
 void setup()
 {
   size(1200, 800);
-  gameState = State.GAME;
+  gameState = State.BONUS;
   sw = new StopWatch();
   x=3454;
   score = 0;
@@ -54,6 +55,7 @@ void setup()
   heartCounter = 3;
   xb = 2500;
   press = 0;
+  backgroundSW = 0;
 
   logo = new Sprite(this, "Spyro_logo.png", 1);
   logo.setXY(width/2, height/2 - 150);
@@ -79,12 +81,12 @@ void setup()
   control.setVisible(false);
 
 
-  backgroundPicture = new Sprite (this, "Artisans.png", 1);
+  //backgroundPicture = new Sprite (this, "Artisans.png", 1);
   //backgroundPicture = new Sprite (this, "BeastMakers.png", 1);
   //backgroundPicture = new Sprite (this, "DreamWeavers.png", 1);
   //backgroundPicture = new Sprite (this, "Peacekeepers.png", 1);
   //backgroundPicture = new Sprite (this, "magicCrafters.jpg", 1);
-  //backgroundPicture = new Sprite (this, "cloud.jpg", 1);
+  backgroundPicture = new Sprite (this, "clouds.jpg", 1);
 
   heart1 = loadImage ("heart.png");
   heart2 = loadImage ("heart.png");
@@ -96,18 +98,18 @@ void setup()
   e.add(new Enemy(this, "Line 68 Tran.gif", 2800, 700, 3));
   e.add(new Enemy(this, "Line 4 Trans.gif", 1200, 100, 3));
   e.add(new Enemy(this, "Line 4 Trans.gif", 2400, 100, 3));
-  
+
   /*e.add(new Enemy(this, "Hooded Guy Tran.gif", 2400, 100, 3));
-  e.add(new Enemy(this, "Line 1 Tran.gif", 2200, 700, 3));
-  e.add(new Enemy(this, "Line 28 Tran.gif", 2800, 700, 3));
-  e.add(new Enemy(this, "Line 63 Trans.gif", 1200, 100, 3));
-  e.add(new Enemy(this, "Line 66 Trans.gif", 2400, 100, 3));
-  e.add(new Enemy(this, "Line 67 Tran.gif", 2200, 700, 3));
-  e.add(new Enemy(this, "Line 69 Tran.gif", 2800, 700, 3));
-  e.add(new Enemy(this, "Musroom Trans.gif", 1200, 100, 3));
-  */
-  
-  
+   e.add(new Enemy(this, "Line 1 Tran.gif", 2200, 700, 3));
+   e.add(new Enemy(this, "Line 28 Tran.gif", 2800, 700, 3));
+   e.add(new Enemy(this, "Line 63 Trans.gif", 1200, 100, 3));
+   e.add(new Enemy(this, "Line 66 Trans.gif", 2400, 100, 3));
+   e.add(new Enemy(this, "Line 67 Tran.gif", 2200, 700, 3));
+   e.add(new Enemy(this, "Line 69 Tran.gif", 2800, 700, 3));
+   e.add(new Enemy(this, "Musroom Trans.gif", 1200, 100, 3));
+   */
+
+
 
 
   gems = new ArrayList <Gem> ();
@@ -119,17 +121,19 @@ void setup()
 
 
   platforms = new ArrayList <Platform> ();
-  platforms.add (new Platform (this, "platform.jpg", 1520, 575, 1));
-  platforms.add (new Platform (this, "ArtisanPlaform.jpg", 665, 790, 1));
-  platforms.add (new Platform (this, "ArtisanPlatform2.png", 2950, 790, 1));
-
+  /* platforms.add (new Platform (this, "platform.jpg", 1520, 575, 1));
+   platforms.add (new Platform (this, "ArtisanPlaform.jpg", 665, 790, 1));
+   platforms.add (new Platform (this, "ArtisanPlatform2.png", 2950, 790, 1));
+   */
   drop = new ArrayList <Drop> ();
+  /*
   drop.add (new Drop (this));
-  
+   */
   tree = new ArrayList <Tree> ();
+  /*
   tree.add (new Tree (this, 2000, 400));
-  tree.add (new Tree (this, 3200, 400));  
-
+   tree.add (new Tree (this, 3200, 400));  
+   */
   spyro = new Spyro(this, y);
 
   registerMethod("pre", this);
@@ -163,61 +167,63 @@ void draw()
   text (score, width/2, 100, 1);
   if (heartCounter == 3)
   {
-  image (heart1, 900, 50, 100, 100);
-  image (heart2, 1000, 50, 100, 100);
-  image (heart3, 1100, 50, 100, 100);
-}
-if (heartCounter == 2)
-  {
-  image (heart1, 900, 50, 100, 100);
-  image (heart2, 1000, 50, 100, 100);
-  
-}
-if (heartCounter == 1)
-  {
-  image (heart1, 900, 50, 100, 100);
-  
-}
-if (heartCounter == 0)
-  {
-  gameState = State.GAMEOVER;
-  
-}
-if (gameState == State.GAMEOVER) {
-  background (0);
-  fill (255);
-  text ("GAME OVER", width/2 - 200, height/2);
-  text ("Final Score", width/2 - 200, height/2 + 200);
-  text (score, width/2 -100, height/2+ 300);
-  
-}
-for (Fireball f : fireballs)
-{
-  if (left == false)
-  {
-  if (f.getSprite().getX() > spyro.getSprite().getX() + 600)
-  {
-    f.invisible();
-    f.getSprite().setXY(spyro.getSprite().getX(), spyro.getSprite().getY());
-    fireReady = true;
+    image (heart1, 900, 50, 100, 100);
+    image (heart2, 1000, 50, 100, 100);
+    image (heart3, 1100, 50, 100, 100);
   }
-  }
-  if (left == true)
+  if (heartCounter == 2)
   {
-  if (f.getSprite().getX() < spyro.getSprite().getX() - 600)
+    image (heart1, 900, 50, 100, 100);
+    image (heart2, 1000, 50, 100, 100);
+  }
+  if (heartCounter == 1)
   {
-    f.invisible();
-    f.getSprite().setXY(spyro.getSprite().getX(), spyro.getSprite().getY());
-    fireReady = true;
+    image (heart1, 900, 50, 100, 100);
   }
+  if (heartCounter == 0)
+  {
+    gameState = State.GAMEOVER;
   }
-}
+  if (gameState == State.GAMEOVER) {
+    background (0);
+    fill (255);
+    text ("GAME OVER", width/2 - 200, height/2);
+    text ("Final Score", width/2 - 200, height/2 + 200);
+    text (score, width/2 -100, height/2+ 300);
+  }
+  for (Fireball f : fireballs)
+  {
+    if (left == false)
+    {
+      if (f.getSprite().getX() > spyro.getSprite().getX() + 600)
+      {
+        f.invisible();
+        f.getSprite().setXY(spyro.getSprite().getX(), spyro.getSprite().getY());
+        fireReady = true;
+      }
+    }
+    if (left == true)
+    {
+      if (f.getSprite().getX() < spyro.getSprite().getX() - 600)
+      {
+        f.invisible();
+        f.getSprite().setXY(spyro.getSprite().getX(), spyro.getSprite().getY());
+        fireReady = true;
+      }
+    }
+  }
 
 
-if (gameState == State.BONUS)
-{
-  backgroundPicture.setXY(xb, 400);
-}
+  if (gameState == State.BONUS)
+  {
+    backgroundPicture.setXY(xb, 400);
+    backgroundSW ++;
+    if (backgroundSW == 30)
+    {
+      backgroundPicture.setX(xb - 100);
+      backgroundSW = 0;
+    }
+  }
 }
 
 /*
@@ -302,43 +308,61 @@ void keyPressed()
       {
         if (jump == false)
         {
-        spyro.jumpUp();
-        jump = true;
-        onSomething = false;
-        currentState = true;
-        break;
-      }
+          spyro.jumpUp();
+          jump = true;
+          onSomething = false;
+          currentState = true;
+          break;
+        }
       }
     case DOWN:
       {
         println ("here");
         if (fireReady)
         {
-        for (Fireball f : fireballs)
-        {
-          f.visible();
-        }
-        if (left == true)
-        {
           for (Fireball f : fireballs)
           {
-            f.fireLeft ();
+            f.visible();
           }
-        }
-        if (left == false)
-        {
-          for (Fireball f : fireballs)
+          if (left == true)
           {
-            f.fireRight();
+            for (Fireball f : fireballs)
+            {
+              f.fireLeft ();
+            }
           }
-        }
-        fireReady = false;
+          if (left == false)
+          {
+            for (Fireball f : fireballs)
+            {
+              f.fireRight();
+            }
+          }
+          fireReady = false;
         }
 
         break;
       }
     case ' ':
       {
+        break;
+      }
+    }
+  }
+  if (gameState == State.BONUS)
+  {
+    switch(keyCode)
+    {
+    case UP:
+      {
+        spyro.flyUp();
+        break;
+      }
+
+    case DOWN:
+      {
+        spyro.flyDown();
+
         break;
       }
     }
@@ -358,6 +382,14 @@ void keyReleased()
   {
     lastState = currentState;
     currentState = false;
+  }
+  if (keyCode == UP  && gameState == State.BONUS)
+  {
+    spyro.stopMovingUp();
+  }
+  if (keyCode == DOWN  && gameState == State.BONUS)
+  {
+    spyro.stopMovingDown();
   }
 }
 
@@ -426,19 +458,23 @@ void processCollisions()
   }
   remove.clear();
   // if spyro is in contact with a platform, have him stop falling
-  for (Platform p : platforms) 
+  if (gameState == State.GAME) 
   {
-    if (p.getSprite().bb_collision(spyro.getSprite()))
+    for (Platform p : platforms) 
     {
-      spyro.getSprite().setVelY(0);
-      spyro.getSprite().setY(p.getSprite().getY() - p.getSprite().getHeight()/2 - spyro.getSprite().getHeight()/2);
-      jump = false;
-      onSomething = true;
+      if (p.getSprite().bb_collision(spyro.getSprite()))
+      {
+        spyro.getSprite().setVelY(0);
+        spyro.getSprite().setY(p.getSprite().getY() - p.getSprite().getHeight()/2 - spyro.getSprite().getHeight()/2);
+        jump = false;
+        onSomething = true;
+      }
     }
-  }
-  if (onSomething == false)
-  {
-    spyro.getSprite().setVelY(spyro.getSprite().getVelY() + gravity);
+
+    if (onSomething == false)
+    {
+      spyro.getSprite().setVelY(spyro.getSprite().getVelY() + gravity);
+    }
   }
   //if sptro is in contact with the ole have him fall
   for (Drop d : drop)
