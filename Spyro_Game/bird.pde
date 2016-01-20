@@ -6,7 +6,7 @@ class Bird
 { 
   Sprite sprite;
   
-  Bird (PApplet app, String pic, int x, int y, int scale)
+  Bird (PApplet app, String pic, float x, float y, int scale)
   {
     sprite = new Sprite (app, pic,  12, 1, 3);
     sprite.setXY(x,y);

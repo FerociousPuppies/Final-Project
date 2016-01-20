@@ -68,15 +68,6 @@ class Spyro
   {
    sprite.setVelY (-700);
 }
-void moveUp () 
-{
- sprite.setVelY(-70); 
-}
-
-void moveDown () 
-{
- sprite.setVelY(70); 
-}
 
 void stopMovingUp () 
 {
@@ -89,29 +80,14 @@ void stopMovingDown ()
 
   void flyUp ()
   {
-   sprite.setVelY (-70); 
+   sprite.setVelY (-300); 
   }
   
   void flyDown ()
   {
-   sprite.setVelY(79); 
+   sprite.setVelY(300); 
   }
   
-  void stopMovingUp () 
-  {
-     sprite.stopImageAnim();
-    sprite.setVelY(0);
-    sprite.setFrame(0);
-  }
-  
-   void stopMovingDown () 
-  {
-     sprite.stopImageAnim();
-    sprite.setVelY(0);
-    sprite.setFrame(0);
-  }
-
-
     Sprite getSprite()
     {
       return sprite;

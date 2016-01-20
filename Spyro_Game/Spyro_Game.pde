@@ -21,6 +21,7 @@ ArrayList <Tree> tree;
 ArrayList <Background> background;
 ArrayList <Bird> bird;
 ArrayList <Chick> chick;
+ArrayList <Egg> egg;
 int score;
 boolean left;
 int counter;
@@ -84,18 +85,15 @@ void setup()
   control.setVisible(false);
 
 
-  //backgroundPicture = new Sprite (this, "Artisans.png", 1);
+  backgroundPicture = new Sprite (this, "Artisans.png", 1);
   //backgroundPicture = new Sprite (this, "BeastMakers.png", 1);
   //backgroundPicture = new Sprite (this, "DreamWeavers.png", 1);
   //backgroundPicture = new Sprite (this, "Peacekeepers.png", 1);
   //backgroundPicture = new Sprite (this, "magicCrafters.jpg", 1);
-<<<<<<< HEAD
-  backgroundPicture = new Sprite (this, "clouds.jpg", 1);
-=======
 
   background = new ArrayList <Background> ();
   background.add(new Background (this, xb, 400));
->>>>>>> origin/Amands'sBranch
+
 
   heart1 = loadImage ("heart.png");
   heart2 = loadImage ("heart.png");
@@ -105,13 +103,6 @@ void setup()
   e = new ArrayList <Enemy>();
   e.add(new Enemy(this, "Line 105 Tran.gif", 2200, 700, 3));
   e.add(new Enemy(this, "Line 68 Tran.gif", 2800, 700, 3));
-<<<<<<< HEAD
-  e.add(new Enemy(this, "Line 4 Trans.gif", 1200, 100, 3));
-  e.add(new Enemy(this, "Line 4 Trans.gif", 2400, 100, 3));
-=======
-
-
->>>>>>> origin/Amands'sBranch
 
   /*e.add(new Enemy(this, "Hooded Guy Tran.gif", 2400, 100, 3));
    e.add(new Enemy(this, "Line 1 Tran.gif", 2200, 700, 3));
@@ -124,16 +115,24 @@ void setup()
    */
 
 
-<<<<<<< HEAD
-=======
   bird = new ArrayList <Bird> ();
-  bird.add(new Bird (this, "Line 4 Trans.gif", 1200, 100, 3));
-  bird.add(new Bird (this, "Line 4 Trans.gif",2400, 100, 3));
+  bird.add(new Bird (this, "Line 4 Trans.gif", random (1200, 8000), random (0, 800), 3));
+  bird.add(new Bird (this, "Line 4 Trans.gif", random (1200, 8000), random (0, 800), 3));
+  bird.add(new Bird (this, "Line 4 Trans.gif", random (1200, 8000), random (0, 800), 3));
+  bird.add(new Bird (this, "Line 4 Trans.gif", random (1200, 8000), random (0, 800), 3));
+  bird.add(new Bird (this, "Line 4 Trans.gif", random (1200, 8000), random (0, 800), 3));
+  bird.add(new Bird (this, "Line 4 Trans.gif", random (1200, 8000), random (0, 800), 3));
+  bird.add(new Bird (this, "Line 4 Trans.gif", random (1200, 8000), random (0, 800), 3));
+  bird.add(new Bird (this, "Line 4 Trans.gif", random (1200, 8000), random (0, 800), 3));
   
   chick = new ArrayList <Chick> ();
   chick.add (new Chick (this, 2000, 400));
+  
+  egg = new ArrayList <Egg> ();
+  egg.add(new Egg (this, 1200, 100));
+  egg.add(new Egg (this, 2400, 100));
 
->>>>>>> origin/Amands'sBranch
+
 
 
   gems = new ArrayList <Gem> ();
@@ -145,23 +144,20 @@ void setup()
 
 
   platforms = new ArrayList <Platform> ();
-<<<<<<< HEAD
-  /* platforms.add (new Platform (this, "platform.jpg", 1520, 575, 1));
-=======
   /*
   platforms.add (new Platform (this, "platform.jpg", 1520, 575, 1));
->>>>>>> origin/Amands'sBranch
+
+  
+  platforms.add (new Platform (this, "platform.jpg", 1520, 575, 1));
+
    platforms.add (new Platform (this, "ArtisanPlaform.jpg", 665, 790, 1));
    platforms.add (new Platform (this, "ArtisanPlatform2.png", 2950, 790, 1));
-   */
+  */
   drop = new ArrayList <Drop> ();
   /*
   drop.add (new Drop (this));
-<<<<<<< HEAD
-   */
-=======
+  */
 
->>>>>>> origin/Amands'sBranch
   tree = new ArrayList <Tree> ();
   /*
   tree.add (new Tree (this, 2000, 400));
@@ -252,39 +248,38 @@ void draw()
 
   if (gameState == State.BONUS)
   {
-<<<<<<< HEAD
-    backgroundPicture.setXY(xb, 400);
-    backgroundSW ++;
-    if (backgroundSW == 30)
-    {
-      backgroundPicture.setX(xb - 100);
-      backgroundSW = 0;
-=======
     for (Background b : background)
     {
       b.getSprite().setVelX(-70);
     }
-    for (Fireball f : fireballs)
+    for (Egg e : egg)
     {
-      f.getSprite().setX(f.getSprite().getX () + 10);
+       e.getSprite().setX(e.getSprite().getX () - 10);
+     if (e.getSprite().getX() < spyro.getSprite().getX() + 500)
+      {
+        e.flyingEggs();
+      }
+     e.flyingEggs();
     }
     for (Bird b : bird)
     {
+      b.flyLeft();
       b.getSprite().setX(b.getSprite().getX () - 10);
+
+    }
+    for (Chick c : chick)
+    {
+      c.flyLeft();
+      c.getSprite().setX(c.getSprite().getX () - 10);
     }
     for (Gem g : gems)
     {
       g.getSprite().setX(g.getSprite().getX () - 10);
     }
-    for (int i = 0; i < bird.size(); i++)
-    {
-      bird.get(i).flyLeft();
-    }
-    for (int i = 0; i < chick.size(); i++)
-    {
-      chick.get(i).flyLeft();
->>>>>>> origin/Amands'sBranch
-    }
+
+    
+      
+    
   }
 }
 
@@ -407,9 +402,7 @@ void keyPressed()
           }
           fireReady = false;
         }
-<<<<<<< HEAD
 
-=======
         break;
       }
     }
@@ -420,15 +413,12 @@ void keyPressed()
     {
     case UP:
       {
-        println ("up");
-        spyro.moveUp (); 
+        spyro.flyUp (); 
         break;
       }
     case DOWN:
       {
-        println ("down");
-        spyro.moveDown ();
->>>>>>> origin/Amands'sBranch
+        spyro.flyDown ();
         break;
       }
     case ' ':
@@ -481,7 +471,7 @@ void keyReleased()
     lastState = currentState;
     currentState = false;
   }
-<<<<<<< HEAD
+
   if (keyCode == UP  && gameState == State.BONUS)
   {
     spyro.stopMovingUp();
@@ -489,7 +479,7 @@ void keyReleased()
   if (keyCode == DOWN  && gameState == State.BONUS)
   {
     spyro.stopMovingDown();
-=======
+  }
   if (keyCode == UP && gameState == State.BONUS)
   {
     spyro.stopMovingUp ();
@@ -497,7 +487,6 @@ void keyReleased()
   if (keyCode == DOWN && gameState == State.BONUS)
   {
     spyro.stopMovingDown ();
->>>>>>> origin/Amands'sBranch
   }
 }
 
@@ -528,6 +517,29 @@ void processCollisions()
       }
     }
   }
+  
+  for (Bird b : bird)
+  {
+   if (b.getSprite().pp_collision(spyro.getSprite()))
+   {
+    spyro.getSprite().setY(spyro.getSprite().getX() + 100);
+    heartCounter -= 1;
+   }
+    
+  }
+  
+    for (Chick c : chick)
+  {
+   if (c.getSprite().pp_collision(spyro.getSprite()))
+   {
+    spyro.getSprite().setY(spyro.getSprite().getX() + 100);
+    heartCounter -= 1;
+   }
+    
+  }
+  
+ 
+  
 
   // If Enemy is in contact with a fireball, have enemy and fire disappear and increase score
   for (Fireball f : fireballs)
@@ -565,16 +577,12 @@ void processCollisions()
     score += 100;
   }
   remove.clear();
-<<<<<<< HEAD
+  
   // if spyro is in contact with a platform, have him stop falling
-  if (gameState == State.GAME) 
-  {
-=======
 
   if (gameState == State.GAME)
   {
     // if spyro is in contact with a platform, have him stop falling
->>>>>>> origin/Amands'sBranch
     for (Platform p : platforms) 
     {
       if (p.getSprite().bb_collision(spyro.getSprite()))
@@ -585,20 +593,16 @@ void processCollisions()
         onSomething = true;
       }
     }
-<<<<<<< HEAD
-
-=======
->>>>>>> origin/Amands'sBranch
     if (onSomething == false)
     {
       spyro.getSprite().setVelY(spyro.getSprite().getVelY() + gravity);
     }
   }
-<<<<<<< HEAD
+
   //if sptro is in contact with the ole have him fall
-=======
+
   //if sptro is in contact with the hole have him fall
->>>>>>> origin/Amands'sBranch
+
   for (Drop d : drop)
   {
     if  (d.getSprite().bb_collision(spyro.getSprite()))

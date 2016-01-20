@@ -6,10 +6,11 @@ class Chick
 { 
   Sprite sprite;
   
-  Chick (PApplet app, int x, int y)
+  Chick (PApplet app, float x, float y)
   {
     sprite = new Sprite (app, "bird .png", 4, 4,1);
     sprite.setXY(x,y);
+    sprite.setScale (2);
   }
   
   void flyLeft ()
