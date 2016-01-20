@@ -18,6 +18,7 @@ ArrayList <Fireball> fireballs;
 ArrayList <Platform> platforms;
 ArrayList <Drop> drop;
 ArrayList <Tree> tree;
+ArrayList <Background> background;
 int score;
 boolean left;
 int counter;
@@ -37,12 +38,13 @@ boolean lastState = false;
 int xb;
 int press;
 boolean fireReady = true;
+int backgroundSW;
 
 
 void setup()
 {
   size(1200, 800);
-  gameState = State.GAME;
+  gameState = State.BONUS;
   sw = new StopWatch();
   x=3454;
   score = 0;
@@ -54,6 +56,7 @@ void setup()
   heartCounter = 3;
   xb = 2500;
   press = 0;
+  backgroundSW = 0;
 
   logo = new Sprite(this, "Spyro_logo.png", 1);
   logo.setXY(width/2, height/2 - 150);
@@ -79,12 +82,14 @@ void setup()
   control.setVisible(false);
 
 
-  backgroundPicture = new Sprite (this, "Artisans.png", 1);
+  //backgroundPicture = new Sprite (this, "Artisans.png", 1);
   //backgroundPicture = new Sprite (this, "BeastMakers.png", 1);
   //backgroundPicture = new Sprite (this, "DreamWeavers.png", 1);
   //backgroundPicture = new Sprite (this, "Peacekeepers.png", 1);
   //backgroundPicture = new Sprite (this, "magicCrafters.jpg", 1);
-  //backgroundPicture = new Sprite (this, "cloud.jpg", 1);
+  
+  background = new ArrayList <Background> ();
+  background.add(new Sprite (this));
 
   heart1 = loadImage ("heart.png");
   heart2 = loadImage ("heart.png");
@@ -111,7 +116,7 @@ void setup()
 
 
   gems = new ArrayList <Gem> ();
-  gems.add(new Gem (this, "RedGems.png", 900, 300, 3));
+  gems.add(new Gem (this, "RedGems.png", 900, 600, 3));
 
   fireballs = new ArrayList <Fireball> ();
   fireballs.add(new Fireball (this, "fireball.png", width/2, y, 3));
@@ -119,10 +124,11 @@ void setup()
 
 
   platforms = new ArrayList <Platform> ();
+  /*
   platforms.add (new Platform (this, "platform.jpg", 1520, 575, 1));
   platforms.add (new Platform (this, "ArtisanPlaform.jpg", 665, 790, 1));
   platforms.add (new Platform (this, "ArtisanPlatform2.png", 2950, 790, 1));
-
+*/
   drop = new ArrayList <Drop> ();
   drop.add (new Drop (this));
   
@@ -131,6 +137,7 @@ void setup()
   tree.add (new Tree (this, 3200, 400));  
 
   spyro = new Spyro(this, y);
+  
 
   registerMethod("pre", this);
 
@@ -216,7 +223,14 @@ for (Fireball f : fireballs)
 
 if (gameState == State.BONUS)
 {
-  backgroundPicture.setXY(xb, 400);
+  backgroundPicture.setXY (xb, 400);
+  backgroundSW ++;
+  if (backgroundSW == 50)
+  {
+  backgroundPicture.setX (xb + 200); 
+  backgroundSW = 0;
+  println (xb);
+  }
 }
 }
 
@@ -343,6 +357,24 @@ void keyPressed()
       }
     }
   }
+  if (gameState == State.BONUS)
+  {
+    switch(keyCode)
+    {
+    case UP:
+      {
+        println ("up");
+       spyro.moveUp (); 
+       break;
+      }
+      case DOWN:
+      {
+        println ("down");
+       spyro.moveDown ();
+       break;
+      }
+    }
+  }
 }
 void keyReleased()
 {
@@ -359,11 +391,19 @@ void keyReleased()
     lastState = currentState;
     currentState = false;
   }
+  if (keyCode == UP && gameState == State.BONUS)
+  {
+   spyro.stopMovingUp (); 
+  }
+  if (keyCode == DOWN && gameState == State.BONUS)
+  {
+   spyro.stopMovingDown (); 
+  }
 }
 
 void processCollisions()
 {
-
+   
   //If Spyro is in contact with an enemy, have both characters move back and loose hearts
   for (Enemy i : e)
   {
@@ -425,6 +465,9 @@ void processCollisions()
     score += 100;
   }
   remove.clear();
+  
+  if (gameState == State.GAME)
+  {
   // if spyro is in contact with a platform, have him stop falling
   for (Platform p : platforms) 
   {
@@ -440,7 +483,8 @@ void processCollisions()
   {
     spyro.getSprite().setVelY(spyro.getSprite().getVelY() + gravity);
   }
-  //if sptro is in contact with the ole have him fall
+  }
+  //if sptro is in contact with the hole have him fall
   for (Drop d : drop)
   {
     if  (d.getSprite().bb_collision(spyro.getSprite()))
