@@ -68,6 +68,24 @@ class Spyro
   {
    sprite.setVelY (-700);
 }
+void moveUp () 
+{
+ sprite.setVelY(-70); 
+}
+
+void moveDown () 
+{
+ sprite.setVelY(70); 
+}
+
+void stopMovingUp () 
+{
+ sprite.setVelY (0); 
+}
+void stopMovingDown ()
+{
+  sprite.setVelY(0);
+}
 
   void flyUp ()
   {
