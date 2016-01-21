@@ -13,6 +13,16 @@ class Background
     
   }
   
+  void invisible ()
+  {
+   sprite.setVisible(false); 
+  }
+  
+  void visible ()
+  {
+   sprite.setVisible(true); 
+  }
+  
   Sprite getSprite()
   {
    return sprite; 

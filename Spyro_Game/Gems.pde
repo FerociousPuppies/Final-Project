@@ -13,11 +13,18 @@ class Gem
     sprite.setScale (scale);
     sprite.setXY (x, y);
   } 
-  void show ()
+  
+  
+  void invisible ()
   {
-    sprite.setVelXY (-15, 0);
-    sprite.setFrameSequence(0, 4, .2);
+   sprite.setVisible (false); 
   }
+  
+  void visible ()
+  {
+   sprite.setVisible(true); 
+  }
+  
   Sprite getSprite()
   {
     return sprite;

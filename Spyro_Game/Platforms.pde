@@ -13,6 +13,15 @@ class Platform
     sprite.setXY (x, y);
   } 
   
+  void invisible ()
+  {
+   sprite.setVisible (false); 
+  }
+  
+  void visible ()
+  {
+   sprite.setVisible(true); 
+  }
   
   Sprite getSprite()
   {

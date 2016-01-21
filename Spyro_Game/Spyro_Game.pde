@@ -22,6 +22,7 @@ ArrayList <Background> background;
 ArrayList <Bird> bird;
 ArrayList <Chick> chick;
 ArrayList <Egg> egg;
+ArrayList <Dragon> dragon; 
 int score;
 boolean left;
 int counter;
@@ -47,7 +48,7 @@ int backgroundSW;
 void setup()
 {
   size(1200, 800);
-  gameState = State.GAME;
+  gameState = State.TITLE;
   sw = new StopWatch();
   x=3454;
   score = 0;
@@ -78,14 +79,11 @@ void setup()
   control.setScale(2);
 
 
-  logo.setVisible(false);
-  logo2.setVisible(false);
-  ng.setVisible(false);
-  hs.setVisible(false);
-  control.setVisible(false);
+
 
 
   backgroundPicture = new Sprite (this, "Artisans.png", 1);
+  backgroundPicture.setVisible (false);
   //backgroundPicture = new Sprite (this, "BeastMakers.png", 1);
   //backgroundPicture = new Sprite (this, "DreamWeavers.png", 1);
   //backgroundPicture = new Sprite (this, "Peacekeepers.png", 1);
@@ -95,14 +93,19 @@ void setup()
   background.add(new Background (this, xb, 400));
 
 
+
+
+
   heart1 = loadImage ("heart.png");
   heart2 = loadImage ("heart.png");
   heart3 = loadImage ("heart.png");
 
 
+
   e = new ArrayList <Enemy>();
   e.add(new Enemy(this, "Line 105 Tran.gif", 2200, 700, 3));
   e.add(new Enemy(this, "Line 68 Tran.gif", 2800, 700, 3));
+
 
   /*e.add(new Enemy(this, "Hooded Guy Tran.gif", 2400, 100, 3));
    e.add(new Enemy(this, "Line 1 Tran.gif", 2200, 700, 3));
@@ -142,6 +145,7 @@ void setup()
   spyro = new Spyro(this, y);
 
 
+
   fireballs = new ArrayList <Fireball> ();
   fireballs.add(new Fireball (this, "fireball.png", (int) spyro.getSprite().getX(), y, 3));
 
@@ -154,7 +158,7 @@ void setup()
   platforms.add (new Platform (this, "platform.jpg", 1520, 575, 1));
 
   platforms.add (new Platform (this, "ArtisanPlaform.jpg", 665, 790, 1));
-  platforms.add (new Platform (this, "ArtisanPlatform2.png", 2950, 790, 1));
+  platforms.add (new Platform (this, "ArtisanPlatform2.png", 4075, 790, 1));
 
 
   drop = new ArrayList <Drop> ();
@@ -166,12 +170,27 @@ void setup()
   tree.add (new Tree (this, 2000, 400));
   tree.add (new Tree (this, 3200, 400));  
 
+  dragon = new ArrayList <Dragon> ();
+  dragon.add (new Dragon (this));
+
 
   registerMethod("pre", this);
 
   for (Fireball f : fireballs)
   {
     f.invisible();
+  }
+  for (Background b : background)
+  {
+    b.invisible();
+  }
+  for (Platform p : platforms)
+  {
+    p.invisible();
+  }
+  for (Gem g : gems)
+  {
+    g.invisible();
   }
 }
 
@@ -183,6 +202,24 @@ void draw()
 {
   if (gameState == State.GAME)
   {
+    logo.setVisible(false);
+    logo2.setVisible(false);
+    ng.setVisible(false);
+    hs.setVisible(false);
+    control.setVisible(false);
+    backgroundPicture.setVisible (true);
+    for (Background b : background)
+    {
+      b.visible();
+    }
+    for (Platform p : platforms)
+    {
+      p.visible();
+    }
+    for (Gem g : gems)
+    {
+      g.visible();
+    }
     background(255);
     backgroundPicture.setXY(x, 400);
     for (int i = 0; i < e.size(); i++)
@@ -297,6 +334,10 @@ void keyPressed()
         {
           i.getSprite().setX(i.getSprite().getX () - 10);
         }
+        for (Fireball f : fireballs)
+        {
+          f.getSprite().setX(f.getSprite().getX () - 10);
+        }
         for (Platform p : platforms)
         {
           p.getSprite().setX(p.getSprite().getX () - 10);
@@ -313,6 +354,10 @@ void keyPressed()
         {
           t.getSprite().setX(t.getSprite().getX () - 10);
         }
+        for (Dragon d : dragon)
+        {
+          d.getSprite().setX(d.getSprite().getX () - 10);
+        }
         break;
       }
     case LEFT:
@@ -323,6 +368,10 @@ void keyPressed()
         for (Enemy i : e)
         {
           i.getSprite().setX(i.getSprite().getX () + 10);
+        }
+        for (Fireball f : fireballs)
+        {
+          f.getSprite().setX(f.getSprite().getX () + 10);
         }
         for (Platform p : platforms)
         {
@@ -339,6 +388,10 @@ void keyPressed()
         for (Tree t : tree)
         {
           t.getSprite().setX(t.getSprite().getX () + 10);
+        }
+        for (Dragon d : dragon)
+        {
+          d.getSprite().setX(d.getSprite().getX () + 10);
         }
         break;
       }
@@ -569,7 +622,23 @@ void processCollisions()
     }
   }
 
-  //if sptro is in contact with the ole have him fall
+  // if spyro is in contact with the dragon continue to the Bonus game
+  for (Dragon d : dragon)
+  {
+    if (d.getSprite().pp_collision(spyro.getSprite()))
+    {
+      gameState = State.BONUS;
+      backgroundPicture.setVisible(false);
+      for (Background b : background)
+      {
+        b.visible();
+      }
+      for (Platform p : platforms)
+      {
+        p.invisible();
+      }
+    }
+  }
 
   //if sptro is in contact with the hole have him fall
 
@@ -578,14 +647,16 @@ void processCollisions()
     if  (d.getSprite().bb_collision(spyro.getSprite()))
     {
       spyro.getSprite().setVelY (100);
-      spyro.getSprite().setVelX (0);
     }
   }
 
   onSomething = false;
 }
 
-
+void mousePressed ()
+{
+  gameState = State.GAME;
+}
 
 
 
