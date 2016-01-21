@@ -124,10 +124,10 @@ void setup()
   bird.add(new Bird (this, "Line 4 Trans.gif", random (1200, 8000), random (0, 800), 3));
   bird.add(new Bird (this, "Line 4 Trans.gif", random (1200, 8000), random (0, 800), 3));
   bird.add(new Bird (this, "Line 4 Trans.gif", random (1200, 8000), random (0, 800), 3));
-  
+
   chick = new ArrayList <Chick> ();
   chick.add (new Chick (this, 2000, 400));
-  
+
   egg = new ArrayList <Egg> ();
   egg.add(new Egg (this, 1200, 100));
   egg.add(new Egg (this, 2400, 100));
@@ -146,13 +146,13 @@ void setup()
   platforms = new ArrayList <Platform> ();
   platforms.add (new Platform (this, "platform.jpg", 1520, 575, 1));
 
-  
+
   platforms.add (new Platform (this, "platform.jpg", 1520, 575, 1));
 
-   platforms.add (new Platform (this, "ArtisanPlaform.jpg", 665, 790, 1));
-   platforms.add (new Platform (this, "ArtisanPlatform2.png", 2950, 790, 1));
-   
-   
+  platforms.add (new Platform (this, "ArtisanPlaform.jpg", 665, 790, 1));
+  platforms.add (new Platform (this, "ArtisanPlatform2.png", 2950, 790, 1));
+
+
   drop = new ArrayList <Drop> ();
 
   drop.add (new Drop (this));
@@ -161,8 +161,8 @@ void setup()
   tree = new ArrayList <Tree> ();
   tree.add (new Tree (this, 2000, 400));
   tree.add (new Tree (this, 3200, 400));  
-  
-  
+
+
   spyro = new Spyro(this, y);
 
 
@@ -184,13 +184,15 @@ void draw()
   {
     background(255);
     backgroundPicture.setXY(x, 400);
-    println ("here");
     for (int i = 0; i < e.size(); i++)
     {
       e.get(i).show();
     }
   }
-
+  for (Fireball f : fireballs)
+  {
+    f.getSprite().getX();
+  }
   S4P.drawSprites();
 
 
@@ -255,18 +257,17 @@ void draw()
     }
     for (Egg e : egg)
     {
-       e.getSprite().setX(e.getSprite().getX () - 10);
-     if (e.getSprite().getX() < spyro.getSprite().getX() + 500)
+      e.getSprite().setX(e.getSprite().getX () - 10);
+      if (e.getSprite().getX() < spyro.getSprite().getX() + 500)
       {
         e.flyingEggs();
       }
-     e.flyingEggs();
+      e.flyingEggs();
     }
     for (Bird b : bird)
     {
       b.flyLeft();
       b.getSprite().setX(b.getSprite().getX () - 10);
-
     }
     for (Chick c : chick)
     {
@@ -277,10 +278,6 @@ void draw()
     {
       g.getSprite().setX(g.getSprite().getX () - 10);
     }
-
-    
-      
-    
   }
 }
 
@@ -391,17 +388,22 @@ void keyPressed()
           {
             for (Fireball f : fireballs)
             {
+              f.getSprite().getX();
               f.fireLeft ();
+              println ("left");
             }
           }
           if (left == false)
           {
             for (Fireball f : fireballs)
             {
+              f.getSprite().getX();
               f.fireRight();
+              println("right");
             }
           }
           fireReady = false;
+          println ("here");
         }
 
         break;
@@ -504,29 +506,27 @@ void processCollisions()
       }
     }
   }
-  
+
   for (Bird b : bird)
   {
-   if (b.getSprite().pp_collision(spyro.getSprite()))
-   {
-    spyro.getSprite().setY(spyro.getSprite().getX() + 100);
-    heartCounter -= 1;
-   }
-    
+    if (b.getSprite().pp_collision(spyro.getSprite()))
+    {
+      spyro.getSprite().setY(spyro.getSprite().getX() + 100);
+      heartCounter -= 1;
+    }
   }
-  
-    for (Chick c : chick)
+
+  for (Chick c : chick)
   {
-   if (c.getSprite().pp_collision(spyro.getSprite()))
-   {
-    spyro.getSprite().setY(spyro.getSprite().getX() + 100);
-    heartCounter -= 1;
-   }
-    
+    if (c.getSprite().pp_collision(spyro.getSprite()))
+    {
+      spyro.getSprite().setY(spyro.getSprite().getX() + 100);
+      heartCounter -= 1;
+    }
   }
-  
- 
-  
+
+
+
 
   // If Enemy is in contact with a fireball, have enemy and fire disappear and increase score
   for (Fireball f : fireballs)
@@ -564,7 +564,7 @@ void processCollisions()
     score += 100;
   }
   remove.clear();
-  
+
   // if spyro is in contact with a platform, have him stop falling
 
   if (gameState == State.GAME)
