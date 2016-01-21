@@ -138,8 +138,12 @@ void setup()
   gems = new ArrayList <Gem> ();
   gems.add(new Gem (this, "RedGems.png", 900, 600, 3));
 
+
+  spyro = new Spyro(this, y);
+
+
   fireballs = new ArrayList <Fireball> ();
-  fireballs.add(new Fireball (this, "fireball.png", width/2, y, 3));
+  fireballs.add(new Fireball (this, "fireball.png", (int) spyro.getSprite().getX(), y, 3));
 
 
 
@@ -161,9 +165,6 @@ void setup()
   tree = new ArrayList <Tree> ();
   tree.add (new Tree (this, 2000, 400));
   tree.add (new Tree (this, 3200, 400));  
-
-
-  spyro = new Spyro(this, y);
 
 
   registerMethod("pre", this);
@@ -228,23 +229,13 @@ void draw()
   }
   for (Fireball f : fireballs)
   {
-    if (left == false)
+
+    if (f.getSprite().getX() > spyro.getSprite().getX() + 600 || f.getSprite().getX() < spyro.getSprite().getX() - 600)
     {
-      if (f.getSprite().getX() > spyro.getSprite().getX() + 600)
-      {
-        f.invisible();
-        f.getSprite().setXY(spyro.getSprite().getX(), spyro.getSprite().getY());
-        fireReady = true;
-      }
-    }
-    if (left == true)
-    {
-      if (f.getSprite().getX() < spyro.getSprite().getX() - 600)
-      {
-        f.invisible();
-        f.getSprite().setXY(spyro.getSprite().getX(), spyro.getSprite().getY());
-        fireReady = true;
-      }
+      f.invisible();
+      f.getSprite().setXY(spyro.getSprite().getX(), spyro.getSprite().getY());
+      fireReady = true;
+      println("ready to fire in frame " + frameCount);
     }
   }
 
@@ -302,10 +293,6 @@ void keyPressed()
         spyro.moveRight ();
         x -= 10;
         left = false;
-        for (Fireball f : fireballs)
-        {
-          f.getSprite().setX(f.getSprite().getX () - 10);
-        }
         for (Enemy i : e)
         {
           i.getSprite().setX(i.getSprite().getX () - 10);
@@ -333,10 +320,6 @@ void keyPressed()
         spyro.moveLeft();
         x += 10;
         left = true;
-        for (Fireball f : fireballs)
-        {
-          f.getSprite().setX(f.getSprite().getX () + 10);
-        }
         for (Enemy i : e)
         {
           i.getSprite().setX(i.getSprite().getX () + 10);
