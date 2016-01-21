@@ -47,7 +47,7 @@ int backgroundSW;
 void setup()
 {
   size(1200, 800);
-  gameState = State.BONUS;
+  gameState = State.GAME;
   sw = new StopWatch();
   x=3454;
   score = 0;
@@ -144,7 +144,6 @@ void setup()
 
 
   platforms = new ArrayList <Platform> ();
-  /*
   platforms.add (new Platform (this, "platform.jpg", 1520, 575, 1));
 
   
@@ -152,17 +151,18 @@ void setup()
 
    platforms.add (new Platform (this, "ArtisanPlaform.jpg", 665, 790, 1));
    platforms.add (new Platform (this, "ArtisanPlatform2.png", 2950, 790, 1));
-  */
+   
+   
   drop = new ArrayList <Drop> ();
-  /*
+
   drop.add (new Drop (this));
-  */
+
 
   tree = new ArrayList <Tree> ();
-  /*
   tree.add (new Tree (this, 2000, 400));
-   tree.add (new Tree (this, 3200, 400));  
-   */
+  tree.add (new Tree (this, 3200, 400));  
+  
+  
   spyro = new Spyro(this, y);
 
 
@@ -184,6 +184,7 @@ void draw()
   {
     background(255);
     backgroundPicture.setXY(x, 400);
+    println ("here");
     for (int i = 0; i < e.size(); i++)
     {
       e.get(i).show();
@@ -421,20 +422,6 @@ void keyPressed()
         spyro.flyDown ();
         break;
       }
-    case ' ':
-      {
-        if (fireReady)
-        {
-          for (Fireball f : fireballs)
-          {
-            f.visible();
-
-            f.fireRight();
-          }
-          fireReady = false;
-        }
-        break;
-      }
     }
   }
   if (gameState == State.BONUS)
@@ -493,7 +480,7 @@ void keyReleased()
 void processCollisions()
 {
 
-  //If Spyro is in contact with an enemy, have both characters move back and loose hearts
+  //If Spyro is in contact with an enemy, have both characters move back and lose hearts
   for (Enemy i : e)
   {
     for (Platform p : platforms)
