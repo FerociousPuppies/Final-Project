@@ -4,7 +4,7 @@ import sprites.utils.*;
 
 Sprite logo, logo2, ng, hs, control, backgroundPicture;
 enum State {
-  TITLE, GAME, BONUS, GAMEOVER
+  TITLE, GAME, BONUS, GAMEOVER, WIN
 };
   State gameState;
 StopWatch sw;
@@ -43,6 +43,7 @@ int xb;
 int press;
 boolean fireReady = true;
 int backgroundSW;
+int gameoversw;
 
 
 void setup()
@@ -61,6 +62,7 @@ void setup()
   xb = 2500;
   press = 0;
   backgroundSW = 0;
+  gameoversw = 0;
 
   logo = new Sprite(this, "Spyro_logo.png", 1);
   logo.setXY(width/2, height/2 - 150);
@@ -91,6 +93,7 @@ void setup()
 
   background = new ArrayList <Background> ();
   background.add(new Background (this, xb, 400));
+  
 
 
 
@@ -129,8 +132,15 @@ void setup()
   bird.add(new Bird (this, "Line 4 Trans.gif", random (1200, 8000), random (0, 800), 3));
 
   chick = new ArrayList <Chick> ();
-  chick.add (new Chick (this, 2000, 400));
-
+  chick.add (new Chick (this, random (1200, 8000), random (0, 800)));
+  chick.add (new Chick (this, random (1200, 8000), random (0, 800)));
+  chick.add (new Chick (this, random (1200, 8000), random (0, 800)));
+  chick.add (new Chick (this, random (1200, 8000), random (0, 800)));
+  chick.add (new Chick (this, random (1200, 8000), random (0, 800)));
+  chick.add (new Chick (this, random (1200, 8000), random (0, 800)));
+  chick.add (new Chick (this, random (1200, 8000), random (0, 800)));
+  
+  
   egg = new ArrayList <Egg> ();
   egg.add(new Egg (this, 1200, 100));
   egg.add(new Egg (this, 2400, 100));
@@ -152,11 +162,12 @@ void setup()
 
 
   platforms = new ArrayList <Platform> ();
+  platforms.add (new Platform (this, "platform.jpg", 1590, 650, 1));
+  /*platforms.add (new Platform (this, "platform.jpg", 1520, 575, 1));
   platforms.add (new Platform (this, "platform.jpg", 1520, 575, 1));
-
-
   platforms.add (new Platform (this, "platform.jpg", 1520, 575, 1));
-
+  platforms.add (new Platform (this, "platform.jpg", 1520, 575, 1));
+*/
   platforms.add (new Platform (this, "ArtisanPlaform.jpg", 665, 790, 1));
   platforms.add (new Platform (this, "ArtisanPlatform2.png", 4075, 790, 1));
 
@@ -168,7 +179,7 @@ void setup()
 
   tree = new ArrayList <Tree> ();
   tree.add (new Tree (this, 2000, 400));
-  tree.add (new Tree (this, 3200, 400));  
+  tree.add (new Tree (this, 4000, 400));  
 
   dragon = new ArrayList <Dragon> ();
   dragon.add (new Dragon (this));
@@ -188,10 +199,7 @@ void setup()
   {
     p.invisible();
   }
-  for (Gem g : gems)
-  {
-    g.invisible();
-  }
+  spyro.invisible();
 }
 
 
@@ -208,17 +216,10 @@ void draw()
     hs.setVisible(false);
     control.setVisible(false);
     backgroundPicture.setVisible (true);
-    for (Background b : background)
-    {
-      b.visible();
-    }
+    spyro.visible();
     for (Platform p : platforms)
     {
       p.visible();
-    }
-    for (Gem g : gems)
-    {
-      g.visible();
     }
     background(255);
     backgroundPicture.setXY(x, 400);
@@ -232,6 +233,7 @@ void draw()
     f.getSprite().getX();
   }
   S4P.drawSprites();
+   
 
 
   fill(0);
@@ -263,6 +265,7 @@ void draw()
     text ("GAME OVER", width/2 - 200, height/2);
     text ("Final Score", width/2 - 200, height/2 + 200);
     text (score, width/2 -100, height/2+ 300);
+    
   }
   for (Fireball f : fireballs)
   {
@@ -272,13 +275,14 @@ void draw()
       f.invisible();
       f.getSprite().setXY(spyro.getSprite().getX(), spyro.getSprite().getY());
       fireReady = true;
-      println("ready to fire in frame " + frameCount);
     }
   }
 
 
   if (gameState == State.BONUS)
   {
+    gameoversw ++;
+    println(gameoversw);
     for (Background b : background)
     {
       b.getSprite().setVelX(-70);
@@ -307,6 +311,20 @@ void draw()
       g.getSprite().setX(g.getSprite().getX () - 10);
     }
   }
+
+  if (gameoversw > 500)
+   {
+     gameState = State.WIN;
+   }
+   
+   if (gameState == State.WIN)
+   {
+    background (0);
+    fill (255);
+    text ("YOU WIN!", width/2 - 200, height/2);
+    text ("Final Score", width/2 - 200, height/2 + 200);
+    text (score, width/2 -100, height/2+ 300);
+   }
 }
 
 /*
@@ -426,7 +444,6 @@ void keyPressed()
             {
               f.getSprite().getX();
               f.fireLeft ();
-              println ("left");
             }
           }
           if (left == false)
@@ -435,11 +452,9 @@ void keyPressed()
             {
               f.getSprite().getX();
               f.fireRight();
-              println("right");
             }
           }
           fireReady = false;
-          println ("here");
         }
 
         break;
@@ -629,6 +644,7 @@ void processCollisions()
     {
       gameState = State.BONUS;
       backgroundPicture.setVisible(false);
+      d.invisible();
       for (Background b : background)
       {
         b.visible();

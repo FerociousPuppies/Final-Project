@@ -13,6 +13,12 @@ class Dragon
     sprite.setXY (6000, 675);
     sprite.setScale (3);
   }
+  
+  void invisible ()
+  {
+    sprite.setVisible (false);
+  }
+  
   Sprite getSprite()
   {
    return sprite; 

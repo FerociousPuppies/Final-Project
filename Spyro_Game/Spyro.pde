@@ -92,4 +92,18 @@ void stopMovingDown ()
     {
       return sprite;
     }
+  
+  void invisible ()
+  {
+    sprite.setVisible (false);
   }
+  
+  void visible () 
+  {
+   sprite.setVisible (true); 
+  }
+
+
+
+
+}
