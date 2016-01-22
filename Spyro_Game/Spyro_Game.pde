@@ -162,7 +162,7 @@ void setup()
 
 
   platforms = new ArrayList <Platform> ();
-  platforms.add (new Platform (this, "platform.jpg", 1590, 650, 1));
+  platforms.add (new Platform (this, "platform.jpg", 1590, 600, 1));
   /*platforms.add (new Platform (this, "platform.jpg", 1520, 575, 1));
   platforms.add (new Platform (this, "platform.jpg", 1520, 575, 1));
   platforms.add (new Platform (this, "platform.jpg", 1520, 575, 1));
@@ -178,9 +178,10 @@ void setup()
 
 
   tree = new ArrayList <Tree> ();
+  /*
   tree.add (new Tree (this, 2000, 400));
   tree.add (new Tree (this, 4000, 400));  
-
+*/
   dragon = new ArrayList <Dragon> ();
   dragon.add (new Dragon (this));
 
@@ -368,10 +369,10 @@ void keyPressed()
         {
           d.getSprite().setX(d.getSprite().getX () - 10);
         }
-        for (Tree t : tree)
+        /*for (Tree t : tree)
         {
           t.getSprite().setX(t.getSprite().getX () - 10);
-        }
+        }*/
         for (Dragon d : dragon)
         {
           d.getSprite().setX(d.getSprite().getX () - 10);
@@ -403,10 +404,10 @@ void keyPressed()
         {
           d.getSprite().setX(d.getSprite().getX () + 10);
         }
-        for (Tree t : tree)
+        /*for (Tree t : tree)
         {
           t.getSprite().setX(t.getSprite().getX () + 10);
-        }
+        }*/
         for (Dragon d : dragon)
         {
           d.getSprite().setX(d.getSprite().getX () + 10);
@@ -616,20 +617,29 @@ void processCollisions()
   }
   remove.clear();
 
-  // if spyro is in contact with a platform, have him stop falling
 
   if (gameState == State.GAME)
   {
     // if spyro is in contact with a platform, have him stop falling
     for (Platform p : platforms) 
     {
+      
       if (p.getSprite().bb_collision(spyro.getSprite()))
+      {
+        if (p.getSprite().getY() - p.getSprite().getHeight()/2 < spyro.getSprite().getY() + spyro.getSprite().getHeight()/2)
       {
         spyro.getSprite().setVelY(0);
         spyro.getSprite().setY(p.getSprite().getY() - p.getSprite().getHeight()/2 - spyro.getSprite().getHeight()/2);
         jump = false;
         onSomething = true;
       }
+      if (p.getSprite().getY() - p.getSprite().getHeight()/2 > spyro.getSprite().getY() + spyro.getSprite().getHeight()/2)
+      {
+        jump = false;
+        onSomething = true;
+      }
+      
+    }
     }
     if (onSomething == false)
     {
