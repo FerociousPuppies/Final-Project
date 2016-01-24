@@ -2,7 +2,7 @@ import sprites.*;
 import sprites.maths.*;
 import sprites.utils.*;
 
-Sprite logo, logo2, ng, hs, control, backgroundPicture;
+Sprite logo, logo2, backgroundPicture;
 enum State {
   TITLE, GAME, BONUS, GAMEOVER, WIN
 };
@@ -37,8 +37,10 @@ int heartCounter;
 PImage heart1;
 PImage heart2;
 PImage heart3;
+PImage magnet;
 boolean currentState = false;
 boolean lastState = false;
+boolean showHeart = false;
 int xb;
 int press;
 boolean fireReady = true;
@@ -50,6 +52,7 @@ void setup()
 {
   size(1200, 800);
   gameState = State.TITLE;
+  background (0);
   sw = new StopWatch();
   x=3454;
   score = 0;
@@ -70,16 +73,7 @@ void setup()
   logo2 = new Sprite(this, "logo2.png", 1);
   logo2.setXY(width/2, height/2 + 50);
   logo2.setScale(1);
-  ng = new Sprite(this, "newGame.png", 1);
-  ng.setXY(width/2, height/2 + 200);
-  ng.setScale(2);
-  hs = new Sprite(this, "highScore.png", 1);
-  hs.setXY(width/2+150, height/2 + 300);
-  hs.setScale(2);
-  control = new Sprite(this, "controls.png", 1);
-  control.setXY(width/2-150, height/2 + 300);
-  control.setScale(2);
-
+  
 
 
 
@@ -157,7 +151,7 @@ void setup()
 
 
   fireballs = new ArrayList <Fireball> ();
-  fireballs.add(new Fireball (this, "fireball.png", (int) spyro.getSprite().getX(), y, 3));
+  fireballs.add(new Fireball (this, "fireball.png", (int) spyro.getSprite().getX(), y, 2));
 
 
 
@@ -184,6 +178,9 @@ void setup()
 */
   dragon = new ArrayList <Dragon> ();
   dragon.add (new Dragon (this));
+  
+  
+  magnet = loadImage("Magnet.jpg");
 
 
   registerMethod("pre", this);
@@ -213,9 +210,6 @@ void draw()
   {
     logo.setVisible(false);
     logo2.setVisible(false);
-    ng.setVisible(false);
-    hs.setVisible(false);
-    control.setVisible(false);
     backgroundPicture.setVisible (true);
     spyro.visible();
     for (Platform p : platforms)
@@ -223,6 +217,7 @@ void draw()
       p.visible();
     }
     background(255);
+    showHeart = true;
     backgroundPicture.setXY(x, 400);
     for (int i = 0; i < e.size(); i++)
     {
@@ -234,6 +229,27 @@ void draw()
     f.getSprite().getX();
   }
   S4P.drawSprites();
+  
+  for (Enemy i : e)
+  {
+    if (i.getSprite().getX() < spyro.getSprite().getY() + 400)
+    {
+      i.getSpyroToLeft();
+      
+    }
+    
+    if (i.getSprite().getX() < spyro.getSprite().getY() - 400)
+    {
+      i.getSpyroToRight();
+      
+    }
+    
+    if (spyro.getSprite().getY() > width - 300)
+    {
+      gameState = State.GAMEOVER;
+    }
+    
+  }
    
 
 
@@ -241,6 +257,8 @@ void draw()
   textSize (72);
   text ("Score", width/2 - 200, 100, 3);
   text (score, width/2, 100, 1);
+  if (showHeart)
+  {
   if (heartCounter == 3)
   {
     image (heart1, 900, 50, 100, 100);
@@ -260,6 +278,7 @@ void draw()
   {
     gameState = State.GAMEOVER;
   }
+  }
   if (gameState == State.GAMEOVER) {
     background (0);
     fill (255);
@@ -277,8 +296,13 @@ void draw()
       f.getSprite().setXY(spyro.getSprite().getX(), spyro.getSprite().getY());
       fireReady = true;
     }
+    if (fireReady == true)
+    {
+      f.getSprite().setXY(spyro.getSprite().getX(), spyro.getSprite().getY());
+    }
   }
-
+  
+  
 
   if (gameState == State.BONUS)
   {
@@ -321,7 +345,8 @@ void draw()
    if (gameState == State.WIN)
    {
     background (0);
-    fill (255);
+    fill (0, 255, 0);
+    image (magnet, width/2, height/2);
     text ("YOU WIN!", width/2 - 200, height/2);
     text ("Final Score", width/2 - 200, height/2 + 200);
     text (score, width/2 -100, height/2+ 300);
@@ -342,6 +367,7 @@ void keyPressed()
 {
   if (gameState == State.GAME)
   {
+    
     switch(keyCode)
     {
     case RIGHT:
@@ -377,6 +403,7 @@ void keyPressed()
         {
           d.getSprite().setX(d.getSprite().getX () - 10);
         }
+        processCollisions();
         break;
       }
     case LEFT:
@@ -412,6 +439,7 @@ void keyPressed()
         {
           d.getSprite().setX(d.getSprite().getX () + 10);
         }
+        processCollisions();
         break;
       }
     case UP:
@@ -563,8 +591,8 @@ void processCollisions()
   {
     if (b.getSprite().pp_collision(spyro.getSprite()))
     {
-      spyro.getSprite().setY(spyro.getSprite().getX() + 100);
-      heartCounter -= 1;
+      b.getSprite().setVisible(false);
+      score -= 50;;
     }
   }
 
@@ -572,8 +600,8 @@ void processCollisions()
   {
     if (c.getSprite().pp_collision(spyro.getSprite()))
     {
-      spyro.getSprite().setY(spyro.getSprite().getX() + 100);
-      heartCounter -= 1;
+      c.getSprite().setVisible(false);
+      score -= 50;;
     }
   }
 
@@ -623,21 +651,19 @@ void processCollisions()
     // if spyro is in contact with a platform, have him stop falling
     for (Platform p : platforms) 
     {
-      
+      if (p.getSprite().getY() - p.getSprite().getHeight()/2 > spyro.getSprite().getY() + spyro.getSprite().getHeight()/2 - 10  )
+      {
+        
       if (p.getSprite().bb_collision(spyro.getSprite()))
       {
-        if (p.getSprite().getY() - p.getSprite().getHeight()/2 < spyro.getSprite().getY() + spyro.getSprite().getHeight()/2)
-      {
+        
         spyro.getSprite().setVelY(0);
         spyro.getSprite().setY(p.getSprite().getY() - p.getSprite().getHeight()/2 - spyro.getSprite().getHeight()/2);
         jump = false;
         onSomething = true;
       }
-      if (p.getSprite().getY() - p.getSprite().getHeight()/2 > spyro.getSprite().getY() + spyro.getSprite().getHeight()/2)
-      {
-        jump = false;
-        onSomething = true;
-      }
+      
+      
       
     }
     }

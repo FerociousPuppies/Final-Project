@@ -41,6 +41,21 @@ static class Enemy
     }
   }
   
+  void getSpyroToLeft ()
+  {
+    timer = 500;
+    sprite.setVelX(-200);
+    sprite.setFrameSequence(9, 11, 0.2);
+  }
+  
+  void getSpyroToRight ()
+  {
+    timer = 500;
+    sprite.setVelX(200);
+    sprite.setFrameSequence(6, 8, 0.2);
+    
+  }
+  
   
   Sprite getSprite()
   {
