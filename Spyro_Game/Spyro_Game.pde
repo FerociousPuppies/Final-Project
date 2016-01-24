@@ -46,6 +46,7 @@ int press;
 boolean fireReady = true;
 int backgroundSW;
 int gameoversw;
+int textX;
 
 
 void setup()
@@ -66,6 +67,7 @@ void setup()
   press = 0;
   backgroundSW = 0;
   gameoversw = 0;
+  textX = 25;
 
   logo = new Sprite(this, "Spyro_logo.png", 1);
   logo.setXY(width/2, height/2 - 150);
@@ -73,7 +75,6 @@ void setup()
   logo2 = new Sprite(this, "logo2.png", 1);
   logo2.setXY(width/2, height/2 + 50);
   logo2.setScale(1);
-  
 
 
 
@@ -87,7 +88,7 @@ void setup()
 
   background = new ArrayList <Background> ();
   background.add(new Background (this, xb, 400));
-  
+
 
 
 
@@ -102,13 +103,15 @@ void setup()
   e = new ArrayList <Enemy>();
   e.add(new Enemy(this, "Line 105 Tran.gif", 2200, 700, 3));
   e.add(new Enemy(this, "Line 68 Tran.gif", 2800, 700, 3));
+  e.add(new Enemy(this, "Line 28 Trans.gif", 3400, 700, 3));
+  e.add(new Enemy(this, "Line 66 Tran.gif", 4000, 700, 3));
 
 
   /*e.add(new Enemy(this, "Hooded Guy Tran.gif", 2400, 100, 3));
-   e.add(new Enemy(this, "Line 1 Tran.gif", 2200, 700, 3));
-   e.add(new Enemy(this, "Line 28 Tran.gif", 2800, 700, 3));
+   e.add(new Enemy(this, "Line 1 Tran.gif", 3400, 700, 3));
+   
    e.add(new Enemy(this, "Line 63 Trans.gif", 1200, 100, 3));
-   e.add(new Enemy(this, "Line 66 Trans.gif", 2400, 100, 3));
+   
    e.add(new Enemy(this, "Line 67 Tran.gif", 2200, 700, 3));
    e.add(new Enemy(this, "Line 69 Tran.gif", 2800, 700, 3));
    e.add(new Enemy(this, "Musroom Trans.gif", 1200, 100, 3));
@@ -133,8 +136,8 @@ void setup()
   chick.add (new Chick (this, random (1200, 8000), random (0, 800)));
   chick.add (new Chick (this, random (1200, 8000), random (0, 800)));
   chick.add (new Chick (this, random (1200, 8000), random (0, 800)));
-  
-  
+
+
   egg = new ArrayList <Egg> ();
   egg.add(new Egg (this, 1200, 100));
   egg.add(new Egg (this, 2400, 100));
@@ -144,6 +147,9 @@ void setup()
 
   gems = new ArrayList <Gem> ();
   gems.add(new Gem (this, "RedGems.png", 2160, 300, 3));
+  gems.add(new Gem (this, "RedGems.png", 5000, 300, 3));
+  gems.add(new Gem (this, "RedGems.png", 4700, 300, 3));
+  gems.add(new Gem (this, "RedGems.png", 4400, 300, 3));
 
 
   spyro = new Spyro(this, y);
@@ -179,12 +185,12 @@ void setup()
   tree = new ArrayList <Tree> ();
   /*
   tree.add (new Tree (this, 2000, 400));
-  tree.add (new Tree (this, 4000, 400));  
-*/
+   tree.add (new Tree (this, 4000, 400));  
+   */
   dragon = new ArrayList <Dragon> ();
   dragon.add (new Dragon (this));
-  
-  
+
+
   magnet = loadImage("Magnet.jpg");
 
 
@@ -234,55 +240,61 @@ void draw()
     f.getSprite().getX();
   }
   S4P.drawSprites();
-  
+
   for (Enemy i : e)
   {
     if (i.getSprite().getX() < spyro.getSprite().getY() + 400)
     {
       i.getSpyroToLeft();
-      
     }
-    
+
     if (i.getSprite().getX() < spyro.getSprite().getY() - 400)
     {
       i.getSpyroToRight();
-      
     }
-    
+
     if (spyro.getSprite().getY() > width - 300)
     {
       gameState = State.GAMEOVER;
     }
-    
   }
-   
 
-
+  textSize (32);
+  text ("How to play:", textX, 100);
+  text ("Right key moves Spyro right", textX, 150);
+  text ("Left key moves Spyro left", textX, 200);
+  text ("Up key makes Spyro jump", textX, 250);
+  text ("Spacebar shoots fireball", textX, 300);
+  text ("Object:", textX, 350);
+  text ("Go find the dragon", textX, 400);
+  text ("He will help you fly to the finish", textX, 450);
+  text ("Beware of the enemies", textX, 500);
+  text ("Collect the Gems", textX, 550);
   fill(0);
   textSize (72);
   text ("Score", width/2 - 200, 100, 3);
   text (score, width/2, 100, 1);
   if (showHeart)
   {
-  if (heartCounter == 3)
-  {
-    image (heart1, 900, 50, 100, 100);
-    image (heart2, 1000, 50, 100, 100);
-    image (heart3, 1100, 50, 100, 100);
-  }
-  if (heartCounter == 2)
-  {
-    image (heart1, 900, 50, 100, 100);
-    image (heart2, 1000, 50, 100, 100);
-  }
-  if (heartCounter == 1)
-  {
-    image (heart1, 900, 50, 100, 100);
-  }
-  if (heartCounter == 0)
-  {
-    gameState = State.GAMEOVER;
-  }
+    if (heartCounter == 3)
+    {
+      image (heart1, 900, 50, 100, 100);
+      image (heart2, 1000, 50, 100, 100);
+      image (heart3, 1100, 50, 100, 100);
+    }
+    if (heartCounter == 2)
+    {
+      image (heart1, 900, 50, 100, 100);
+      image (heart2, 1000, 50, 100, 100);
+    }
+    if (heartCounter == 1)
+    {
+      image (heart1, 900, 50, 100, 100);
+    }
+    if (heartCounter == 0)
+    {
+      gameState = State.GAMEOVER;
+    }
   }
   if (gameState == State.GAMEOVER) {
     background (0);
@@ -294,7 +306,6 @@ void draw()
     {
       gameState = State.GAME;
     }
-    
   }
   for (Fireball f : fireballs)
   {
@@ -310,8 +321,8 @@ void draw()
       f.getSprite().setXY(spyro.getSprite().getX(), spyro.getSprite().getY());
     }
   }
-  
-  
+
+
 
   if (gameState == State.BONUS)
   {
@@ -347,19 +358,19 @@ void draw()
   }
 
   if (gameoversw > 500)
-   {
-     gameState = State.WIN;
-   }
-   
-   if (gameState == State.WIN)
-   {
+  {
+    gameState = State.WIN;
+  }
+
+  if (gameState == State.WIN)
+  {
     background (0);
     fill (0, 255, 0);
     image (magnet, width/2, height/2);
     text ("YOU WIN!", width/2 - 200, height/2);
     text ("Final Score", width/2 - 200, height/2 + 200);
     text (score, width/2 -100, height/2+ 300);
-   }
+  }
 }
 
 /*
@@ -376,13 +387,14 @@ void keyPressed()
 {
   if (gameState == State.GAME)
   {
-    
+
     switch(keyCode)
     {
     case RIGHT:
       {
         spyro.moveRight ();
         x -= 10;
+        textX -= 10;
         left = false;
         for (Enemy i : e)
         {
@@ -405,9 +417,9 @@ void keyPressed()
           d.getSprite().setX(d.getSprite().getX () - 10);
         }
         /*for (Tree t : tree)
-        {
-          t.getSprite().setX(t.getSprite().getX () - 10);
-        }*/
+         {
+         t.getSprite().setX(t.getSprite().getX () - 10);
+         }*/
         for (Dragon d : dragon)
         {
           d.getSprite().setX(d.getSprite().getX () - 10);
@@ -419,6 +431,7 @@ void keyPressed()
       {
         spyro.moveLeft();
         x += 10;
+        textX += 10;
         left = true;
         for (Enemy i : e)
         {
@@ -441,9 +454,9 @@ void keyPressed()
           d.getSprite().setX(d.getSprite().getX () + 10);
         }
         /*for (Tree t : tree)
-        {
-          t.getSprite().setX(t.getSprite().getX () + 10);
-        }*/
+         {
+         t.getSprite().setX(t.getSprite().getX () + 10);
+         }*/
         for (Dragon d : dragon)
         {
           d.getSprite().setX(d.getSprite().getX () + 10);
@@ -601,7 +614,8 @@ void processCollisions()
     if (b.getSprite().pp_collision(spyro.getSprite()))
     {
       b.getSprite().setVisible(false);
-      score -= 50;;
+      score -= 50;
+      ;
     }
   }
 
@@ -610,7 +624,8 @@ void processCollisions()
     if (c.getSprite().pp_collision(spyro.getSprite()))
     {
       c.getSprite().setVisible(false);
-      score -= 50;;
+      score -= 50;
+      ;
     }
   }
 
@@ -662,19 +677,16 @@ void processCollisions()
     {
       if (p.getSprite().getY() - p.getSprite().getHeight()/2 > spyro.getSprite().getY() + spyro.getSprite().getHeight()/2 - 10  )
       {
-        
-      if (p.getSprite().bb_collision(spyro.getSprite()))
-      {
-        
-        spyro.getSprite().setVelY(0);
-        spyro.getSprite().setY(p.getSprite().getY() - p.getSprite().getHeight()/2 - spyro.getSprite().getHeight()/2);
-        jump = false;
-        onSomething = true;
+
+        if (p.getSprite().bb_collision(spyro.getSprite()))
+        {
+
+          spyro.getSprite().setVelY(0);
+          spyro.getSprite().setY(p.getSprite().getY() - p.getSprite().getHeight()/2 - spyro.getSprite().getHeight()/2);
+          jump = false;
+          onSomething = true;
+        }
       }
-      
-      
-      
-    }
     }
     if (onSomething == false)
     {
