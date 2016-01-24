@@ -10,7 +10,7 @@ class Drop
    Drop (PApplet app)
    {
      sprite = new Sprite (app, "brownBlock.jpg", 2);
-     sprite.setXY (1575,1000);
+     sprite.setXY (1630,1000);
      
      
    }

@@ -143,7 +143,7 @@ void setup()
 
 
   gems = new ArrayList <Gem> ();
-  gems.add(new Gem (this, "RedGems.png", 900, 600, 3));
+  gems.add(new Gem (this, "RedGems.png", 2160, 300, 3));
 
 
   spyro = new Spyro(this, y);
@@ -156,14 +156,19 @@ void setup()
 
 
   platforms = new ArrayList <Platform> ();
-  platforms.add (new Platform (this, "platform.jpg", 1590, 600, 1));
-  /*platforms.add (new Platform (this, "platform.jpg", 1520, 575, 1));
-  platforms.add (new Platform (this, "platform.jpg", 1520, 575, 1));
-  platforms.add (new Platform (this, "platform.jpg", 1520, 575, 1));
-  platforms.add (new Platform (this, "platform.jpg", 1520, 575, 1));
-*/
+  platforms.add (new Platform (this, "platform.jpg", 1580, 600, 1));
+  platforms.add (new Platform (this, "platform.jpg", 3000, 575, 1));
+  platforms.add (new Platform (this, "platform.jpg", 2700, 475, 1));
+  platforms.add (new Platform (this, "platform.jpg", 2400, 375, 1));
+  platforms.add (new Platform (this, "platform.jpg", 2280, 375, 1));
+  platforms.add (new Platform (this, "platform.jpg", 2160, 375, 1));
+  platforms.add (new Platform (this, "platform.jpg", 5000, 375, 1));
+  platforms.add (new Platform (this, "platform.jpg", 4700, 375, 1));
+  platforms.add (new Platform (this, "platform.jpg", 4400, 375, 1));
+  platforms.add (new Platform (this, "platform.jpg", 4280, 475, 1));
+  platforms.add (new Platform (this, "platform.jpg", 4160, 575, 1));
   platforms.add (new Platform (this, "ArtisanPlaform.jpg", 665, 790, 1));
-  platforms.add (new Platform (this, "ArtisanPlatform2.png", 4075, 790, 1));
+  platforms.add (new Platform (this, "ArtisanPlatform2.png", 4175, 790, 1));
 
 
   drop = new ArrayList <Drop> ();
@@ -285,6 +290,10 @@ void draw()
     text ("GAME OVER", width/2 - 200, height/2);
     text ("Final Score", width/2 - 200, height/2 + 200);
     text (score, width/2 -100, height/2+ 300);
+    if (mousePressed)
+    {
+      gameState = State.GAME;
+    }
     
   }
   for (Fireball f : fireballs)
