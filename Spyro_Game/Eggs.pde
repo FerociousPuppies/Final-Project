@@ -13,20 +13,11 @@ class Egg
     sprite.setXY(x,y);
     sprite.setScale (1);
     random = random (0,2);
-    sprite.setVelX (-70);
   }
   
   void flyingEggs ()
   {
-    if (random > 1)
-    {
-    sprite.setVelY(-7);
-  }
-  else
-  {
-    sprite.setVelY (7);
-    
-  }
+   sprite.setVelX (-70);
   }
   
    Sprite getSprite()

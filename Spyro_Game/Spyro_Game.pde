@@ -173,7 +173,7 @@ void setup()
   
   
   gems = new ArrayList <Gem> ();
-  gems.add(new Gem (this, "RedGems.png", 2160, 300, 3));
+  gems.add(new Gem (this, "RedGems.png", 2160, 200, 3));
   gems.add(new Gem (this, "RedGems.png", 5000, 300, 3));
   gems.add(new Gem (this, "RedGems.png", 4700, 300, 3));
   gems.add(new Gem (this, "RedGems.png", 4400, 300, 3));
@@ -191,14 +191,14 @@ void setup()
   platforms = new ArrayList <Platform> ();
   platforms.add (new Platform (this, "platform.jpg", 1580, 600, 1));
   platforms.add (new Platform (this, "platform.jpg", 3000, 575, 1));
-  platforms.add (new Platform (this, "platform.jpg", 2700, 475, 1));
-  platforms.add (new Platform (this, "platform.jpg", 2400, 375, 1));
-  platforms.add (new Platform (this, "platform.jpg", 2280, 375, 1));
-  platforms.add (new Platform (this, "platform.jpg", 2160, 375, 1));
-  platforms.add (new Platform (this, "platform.jpg", 5000, 375, 1));
-  platforms.add (new Platform (this, "platform.jpg", 4700, 375, 1));
-  platforms.add (new Platform (this, "platform.jpg", 4400, 375, 1));
-  platforms.add (new Platform (this, "platform.jpg", 4280, 475, 1));
+  platforms.add (new Platform (this, "platform.jpg", 2700, 375, 1));
+  platforms.add (new Platform (this, "platform.jpg", 2400, 275, 1));
+  platforms.add (new Platform (this, "platform.jpg", 2280, 275, 1));
+  platforms.add (new Platform (this, "platform.jpg", 2160, 275, 1));
+  platforms.add (new Platform (this, "platform.jpg", 5000, 325, 1));
+  platforms.add (new Platform (this, "platform.jpg", 4600, 325, 1));
+  platforms.add (new Platform (this, "platform.jpg", 4200, 325, 1));
+  platforms.add (new Platform (this, "platform.jpg", 4280, 450, 1));
   platforms.add (new Platform (this, "platform.jpg", 4160, 575, 1));
   platforms.add (new Platform (this, "ArtisanPlaform.jpg", 665, 790, 1));
   platforms.add (new Platform (this, "ArtisanPlatform2.png", 4175, 790, 1));
@@ -365,6 +365,7 @@ void draw()
     {
       for (Bird b : bird)
     {
+      e.flyingEggs();
       e.getSprite().setXY(b.getSprite().getX (), b.getSprite().getY());
       e.getSprite().setX(e.getSprite().getX() - 10);
       b.flyLeft();
