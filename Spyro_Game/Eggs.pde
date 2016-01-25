@@ -7,12 +7,13 @@ class Egg
   Sprite sprite;
   float random;
   
-  Egg(PApplet app, int x, int y)
+  Egg(PApplet app, float x, float y)
   {
     sprite = new Sprite (app, "Egg.png", 1);
     sprite.setXY(x,y);
     sprite.setScale (1);
     random = random (0,2);
+    sprite.setVelX (-70);
   }
   
   void flyingEggs ()

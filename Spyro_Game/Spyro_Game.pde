@@ -47,7 +47,9 @@ boolean fireReady = true;
 int backgroundSW;
 int gameoversw;
 int textX;
-
+float bx1, bx2, bx3, bx4, bx5, bx6, bx7, bx8;
+float by1, by2, by3, by4, by5, by6, by7, by8;
+int loc;
 
 void setup()
 {
@@ -68,6 +70,27 @@ void setup()
   backgroundSW = 0;
   gameoversw = 0;
   textX = 25;
+  loc = 0;
+  
+  bx1 = random(1200, 8000);
+  bx2 = random(1200, 8000);
+  bx3 = random(1200, 8000);
+  bx4 = random(1200, 8000);
+  bx1 = random(1200, 8000);
+  bx5 = random(1200, 8000);
+  bx6 = random(1200, 8000);
+  bx7 = random(1200, 8000);
+  bx8 = random(1200, 8000);
+  
+  by1 = random(0,800);
+  by2 = random(0,800);
+  by3 = random(0,800);
+  by4 = random(0,800);  
+  by5 = random(0,800);
+  by6 = random(0,800);
+  by7 = random(0,800);
+  by8 = random(0,800);
+  
 
   logo = new Sprite(this, "Spyro_logo.png", 1);
   logo.setXY(width/2, height/2 - 150);
@@ -119,14 +142,14 @@ void setup()
 
 
   bird = new ArrayList <Bird> ();
-  bird.add(new Bird (this, "Line 4 Trans.gif", random (1200, 8000), random (0, 800), 3));
-  bird.add(new Bird (this, "Line 4 Trans.gif", random (1200, 8000), random (0, 800), 3));
-  bird.add(new Bird (this, "Line 4 Trans.gif", random (1200, 8000), random (0, 800), 3));
-  bird.add(new Bird (this, "Line 4 Trans.gif", random (1200, 8000), random (0, 800), 3));
-  bird.add(new Bird (this, "Line 4 Trans.gif", random (1200, 8000), random (0, 800), 3));
-  bird.add(new Bird (this, "Line 4 Trans.gif", random (1200, 8000), random (0, 800), 3));
-  bird.add(new Bird (this, "Line 4 Trans.gif", random (1200, 8000), random (0, 800), 3));
-  bird.add(new Bird (this, "Line 4 Trans.gif", random (1200, 8000), random (0, 800), 3));
+  bird.add(new Bird (this, "Line 4 Trans.gif", bx1, by1, 3));
+  bird.add(new Bird (this, "Line 4 Trans.gif", bx2, by2, 3));
+  bird.add(new Bird (this, "Line 4 Trans.gif", bx3, by3, 3));
+  bird.add(new Bird (this, "Line 4 Trans.gif", bx4, by4, 3));
+  bird.add(new Bird (this, "Line 4 Trans.gif", bx5, by4, 3));
+  bird.add(new Bird (this, "Line 4 Trans.gif", bx6, by7, 3));
+  bird.add(new Bird (this, "Line 4 Trans.gif", bx7, by7, 3));
+  bird.add(new Bird (this, "Line 4 Trans.gif", bx8, by8, 3));
 
   chick = new ArrayList <Chick> ();
   chick.add (new Chick (this, random (1200, 8000), random (0, 800)));
@@ -139,12 +162,16 @@ void setup()
 
 
   egg = new ArrayList <Egg> ();
-  egg.add(new Egg (this, 1200, 100));
-  egg.add(new Egg (this, 2400, 100));
-
-
-
-
+  egg.add(new Egg (this, bx1, by1));
+  egg.add(new Egg (this, bx2, by2));
+  egg.add(new Egg (this, bx3, by3));
+  egg.add(new Egg (this, bx4, by4));
+  egg.add(new Egg (this, bx5, by5));
+  egg.add(new Egg (this, bx6, by6));
+  egg.add(new Egg (this, bx7, by7));
+  egg.add(new Egg (this, bx8, by8));
+  
+  
   gems = new ArrayList <Gem> ();
   gems.add(new Gem (this, "RedGems.png", 2160, 300, 3));
   gems.add(new Gem (this, "RedGems.png", 5000, 300, 3));
@@ -258,7 +285,9 @@ void draw()
       gameState = State.GAMEOVER;
     }
   }
-
+  
+  println (loc);
+  
   textSize (32);
   text ("How to play:", textX, 100);
   text ("Right key moves Spyro right", textX, 150);
@@ -334,17 +363,13 @@ void draw()
     }
     for (Egg e : egg)
     {
-      e.getSprite().setX(e.getSprite().getX () - 10);
-      if (e.getSprite().getX() < spyro.getSprite().getX() + 500)
-      {
-        e.flyingEggs();
-      }
-      e.flyingEggs();
-    }
-    for (Bird b : bird)
+      for (Bird b : bird)
     {
+      e.getSprite().setXY(b.getSprite().getX (), b.getSprite().getY());
+      e.getSprite().setX(e.getSprite().getX() - 10);
       b.flyLeft();
       b.getSprite().setX(b.getSprite().getX () - 10);
+    }
     }
     for (Chick c : chick)
     {
@@ -393,6 +418,7 @@ void keyPressed()
     case RIGHT:
       {
         spyro.moveRight ();
+        loc +=1; 
         x -= 10;
         textX -= 10;
         left = false;
@@ -430,6 +456,7 @@ void keyPressed()
     case LEFT:
       {
         spyro.moveLeft();
+        loc -= 1; 
         x += 10;
         textX += 10;
         left = true;
@@ -675,7 +702,7 @@ void processCollisions()
     // if spyro is in contact with a platform, have him stop falling
     for (Platform p : platforms) 
     {
-      if (p.getSprite().getY() - p.getSprite().getHeight()/2 > spyro.getSprite().getY() + spyro.getSprite().getHeight()/2 - 10  )
+      if (p.getSprite().getY() - p.getSprite().getHeight()/2 > spyro.getSprite().getY() + spyro.getSprite().getHeight()/2 - 20  )
       {
 
         if (p.getSprite().bb_collision(spyro.getSprite()))
