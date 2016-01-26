@@ -36,3 +36,17 @@
 	There is a transition to a flying mini game where you must avoid enemies (bird sprites) and objects (eggs). 
 	If hit with either, fifty points are deduced from the current score for each enemy/object. 
 	After a certain distance, the game shows the winning screen and a key or mouse press should lead back to start screen.
+	
+	The inspiration for Spyro came from the idea of choosing a nostalgic platformer. 
+	Sophia recalled the little Spyro and Sonic hand held games with black and white screens and pixilated graphics 
+	that used to come as Happy Meal toys from McDonalds. 
+	Understanding the Sprite library was one of the largest hurdles to jump over when making this game. 
+	With help from sources ranging from Youtube and Yahoo Answers to the informative references like 
+	Processing.org and Amanda's brother, the group managed to understand the basics. 
+	As the main programmer, Amanda was charged with the burden of trying to teach Sophia what meant
+	what so that the later could make changes. The code evolved tremendously from beginning to end.
+	At the start, the group only had Spyro floating in midair, only able to move forward at a painstaking 
+	one millimeter per hour and with a turning animation that showed the "past" Spyro's tail in the "present" 
+	Spyro's frame. Later, Amanda was able to program enemies using her same knowledge of Spryo's code. 
+	Collision detection was also one of the greatest nuisances when creating the game. 
+	We acknowledge the existence of several bugs in the code that went unsolved due to time constraints. 
