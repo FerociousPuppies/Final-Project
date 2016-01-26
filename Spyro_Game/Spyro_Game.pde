@@ -289,7 +289,7 @@ void draw()
 
   println (loc);
 
-  constrain (loc, -10, 500);
+  ;
 
   textSize (32);
   text ("How to play:", textX, 100);
@@ -456,41 +456,43 @@ void keyPressed()
       }
     case LEFT:
       {
-        spyro.moveLeft();
-        loc -= 1; 
-        x += 10;
-        textX += 10;
-        left = true;
+        if (loc > 0) {
+          spyro.moveLeft();
+          loc -= 1; 
+          x += 10;
+          textX += 10;
+          left = true;
 
-        for (Enemy i : e)
-        {
-          i.getSprite().setX(i.getSprite().getX () + 10);
+          for (Enemy i : e)
+          {
+            i.getSprite().setX(i.getSprite().getX () + 10);
+          }
+          for (Fireball f : fireballs)
+          {
+            f.getSprite().setX(f.getSprite().getX () + 10);
+          }
+          for (Platform p : platforms)
+          {
+            p.getSprite().setX(p.getSprite().getX () + 10);
+          }
+          for (Gem g : gems)
+          {
+            g.getSprite().setX(g.getSprite().getX () + 10);
+          }
+          for (Drop d : drop)
+          {
+            d.getSprite().setX(d.getSprite().getX () + 10);
+          }
+          /*for (Tree t : tree)
+           {
+           t.getSprite().setX(t.getSprite().getX () + 10);
+           }*/
+          for (Dragon d : dragon)
+          {
+            d.getSprite().setX(d.getSprite().getX () + 10);
+          }
+          processCollisions();
         }
-        for (Fireball f : fireballs)
-        {
-          f.getSprite().setX(f.getSprite().getX () + 10);
-        }
-        for (Platform p : platforms)
-        {
-          p.getSprite().setX(p.getSprite().getX () + 10);
-        }
-        for (Gem g : gems)
-        {
-          g.getSprite().setX(g.getSprite().getX () + 10);
-        }
-        for (Drop d : drop)
-        {
-          d.getSprite().setX(d.getSprite().getX () + 10);
-        }
-        /*for (Tree t : tree)
-         {
-         t.getSprite().setX(t.getSprite().getX () + 10);
-         }*/
-        for (Dragon d : dragon)
-        {
-          d.getSprite().setX(d.getSprite().getX () + 10);
-        }
-        processCollisions();
         break;
       }
     case UP:
@@ -637,7 +639,7 @@ void processCollisions()
       }
     }
   }
-//if spyro and the bird collide, score decreases
+  //if spyro and the bird collide, score decreases
   for (Bird b : bird)
   {
     if (b.getSprite().pp_collision(spyro.getSprite()))
@@ -652,7 +654,7 @@ void processCollisions()
     bird.remove(b);
   }
   remove.clear();
-//if spyro and the bird collide, score decreases
+  //if spyro and the bird collide, score decreases
   for (Chick c : chick)
   {
     if (c.getSprite().pp_collision(spyro.getSprite()))
@@ -662,12 +664,12 @@ void processCollisions()
       remove.add(chick.indexOf(c));
     }
   }
-    for (Object c : remove)
-    {
-     chick.remove(c); 
-    }
-    remove.clear();
-  
+  for (Object c : remove)
+  {
+    chick.remove(c);
+  }
+  remove.clear();
+
 
 
 
@@ -774,7 +776,7 @@ void mousePressed ()
 
 
 /*
- * Method provided by Processing and is called every 
+                     * Method provided by Processing and is called every 
  * loop before the draw method. It has to be activated
  * with the following statement in setup() <br>
  * <pre>registerMethod("pre", this);</pre>
