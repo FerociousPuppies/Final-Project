@@ -289,6 +289,17 @@ void draw()
   
   println (loc);
   
+  textSize (32);
+  text ("How to play:", textX, 100);
+  text ("Right key moves Spyro right", textX, 150);
+  text ("Left key moves Spyro left", textX, 200);
+  text ("Up key makes Spyro jump", textX, 250);
+  text ("Spacebar shoots fireball", textX, 300);
+  text ("Object:", textX, 350);
+  text ("Go find the dragon", textX, 400);
+  text ("He will help you fly to the finish", textX, 450);
+  text ("Beware of the enemies", textX, 500);
+  text ("Collect the Gems", textX, 550);
   fill(0);
   textSize (72);
   text ("Score", width/2 - 200, 100, 3);
@@ -756,6 +767,7 @@ void mousePressed ()
 {
   gameState = State.GAME;
 }
+
 
 
 /*
