@@ -1,0 +1,38 @@
+**Updated Project Description**
+	Ferocious Puppies presents "Spyro the Dragon: Pixelated Version", a Spyro-themed platformer.
+	The instructions are presented at the start of the game.
+	The platform game's main character is the PlayStation character Spyro the Dragon.
+	The background moves as a result of Spyro's movements and so it gives the illusion that Spyro is actually traveling
+	when he is staying in one place. There is a pit of mud that is not fully functional. 
+	Spyro can walk over the first part of it, jump onto the platform, and drop safely to the other side.
+	If he falls into the second half of the pit, he sinks and dies.
+	Spyro himself is a sprite, created using the Sprites library and his own sprite sheet.
+	He has the ability to walk, jump, and spit fire. Walking is controlled by key press and key release commands for LEFT and RIGHT.
+	Similarly, his ability to jump is controlled by the UP key (key press and release).
+	The only frustrating thing about these controls is the keyboard's inability to recognize two key presses at once. 
+	Therefore, one has to be diligent in timing when tapping up for jumping and then holding the left or 
+	right key to travel instead of dropping down in place. 
+	Gravity (via downward velocity) has been programmed for to keep Spyro on the ground
+	as well as for his landings on platforms. 
+	A boolean determines whether Spyro is on a platform or not. 
+	Spyro spits fire via space bar (key press), a sprite programmed with a certain 
+	velocity to travel away from Spyro and only disappear when in contact with enemies. 
+	It does have a slight bug as to the fire visually traveling backward should Spyro spit to the left, 
+	but that is only a matter of adjusting the sprite sheet. 
+	Fire eliminates enemies. Enemies function the same throughout the game, 
+	generating in one place and simply moving back and forth in a certain spot. 
+	They are sprites, each with their own sprite sheets. Should Spyro come within range, 
+	the enemies charge towards him. 
+	Because enemies always appear from the right, if Spyro dodges the enemy instead of firing a fireball at it, 
+	the enemy cannot turn back to chase him but rather gets stuck at the end of the screen and waits for its demise. 
+	That is a bug. 
+	Contact with an enemy loses one of three lives as symbolized by the ruby hearts in the far right corner. 
+	At loss of all lives, an end screen will show and a key or mouse press should lead back to title screen. 
+	Defeating enemies and collecting gems (simply touch gems to collect them) earns Spyro points to his score. 
+	There was to be six worlds (of the Dragon Kingdom) in this game: Artisan World, Peace Keepers' World, 
+	Magic Crafters, Beast Makers, Dream Weavers, and Gnasty Gnorc's Realm. However, that had to be cut down to one (Artisans). 
+	To incorporate the sprites already designed for the other worlds into the game, there are a variety of enemies in Artisans. 
+	At the end of the world, Spyro "meets" a dragon as he does in the original game by simply walking up to it. 
+	There is a transition to a flying mini game where you must avoid enemies (bird sprites) and objects (eggs). 
+	If hit with either, fifty points are deduced from the current score for each enemy/object. 
+	After a certain distance, the game shows the winning screen and a key or mouse press should lead back to start screen.
