@@ -17,7 +17,7 @@ class Egg
   
   void flyingEggs ()
   {
-   sprite.setVelX (-70);
+   sprite.setVelX (-10);
   }
   
    Sprite getSprite()
