@@ -97,18 +97,12 @@ void setup()
   start.setXY(width/2, height/2);
   start.setScale(1);
 
-
-
-
   backgroundPicture = new Sprite (this, "Artisans.png", 1);
   backgroundPicture.setVisible (false);
 
 
   background = new ArrayList <Background> ();
   background.add(new Background (this, xb, 400));
-
-
-
 
 
 
