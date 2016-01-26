@@ -15,13 +15,13 @@ class Fireball
   } 
   void fireLeft ()
   {
-    sprite.setVelXY (-100, 0);
+    sprite.setVelXY (-400, 0);
     sprite.setFrameSequence(5, 0, .2);
   }
 
   void fireRight ()
   {
-    sprite.setVelXY (100, 0);
+    sprite.setVelXY (400, 0);
     sprite.setFrameSequence(0, 5, .2);
   }
 

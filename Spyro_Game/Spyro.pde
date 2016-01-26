@@ -66,12 +66,44 @@ class Spyro
 
   void jumpUp () 
   {
-   sprite.setVelY (-700);
+   sprite.setVelY (-900);
 }
 
+void stopMovingUp () 
+{
+ sprite.setVelY (0); 
+}
+void stopMovingDown ()
+{
+  sprite.setVelY(0);
+}
 
+  void flyUp ()
+  {
+   sprite.setVelY (-300); 
+  }
+  
+  void flyDown ()
+  {
+   sprite.setVelY(300); 
+  }
+  
     Sprite getSprite()
     {
       return sprite;
     }
+  
+  void invisible ()
+  {
+    sprite.setVisible (false);
   }
+  
+  void visible () 
+  {
+   sprite.setVisible (true); 
+  }
+
+
+
+
+}

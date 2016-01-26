@@ -2,20 +2,20 @@ import sprites.*;
 import sprites.maths.*;
 import sprites.utils.*;
 
-class Platform
+class Background 
 {
   Sprite sprite;
-
-  Platform (PApplet app, String pic, int x, int y, int scale)
+  
+  Background (PApplet app, int x, int y)
   {
-    sprite = new Sprite (app, pic, 3);
-    sprite.setScale (scale);
-    sprite.setXY (x, y);
-  } 
+    sprite = new Sprite (app, "clouds.jpg", 1);
+    sprite.setXY (x , y);
+    
+  }
   
   void invisible ()
   {
-   sprite.setVisible (false); 
+   sprite.setVisible(false); 
   }
   
   void visible ()
@@ -27,6 +27,5 @@ class Platform
   {
    return sprite; 
   }
-  
   
 }
