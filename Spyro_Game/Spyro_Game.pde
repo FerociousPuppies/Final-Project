@@ -2,7 +2,7 @@ import sprites.*;
 import sprites.maths.*;
 import sprites.utils.*;
 
-Sprite logo, logo2, backgroundPicture;
+Sprite logo, logo2, logo3, logo4, backgroundPicture;
 enum State {
   TITLE, GAME, BONUS, GAMEOVER, WIN
 };
@@ -100,6 +100,12 @@ void setup()
   logo2 = new Sprite(this, "logo2.png", 1);
   logo2.setXY(width/2, height/2 + 50);
   logo2.setScale(1);
+  logo3 = new Sprite(this, "MAGNET.png", 1);
+  logo3.setXY(width/2, height/2 + 150);
+  logo3.setScale(2);
+  logo4 = new Sprite (this, "Click.png", 1);
+  logo4.setXY (width/2, height/2 + 290);
+  
 
 
 
@@ -130,12 +136,13 @@ void setup()
   e.add(new Enemy(this, "Line 68 Tran.gif", 2800, 700, 3));
   e.add(new Enemy(this, "Line 28 Trans.gif", 3400, 700, 3));
   e.add(new Enemy(this, "Line 66 Tran.gif", 4000, 700, 3));
+  //e.add(new Enemy(this, "Line 63 Tran.gif", 2280, 250, 3));
 
 
   /*e.add(new Enemy(this, "Hooded Guy Tran.gif", 2400, 100, 3));
    e.add(new Enemy(this, "Line 1 Tran.gif", 3400, 700, 3));
    
-   e.add(new Enemy(this, "Line 63 Trans.gif", 1200, 100, 3));
+   
    
    e.add(new Enemy(this, "Line 67 Tran.gif", 2200, 700, 3));
    e.add(new Enemy(this, "Line 69 Tran.gif", 2800, 700, 3));
@@ -228,14 +235,6 @@ void setup()
   {
     p.invisible();
   }
-  for (Chick c : chick)
-  {
-    c.invisible();
-  }
-  for (Bird b : bird)
-  {
-    b.invisible();
-  }
   spyro.invisible();
 }
 
@@ -249,6 +248,8 @@ void draw()
   {
     logo.setVisible(false);
     logo2.setVisible(false);
+    logo3.setVisible(false);
+    logo4.setVisible(false);
     backgroundPicture.setVisible (true);
     spyro.visible();
     for (Platform p : platforms)
@@ -287,7 +288,7 @@ void draw()
     }
   }
 
-  println (loc);
+  println (spyro.getSprite().getY());
 
   ;
 
@@ -359,21 +360,20 @@ void draw()
   if (gameState == State.BONUS)
   {
     gameoversw ++;
-    println(gameoversw);
     for (Background b : background)
     {
       b.getSprite().setVelX(-70);
     }
     for (Bird b : bird)
     {
-      b.visible(); 
+      //b.visible(); 
       b.flyLeft();
       b.getSprite().setX(b.getSprite().getX () - 10);
     }
 
     for (Chick c : chick)
     {
-      c.visible(); 
+      //c.visible(); 
       c.flyLeft();
       c.getSprite().setX(c.getSprite().getX () - 10);
     }
@@ -549,13 +549,21 @@ void keyPressed()
     {
     case UP:
       {
-        spyro.flyUp (); 
+        if (spyro.getSprite().getY() - spyro.getSprite().getHeight()/2 > 0)
+        {
+        spyro.flyUp ();
+        }
         break;
+        
       }
     case DOWN:
       {
+        if (spyro.getSprite().getY() + spyro.getSprite().getHeight()/2 < height)
+        {
         spyro.flyDown ();
+        }
         break;
+      
       }
     }
   }
