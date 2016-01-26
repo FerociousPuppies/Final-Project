@@ -41,6 +41,7 @@ PImage magnet;
 boolean currentState = false;
 boolean lastState = false;
 boolean showHeart = false;
+boolean march = false;
 int xb;
 int press;
 boolean fireReady = true;
@@ -50,6 +51,7 @@ int textX;
 float bx1, bx2, bx3, bx4, bx5, bx6, bx7, bx8;
 float by1, by2, by3, by4, by5, by6, by7, by8;
 int loc;
+
 
 void setup()
 {
@@ -71,7 +73,7 @@ void setup()
   gameoversw = 0;
   textX = 25;
   loc = 0;
-  
+
   bx1 = random(1200, 8000);
   bx2 = random(1200, 8000);
   bx3 = random(1200, 8000);
@@ -81,16 +83,16 @@ void setup()
   bx6 = random(1200, 8000);
   bx7 = random(1200, 8000);
   bx8 = random(1200, 8000);
-  
-  by1 = random(0,800);
-  by2 = random(0,800);
-  by3 = random(0,800);
-  by4 = random(0,800);  
-  by5 = random(0,800);
-  by6 = random(0,800);
-  by7 = random(0,800);
-  by8 = random(0,800);
-  
+
+  by1 = random(0, 800);
+  by2 = random(0, 800);
+  by3 = random(0, 800);
+  by4 = random(0, 800);  
+  by5 = random(0, 800);
+  by6 = random(0, 800);
+  by7 = random(0, 800);
+  by8 = random(0, 800);
+
 
   logo = new Sprite(this, "Spyro_logo.png", 1);
   logo.setXY(width/2, height/2 - 150);
@@ -161,17 +163,8 @@ void setup()
   chick.add (new Chick (this, random (1200, 8000), random (0, 800)));
 
 
-  egg = new ArrayList <Egg> ();
-  egg.add(new Egg (this, bx1, by1));
-  egg.add(new Egg (this, bx2, by2));
-  egg.add(new Egg (this, bx3, by3));
-  egg.add(new Egg (this, bx4, by4));
-  egg.add(new Egg (this, bx5, by5));
-  egg.add(new Egg (this, bx6, by6));
-  egg.add(new Egg (this, bx7, by7));
-  egg.add(new Egg (this, bx8, by8));
-  
-  
+
+
   gems = new ArrayList <Gem> ();
   gems.add(new Gem (this, "RedGems.png", 2160, 200, 3));
   gems.add(new Gem (this, "RedGems.png", 5000, 300, 3));
@@ -235,6 +228,14 @@ void setup()
   {
     p.invisible();
   }
+  for (Chick c : chick)
+  {
+    c.invisible();
+  }
+  for (Bird b : bird)
+  {
+    b.invisible();
+  }
   spyro.invisible();
 }
 
@@ -285,9 +286,11 @@ void draw()
       gameState = State.GAMEOVER;
     }
   }
-  
+
   println (loc);
-  
+
+  constrain (loc, -10, 500);
+
   textSize (32);
   text ("How to play:", textX, 100);
   text ("Right key moves Spyro right", textX, 150);
@@ -361,19 +364,16 @@ void draw()
     {
       b.getSprite().setVelX(-70);
     }
-    for (Egg e : egg)
+    for (Bird b : bird)
     {
-      for (Bird b : bird)
-    {
-      e.flyingEggs();
-      e.getSprite().setXY(b.getSprite().getX (), b.getSprite().getY());
-      e.getSprite().setX(e.getSprite().getX() - 10);
+      b.visible(); 
       b.flyLeft();
       b.getSprite().setX(b.getSprite().getX () - 10);
     }
-    }
+
     for (Chick c : chick)
     {
+      c.visible(); 
       c.flyLeft();
       c.getSprite().setX(c.getSprite().getX () - 10);
     }
@@ -461,6 +461,7 @@ void keyPressed()
         x += 10;
         textX += 10;
         left = true;
+
         for (Enemy i : e)
         {
           i.getSprite().setX(i.getSprite().getX () + 10);
@@ -636,26 +637,37 @@ void processCollisions()
       }
     }
   }
-
+//if spyro and the bird collide, score decreases
   for (Bird b : bird)
   {
     if (b.getSprite().pp_collision(spyro.getSprite()))
     {
       b.getSprite().setVisible(false);
       score -= 50;
-      ;
+      remove.add(bird.indexOf(b));
     }
   }
-
+  for (Object b : remove)
+  {
+    bird.remove(b);
+  }
+  remove.clear();
+//if spyro and the bird collide, score decreases
   for (Chick c : chick)
   {
     if (c.getSprite().pp_collision(spyro.getSprite()))
     {
       c.getSprite().setVisible(false);
       score -= 50;
-      ;
+      remove.add(chick.indexOf(c));
     }
   }
+    for (Object c : remove)
+    {
+     chick.remove(c); 
+    }
+    remove.clear();
+  
 
 
 

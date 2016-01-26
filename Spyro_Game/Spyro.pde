@@ -102,6 +102,12 @@ void stopMovingDown ()
   {
    sprite.setVisible (true); 
   }
+  
+  void notMove ()
+  {
+   sprite.setVelXY (0,0); 
+    
+  }
 
 
 

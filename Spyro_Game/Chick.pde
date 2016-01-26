@@ -22,4 +22,14 @@ class Chick
   {
    return sprite; 
   }
+  
+   void invisible ()
+  {
+    sprite.setVisible (false);
+  }
+  
+  void visible ()
+  {
+    sprite.setVisible (true);
+  }
 }
