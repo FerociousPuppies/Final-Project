@@ -2,9 +2,9 @@ import sprites.*;
 import sprites.maths.*;
 import sprites.utils.*;
 
-Sprite logo, logo2, backgroundPicture;
+Sprite start, backgroundPicture;
 enum State {
-  TITLE, GAME, BONUS, GAMEOVER, WIN
+  TITLE, GAME, BONUS, GAMEOVER, WIN, STOP
 };
   State gameState;
 StopWatch sw;
@@ -93,22 +93,16 @@ void setup()
   by8 = random(0,800);
   
 
-  logo = new Sprite(this, "Spyro_logo.png", 1);
-  logo.setXY(width/2, height/2 - 150);
-  logo.setScale(2);
-  logo2 = new Sprite(this, "logo2.png", 1);
-  logo2.setXY(width/2, height/2 + 50);
-  logo2.setScale(1);
+  start = new Sprite(this, "Spyro Start.jpg", 1);
+  start.setXY(width/2, height/2);
+  start.setScale(1);
 
 
 
 
   backgroundPicture = new Sprite (this, "Artisans.png", 1);
   backgroundPicture.setVisible (false);
-  //backgroundPicture = new Sprite (this, "BeastMakers.png", 1);
-  //backgroundPicture = new Sprite (this, "DreamWeavers.png", 1);
-  //backgroundPicture = new Sprite (this, "Peacekeepers.png", 1);
-  //backgroundPicture = new Sprite (this, "magicCrafters.jpg", 1);
+
 
   background = new ArrayList <Background> ();
   background.add(new Background (this, xb, 400));
@@ -174,10 +168,10 @@ void setup()
   
   
   gems = new ArrayList <Gem> ();
-  gems.add(new Gem (this, "RedGems.png", 2160, 200, 3));
-  gems.add(new Gem (this, "RedGems.png", 5000, 300, 3));
-  gems.add(new Gem (this, "RedGems.png", 4700, 300, 3));
-  gems.add(new Gem (this, "RedGems.png", 4400, 300, 3));
+  gems.add(new Gem (this, "RedGems.gif", 2160, 200, 3));
+  gems.add(new Gem (this, "RedGems.gif", 5000, 300, 3));
+  gems.add(new Gem (this, "RedGems.gif", 4700, 300, 3));
+  gems.add(new Gem (this, "RedGems.gif", 4400, 300, 3));
 
 
   spyro = new Spyro(this, y);
@@ -247,8 +241,7 @@ void draw()
 {
   if (gameState == State.GAME)
   {
-    logo.setVisible(false);
-    logo2.setVisible(false);
+    start.setVisible(false);
     backgroundPicture.setVisible (true);
     spyro.visible();
     for (Platform p : platforms)
@@ -289,6 +282,7 @@ void draw()
   
   println (loc);
   
+  if (gameState == State.STOP){
   textSize (32);
   text ("How to play:", textX, 100);
   text ("Right key moves Spyro right", textX, 150);
@@ -304,22 +298,24 @@ void draw()
   textSize (72);
   text ("Score", width/2 - 200, 100, 3);
   text (score, width/2, 100, 1);
+}
+
   if (showHeart)
   {
     if (heartCounter == 3)
     {
-      image (heart1, 900, 50, 100, 100);
-      image (heart2, 1000, 50, 100, 100);
-      image (heart3, 1100, 50, 100, 100);
+      image (heart1, 950, 50, 100, 100);
+      image (heart2, 1050, 50, 100, 100);
+      image (heart3, 1150, 50, 100, 100);
     }
     if (heartCounter == 2)
     {
-      image (heart1, 900, 50, 100, 100);
-      image (heart2, 1000, 50, 100, 100);
+      image (heart1, 950, 50, 100, 100);
+      image (heart2, 1050, 50, 100, 100);
     }
     if (heartCounter == 1)
     {
-      image (heart1, 900, 50, 100, 100);
+      image (heart1, 950, 50, 100, 100);
     }
     if (heartCounter == 0)
     {
@@ -549,6 +545,9 @@ void keyPressed()
       }
     }
   }
+ // if (key == 'i'){
+  //  gameState = State.STOP;
+  //}
   if (gameState == State.BONUS)
   {
     switch(keyCode)
@@ -767,6 +766,7 @@ void mousePressed ()
 {
   gameState = State.GAME;
 }
+
 
 
 
