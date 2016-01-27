@@ -7,7 +7,7 @@ import sprites.utils.*;
 //stated sprites
 
 
-Sprite start, backgroundPicture, instructions;
+Sprite start, backgroundPicture;
 
 enum State {
   TITLE, GAME, BONUS, GAMEOVER, WIN
@@ -28,6 +28,7 @@ ArrayList <Background> background;
 ArrayList <Bird> bird;
 ArrayList <Chick> chick;
 ArrayList <Dragon> dragon; 
+ArrayList <Instructions> instructions;
 int score;
 boolean left;
 int counter;
@@ -110,9 +111,9 @@ void setup()
   backgroundPicture = new Sprite (this, "Artisans.png", 1);
   backgroundPicture.setVisible (false);
 
-  instructions = new Sprite (this, "Instructions.png", 2);
-  instructions.setXY (600, 500);
-  instructions.setVisible(false);
+  instructions = new ArrayList <Instructions> ();
+  instructions.add(new Instructions (this, "Instructions.png"));
+
 
 
   //defined all araylists 
@@ -201,6 +202,11 @@ void setup()
 
   registerMethod("pre", this);
 
+  for (Instructions i : instructions)
+  {
+    i.invisible();
+  }
+
   for (Fireball f : fireballs)
   {
     f.invisible();
@@ -225,7 +231,6 @@ void draw()
   //if game state then draw the main game with platforms
   if (gameState == State.GAME)
   {
-    instructions.setVisible(true);
     start.setVisible(false);
     backgroundPicture.setVisible (true);
     spyro.visible();
@@ -233,6 +238,11 @@ void draw()
     {
       p.visible();
     }
+    for (Instructions i : instructions)
+    {
+      i.visible();
+    }
+
     background(255);
     showHeart = true;
     backgroundPicture.setXY(x, 400);
@@ -246,11 +256,11 @@ void draw()
   {
     f.getSprite().getX();
   }
-  
+
   //draws the sprites
   S4P.drawSprites();
 
-//if the enemy is in a certain distance within then spyro then have the enemies run at spyro
+  //if the enemy is in a certain distance within then spyro then have the enemies run at spyro
   for (Enemy i : e)
   {
     if (i.getSprite().getX() < spyro.getSprite().getY() + 400)
@@ -270,14 +280,14 @@ void draw()
   }
 
 
-  
-//score
+
+  //score
   fill(0);
   textSize (72);
   text ("Score", width/2 - 200, 100, 3);
   text (score, width/2, 100, 1);
 
-  
+
   //show the hearts 
   if (showHeart)
   {
@@ -301,7 +311,7 @@ void draw()
       gameState = State.GAMEOVER;
     }
   }
-  
+
   //game over screen
   if (gameState == State.GAMEOVER) {
     background (0);
@@ -314,7 +324,7 @@ void draw()
       gameState = State.GAME;
     }
   }
-  
+
   //if the fireball gets too afr away fro spyro have it disapprear and reset at spyro
   for (Fireball f : fireballs)
   {
@@ -331,7 +341,7 @@ void draw()
   }
 
 
-//if bonus get rid of the platforms amd change the backgorund and gravity is not ineffect and added birds and chicks
+  //if bonus get rid of the platforms amd change the backgorund and gravity is not ineffect and added birds and chicks
   if (gameState == State.BONUS)
   {
     gameoversw ++;
@@ -363,12 +373,12 @@ void draw()
     gameState = State.WIN;
   }
 
-//if win then show win screen
+  //if win then show win screen
   if (gameState == State.WIN)
   {
     background (0);
     fill (0, 255, 0);
-    image (win, width/2,height/2);
+    image (win, width/2, height/2);
     text ("YOU WIN!", width/2 - 200, height/2);
     text ("Final Score", width/2 - 200, height/2 + 200);
     text (score, width/2 -100, height/2+ 300);
@@ -402,6 +412,11 @@ void keyPressed()
         textX -= 10;
         left = false;
         //have all the elements move with the background
+        for (Instructions i : instructions)
+        {
+          i.getSprite().setX(i.getSprite().getX () - 10);
+        }
+
         for (Enemy i : e)
         {
           i.getSprite().setX(i.getSprite().getX () - 10);
@@ -439,7 +454,11 @@ void keyPressed()
           x += 10;
           textX += 10;
           left = true;
-//move the enemies with the background
+          //move the enemies with the background
+          for (Instructions i : instructions)
+          {
+            i.getSprite().setX(i.getSprite().getX () + 10);
+          }
           for (Enemy i : e)
           {
             i.getSprite().setX(i.getSprite().getX () + 10);
@@ -519,7 +538,7 @@ void keyPressed()
     }
   }
 
-  
+
   //if bonus these are thr controls
 
   if (gameState == State.BONUS)
@@ -681,7 +700,7 @@ void processCollisions()
   }
   remove.clear();
 
-//if game state
+  //if game state
   if (gameState == State.GAME)
   {
     // if spyro is in contact with a platform, have him stop falling
