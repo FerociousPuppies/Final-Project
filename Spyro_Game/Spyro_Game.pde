@@ -2,8 +2,13 @@
 import sprites.*;
 import sprites.maths.*;
 import sprites.utils.*;
+<<<<<<< HEAD
 //stated sprites
 Sprite logo, logo2, logo3, logo4, backgroundPicture;
+=======
+
+Sprite start, backgroundPicture;
+>>>>>>> refs/remotes/origin/Sophia'sBranch-
 enum State {
   TITLE, GAME, BONUS, GAMEOVER, WIN
 };
@@ -28,6 +33,7 @@ boolean left;
 int counter;
 boolean fire = false;
 boolean jump = false;
+boolean fireball = false;
 int timer;
 int y;
 boolean jumping;
@@ -37,7 +43,7 @@ int heartCounter;
 PImage heart1;
 PImage heart2;
 PImage heart3;
-PImage magnet;
+PImage win;
 boolean currentState = false;
 boolean lastState = false;
 boolean showHeart = false;
@@ -95,6 +101,7 @@ void setup()
   by8 = random(0, 800);
 
 
+<<<<<<< HEAD
   logo = new Sprite(this, "Spyro_logo.png", 1);
   logo.setXY(width/2, height/2 - 150);
   logo.setScale(2);
@@ -113,13 +120,15 @@ void setup()
   heart3 = loadImage ("heart.png");
 
 
+=======
+  start = new Sprite(this, "Spyro Start.jpg", 1);
+  start.setXY(width/2, height/2);
+  start.setScale(1);
+>>>>>>> refs/remotes/origin/Sophia'sBranch-
 
   backgroundPicture = new Sprite (this, "Artisans.png", 1);
   backgroundPicture.setVisible (false);
-  //backgroundPicture = new Sprite (this, "BeastMakers.png", 1);
-  //backgroundPicture = new Sprite (this, "DreamWeavers.png", 1);
-  //backgroundPicture = new Sprite (this, "Peacekeepers.png", 1);
-  //backgroundPicture = new Sprite (this, "magicCrafters.jpg", 1);
+
 
 
   //defined all araylists 
@@ -128,6 +137,15 @@ void setup()
 
 
 
+<<<<<<< HEAD
+=======
+  heart1 = loadImage ("heart.png");
+  heart2 = loadImage ("heart.png");
+  heart3 = loadImage ("heart.png");
+
+
+
+>>>>>>> refs/remotes/origin/Sophia'sBranch-
   e = new ArrayList <Enemy>();
   e.add(new Enemy(this, "Line 105 Tran.gif", 2200, 700, 3));
   e.add(new Enemy(this, "Line 68 Tran.gif", 2800, 700, 3));
@@ -159,10 +177,17 @@ void setup()
 
 
   gems = new ArrayList <Gem> ();
+<<<<<<< HEAD
   gems.add(new Gem (this, "RedGems.png", 2160, 200, 3));
   gems.add(new Gem (this, "RedGems.png", 5000, 250, 3));
   gems.add(new Gem (this, "RedGems.png", 4600, 250, 3));
   gems.add(new Gem (this, "RedGems.png", 4400, 300, 3));
+=======
+  gems.add(new Gem (this, "RedGems.gif", 2160, 200, 3));
+  gems.add(new Gem (this, "RedGems.gif", 5000, 300, 3));
+  gems.add(new Gem (this, "RedGems.gif", 4700, 300, 3));
+  gems.add(new Gem (this, "RedGems.gif", 4400, 300, 3));
+>>>>>>> refs/remotes/origin/Sophia'sBranch-
 
 
   spyro = new Spyro(this, y);
@@ -198,7 +223,7 @@ void setup()
   dragon.add (new Dragon (this));
 
 
-  magnet = loadImage("Magnet.jpg");
+  win = loadImage("Win.jpg");
 
 
   registerMethod("pre", this);
@@ -227,10 +252,14 @@ void draw()
   //if game state then draw the main game with platforms
   if (gameState == State.GAME)
   {
+<<<<<<< HEAD
     logo.setVisible(false);
     logo2.setVisible(false);
     logo3.setVisible(false);
     logo4.setVisible(false);
+=======
+    start.setVisible(false);
+>>>>>>> refs/remotes/origin/Sophia'sBranch-
     backgroundPicture.setVisible (true);
     spyro.visible();
     for (Platform p : platforms)
@@ -282,33 +311,37 @@ void draw()
   text ("Left key moves Spyro left", textX, 200);
   text ("Up key makes Spyro jump", textX, 250);
   text ("Spacebar shoots fireball", textX, 300);
-  text ("Object:", textX, 350);
-  text ("Go find the dragon", textX, 400);
-  text ("He will help you fly to the finish", textX, 450);
+  text ("Objective:", textX, 350);
+  text ("Find the dragon", textX, 400);
+  text ("He'll help you fly to the finish", textX, 450);
   text ("Beware of the enemies", textX, 500);
-  text ("Collect the Gems", textX, 550);
+  text ("Collect Gems for Points", textX, 550);
   fill(0);
   textSize (72);
   text ("Score", width/2 - 200, 100, 3);
   text (score, width/2, 100, 1);
+<<<<<<< HEAD
   
   //show the hearts 
+=======
+
+>>>>>>> refs/remotes/origin/Sophia'sBranch-
   if (showHeart)
   {
     if (heartCounter == 3)
     {
-      image (heart1, 900, 50, 100, 100);
-      image (heart2, 1000, 50, 100, 100);
-      image (heart3, 1100, 50, 100, 100);
+      image (heart1, 950, 50, 100, 100);
+      image (heart2, 1050, 50, 100, 100);
+      image (heart3, 1150, 50, 100, 100);
     }
     if (heartCounter == 2)
     {
-      image (heart1, 900, 50, 100, 100);
-      image (heart2, 1000, 50, 100, 100);
+      image (heart1, 950, 50, 100, 100);
+      image (heart2, 1050, 50, 100, 100);
     }
     if (heartCounter == 1)
     {
-      image (heart1, 900, 50, 100, 100);
+      image (heart1, 950, 50, 100, 100);
     }
     if (heartCounter == 0)
     {
@@ -351,7 +384,7 @@ void draw()
     gameoversw ++;
     for (Background b : background)
     {
-      b.getSprite().setVelX(-70);
+      b.getSprite().setVelX(-50);
     }
     for (Bird b : bird)
     {
@@ -382,7 +415,7 @@ void draw()
   {
     background (0);
     fill (0, 255, 0);
-    image (magnet, width/2, height/2);
+    image (win, width/2,height/2);
     text ("YOU WIN!", width/2 - 200, height/2);
     text ("Final Score", width/2 - 200, height/2 + 200);
     text (score, width/2 -100, height/2+ 300);
@@ -415,7 +448,14 @@ void keyPressed()
         x -= 10;
         textX -= 10;
         left = false;
+<<<<<<< HEAD
         //have all the enemies move with the background
+=======
+        for (Fireball f : fireballs)
+        {
+         f.getSprite().setX(f.getSprite().getX() - 10); 
+        }
+>>>>>>> refs/remotes/origin/Sophia'sBranch-
         for (Enemy i : e)
         {
           i.getSprite().setX(i.getSprite().getX () - 10);
@@ -445,6 +485,7 @@ void keyPressed()
       }
     case LEFT:
       {
+<<<<<<< HEAD
         //constain so spyro can't walk off the sceen
         //move the backgorund to the left
         if (loc > 0) {
@@ -479,6 +520,44 @@ void keyPressed()
             d.getSprite().setX(d.getSprite().getX () + 10);
           }
           processCollisions();
+=======
+        spyro.moveLeft();
+        loc -= 1; 
+        x += 10;
+        textX += 10;
+        left = true;
+        for (Fireball f : fireballs)
+        {
+         f.getSprite().setX(f.getSprite().getX() + 10); 
+        }
+        for (Enemy i : e)
+        {
+          i.getSprite().setX(i.getSprite().getX () + 10);
+        }
+        for (Fireball f : fireballs)
+        {
+          f.getSprite().setX(f.getSprite().getX () + 10);
+        }
+        for (Platform p : platforms)
+        {
+          p.getSprite().setX(p.getSprite().getX () + 10);
+        }
+        for (Gem g : gems)
+        {
+          g.getSprite().setX(g.getSprite().getX () + 10);
+        }
+        for (Drop d : drop)
+        {
+          d.getSprite().setX(d.getSprite().getX () + 10);
+        }
+        /*for (Tree t : tree)
+         {
+         t.getSprite().setX(t.getSprite().getX () + 10);
+         }*/
+        for (Dragon d : dragon)
+        {
+          d.getSprite().setX(d.getSprite().getX () + 10);
+>>>>>>> refs/remotes/origin/Sophia'sBranch-
         }
         break;
       }
@@ -532,8 +611,14 @@ void keyPressed()
       }
     }
   }
+<<<<<<< HEAD
   
   //if bonus these are thr controls
+=======
+ // if (key == 'i'){
+  //  gameState = State.STOP;
+  //}
+>>>>>>> refs/remotes/origin/Sophia'sBranch-
   if (gameState == State.BONUS)
   {
     switch(keyCode)
@@ -754,6 +839,7 @@ void mousePressed ()
 {
   gameState = State.GAME;
 }
+
 
 
 
