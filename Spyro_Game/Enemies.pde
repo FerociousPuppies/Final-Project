@@ -58,4 +58,10 @@ static class Enemy
   {
    return sprite; 
   }
+  
+    //set visibility to false
+  void invisible () 
+  {
+    sprite.setVisible(false);  
+  }
 }

@@ -7,7 +7,7 @@ import sprites.utils.*;
 //stated sprites
 
 
-Sprite start, backgroundPicture;
+Sprite start, backgroundPicture, over;
 
 enum State {
   TITLE, GAME, BONUS, GAMEOVER, WIN
@@ -58,7 +58,8 @@ int textX;
 float bx1, bx2, bx3, bx4, bx5, bx6, bx7, bx8;
 float by1, by2, by3, by4, by5, by6, by7, by8;
 int loc;
-
+boolean up = true;
+boolean down = true;
 
 void setup()
 {
@@ -110,6 +111,10 @@ void setup()
 
   backgroundPicture = new Sprite (this, "Artisans.png", 1);
   backgroundPicture.setVisible (false);
+
+  over = new Sprite (this, "spyro-gameover.png", 1);
+  over.setXY(width/2 + 100, height/2);
+  over.setVisible(false);
 
   instructions = new ArrayList <Instructions> ();
   instructions.add(new Instructions (this, "Instructions.png"));
@@ -314,7 +319,7 @@ void draw()
 
   //game over screen
   if (gameState == State.GAMEOVER) {
-    background (0);
+    over.setVisible(true);
     fill (255);
     text ("GAME OVER", width/2 - 200, height/2);
     text ("Final Score", width/2 - 200, height/2 + 200);
@@ -323,66 +328,96 @@ void draw()
     {
       gameState = State.GAME;
     }
-  }
-
-  //if the fireball gets too afr away fro spyro have it disapprear and reset at spyro
-  for (Fireball f : fireballs)
-  {
-    if (f.getSprite().getX() > spyro.getSprite().getX() + 600 || f.getSprite().getX() < spyro.getSprite().getX() - 600)
+    for (Fireball f : fireballs)
     {
       f.invisible();
-      f.getSprite().setXY(spyro.getSprite().getX(), spyro.getSprite().getY());
-      fireReady = true;
     }
-    if (fireReady == true)
-    {
-      f.getSprite().setXY(spyro.getSprite().getX(), spyro.getSprite().getY());
-    }
-  }
-
-
-  //if bonus get rid of the platforms amd change the backgorund and gravity is not ineffect and added birds and chicks
-  if (gameState == State.BONUS)
-  {
-    gameoversw ++;
     for (Background b : background)
     {
-      b.getSprite().setVelX(-50);
+      b.invisible();
     }
-    for (Bird b : bird)
+    for (Platform p : platforms)
     {
-      //b.visible(); 
-      b.flyLeft();
-      b.getSprite().setX(b.getSprite().getX () - 10);
+      p.invisible();
     }
-
-    for (Chick c : chick)
+    for (Enemy i : e)
     {
-      //c.visible(); 
-      c.flyLeft();
-      c.getSprite().setX(c.getSprite().getX () - 10);
+      i.invisible();
     }
-    for (Gem g : gems)
+    for (Drop d : drop)
     {
-      g.getSprite().setX(g.getSprite().getX () - 10);
+      d.invisible();
     }
   }
 
-  if (gameoversw > 500)
+
+//if the fireball gets too afr away fro spyro have it disapprear and reset at spyro
+for (Fireball f : fireballs)
+{
+  if (f.getSprite().getX() > spyro.getSprite().getX() + 600 || f.getSprite().getX() < spyro.getSprite().getX() - 600)
   {
-    gameState = State.WIN;
+    f.invisible();
+    f.getSprite().setXY(spyro.getSprite().getX(), spyro.getSprite().getY());
+    fireReady = true;
+  }
+  if (fireReady == true)
+  {
+    f.getSprite().setXY(spyro.getSprite().getX(), spyro.getSprite().getY());
+  }
+}
+
+
+//if bonus get rid of the platforms amd change the backgorund and gravity is not ineffect and added birds and chicks
+if (gameState == State.BONUS)
+{
+  gameoversw ++;
+  for (Background b : background)
+  {
+    b.getSprite().setVelX(-50);
+  }
+  for (Bird b : bird)
+  {
+    //b.visible(); 
+    b.flyLeft();
+    b.getSprite().setX(b.getSprite().getX () - 10);
   }
 
-  //if win then show win screen
-  if (gameState == State.WIN)
+  for (Chick c : chick)
   {
-    background (0);
-    fill (0, 255, 0);
-    image (win, width/2, height/2);
-    text ("YOU WIN!", width/2 - 200, height/2);
-    text ("Final Score", width/2 - 200, height/2 + 200);
-    text (score, width/2 -100, height/2+ 300);
+    //c.visible(); 
+    c.flyLeft();
+    c.getSprite().setX(c.getSprite().getX () - 10);
   }
+  for (Gem g : gems)
+  {
+    g.getSprite().setX(g.getSprite().getX () - 10);
+  }
+  if (spyro.getSprite().getY() - spyro.getSprite().getHeight()/2 < 0 )
+  {
+    up = false;
+  }
+  if (spyro.getSprite().getY() + spyro.getSprite().getHeight()/2 > height)
+  {
+    down = false;
+  }
+  println (up);
+}
+
+if (gameoversw > 500)
+{
+  gameState = State.WIN;
+}
+
+//if win then show win screen
+if (gameState == State.WIN)
+{
+  background (0);
+  fill (0, 255, 0);
+  image (win, width/2, height/2);
+  text ("YOU WIN!", width/2 - 200, height/2);
+  text ("Final Score", width/2 - 200, height/2 + 200);
+  text (score, width/2 -100, height/2+ 300);
+}
 }
 
 /*
@@ -548,18 +583,20 @@ void keyPressed()
     case UP:
       {
         //spyro flies upward 
-        if (spyro.getSprite().getY() - spyro.getSprite().getHeight()/2 > 0)
+        if (up == true)
         {
           spyro.flyUp ();
+          down = true;
         }
         break;
       }
     case DOWN:
       {
         //spyro flies down
-        if (spyro.getSprite().getY() + spyro.getSprite().getHeight()/2 < height)
+        if (down == true)
         {
           spyro.flyDown ();
+          up = true;
         }
         break;
       }
