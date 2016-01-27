@@ -13,12 +13,12 @@ class Dragon
     sprite.setXY (6000, 675);
     sprite.setScale (3);
   }
-  
+  //set visibility to false
   void invisible ()
   {
     sprite.setVisible (false);
   }
-  
+  //be able to get the sprite's location and scale and velocity
   Sprite getSprite()
   {
    return sprite; 

@@ -26,10 +26,9 @@ class Spyro
   }
 
 
-
+//have the sequence of spyro sprite move so it looks like its moving right   
   void moveRight () 
   {
-    //sprite.setVelX(70);
     sprite.setFrameSequence(0, 8, 0.1);
     right = true;
     if (left == true)
@@ -38,10 +37,9 @@ class Spyro
       left = false;
     }
   }
-
+//have the squence of spyro sprite move so it looks like hes moving left
   void moveLeft () 
   {
-    //sprite.setVelX(-70);
     sprite.setFrameSequence(17, 9, 0.1);
     left = true;
     if (right == true)
@@ -50,44 +48,47 @@ class Spyro
       right = false;
     }
   }
-
+//have spyro stop moving
   void stopMovingRight ()
   {
     sprite.stopImageAnim();
     sprite.setVelX(0);
     sprite.setFrame(0);
   }
+  
+  //have spyro stop moving
   void stopMovingLeft ()
   {
     sprite.stopImageAnim();
     sprite.setVelX(0);
     sprite.setFrame(17);
   }
-
+//have spyro jump
   void jumpUp () 
   {
    sprite.setVelY (-900);
 }
-
+//spyro stop moving up
 void stopMovingUp () 
 {
  sprite.setVelY (0); 
 }
+//spyro stop moving down
 void stopMovingDown ()
 {
   sprite.setVelY(0);
 }
-
+//have spyro jump up
   void flyUp ()
   {
    sprite.setVelY (-300); 
   }
-  
+ //have spyro come back down 
   void flyDown ()
   {
    sprite.setVelY(300); 
   }
-  
+  //be able to get the sprite's location and scale and velocity
     Sprite getSprite()
     {
       return sprite;

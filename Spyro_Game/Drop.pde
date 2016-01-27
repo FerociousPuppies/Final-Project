@@ -14,7 +14,7 @@ class Drop
      
      
    }
-  
+  //be able to get the sprite's location and scale and velocity
   Sprite getSprite()
   {
    return sprite; 

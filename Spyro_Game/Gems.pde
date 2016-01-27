@@ -14,17 +14,17 @@ class Gem
     sprite.setXY (x, y);
   } 
   
-  
+  //set visibility to false
   void invisible ()
   {
    sprite.setVisible (false); 
   }
-  
+  //set visibility to true
   void visible ()
   {
    sprite.setVisible(true); 
   }
-  
+  //be able to get the sprite's location and scale and velocity
   Sprite getSprite()
   {
     return sprite;

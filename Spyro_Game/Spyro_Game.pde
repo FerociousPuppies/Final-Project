@@ -19,11 +19,9 @@ ArrayList <Enemy> e;
 ArrayList <Fireball> fireballs;
 ArrayList <Platform> platforms;
 ArrayList <Drop> drop;
-ArrayList <Tree> tree;
 ArrayList <Background> background;
 ArrayList <Bird> bird;
 ArrayList <Chick> chick;
-ArrayList <Egg> egg;
 ArrayList <Dragon> dragon; 
 int score;
 boolean left;
@@ -162,8 +160,8 @@ void setup()
 
   gems = new ArrayList <Gem> ();
   gems.add(new Gem (this, "RedGems.png", 2160, 200, 3));
-  gems.add(new Gem (this, "RedGems.png", 5000, 300, 3));
-  gems.add(new Gem (this, "RedGems.png", 4700, 300, 3));
+  gems.add(new Gem (this, "RedGems.png", 5000, 250, 3));
+  gems.add(new Gem (this, "RedGems.png", 4600, 250, 3));
   gems.add(new Gem (this, "RedGems.png", 4400, 300, 3));
 
 
@@ -185,7 +183,6 @@ void setup()
   platforms.add (new Platform (this, "platform.jpg", 2160, 275, 1));
   platforms.add (new Platform (this, "platform.jpg", 5000, 325, 1));
   platforms.add (new Platform (this, "platform.jpg", 4600, 325, 1));
-  platforms.add (new Platform (this, "platform.jpg", 4200, 325, 1));
   platforms.add (new Platform (this, "platform.jpg", 4280, 450, 1));
   platforms.add (new Platform (this, "platform.jpg", 4160, 575, 1));
   platforms.add (new Platform (this, "ArtisanPlaform.jpg", 665, 790, 1));
@@ -197,11 +194,6 @@ void setup()
   drop.add (new Drop (this));
 
 
-  tree = new ArrayList <Tree> ();
-  /*
-  tree.add (new Tree (this, 2000, 400));
-   tree.add (new Tree (this, 4000, 400));  
-   */
   dragon = new ArrayList <Dragon> ();
   dragon.add (new Dragon (this));
 

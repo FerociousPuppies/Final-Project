@@ -13,6 +13,7 @@ class Fireball
     sprite.setScale (scale);
     sprite.setXY (x, y);
   } 
+  //give velocity to the fireball
   void fireLeft ()
   {
     sprite.setVelXY (-400, 0);
@@ -25,15 +26,17 @@ class Fireball
     sprite.setFrameSequence(0, 5, .2);
   }
 
+//be able to get the sprite's location and scale and velocity
   Sprite getSprite()
   {
     return sprite;
   }
-
+//set visibility to true
   void visible ()
   {
     sprite.setVisible(true);
   }
+  //set visibility to false
   void invisible () 
   {
     sprite.setVisible(false);  
