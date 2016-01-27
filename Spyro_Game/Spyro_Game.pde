@@ -175,16 +175,16 @@ void setup()
 
 
   platforms = new ArrayList <Platform> ();
-  platforms.add (new Platform (this, "platform.jpg", 1580, 600, 1));
-  platforms.add (new Platform (this, "platform.jpg", 3000, 575, 1));
-  platforms.add (new Platform (this, "platform.jpg", 2700, 375, 1));
-  platforms.add (new Platform (this, "platform.jpg", 2400, 275, 1));
-  platforms.add (new Platform (this, "platform.jpg", 2280, 275, 1));
-  platforms.add (new Platform (this, "platform.jpg", 2160, 275, 1));
-  platforms.add (new Platform (this, "platform.jpg", 5000, 325, 1));
-  platforms.add (new Platform (this, "platform.jpg", 4600, 325, 1));
-  platforms.add (new Platform (this, "platform.jpg", 4280, 450, 1));
-  platforms.add (new Platform (this, "platform.jpg", 4160, 575, 1));
+  platforms.add (new Platform (this, "platform1.jpg", 1580, 600, 1));
+  platforms.add (new Platform (this, "platform1.jpg", 3000, 575, 1));
+  platforms.add (new Platform (this, "platform1.jpg", 2700, 375, 1));
+  platforms.add (new Platform (this, "platform1.jpg", 2400, 275, 1));
+  platforms.add (new Platform (this, "platform1.jpg", 2280, 275, 1));
+  platforms.add (new Platform (this, "platform1.jpg", 2160, 275, 1));
+  platforms.add (new Platform (this, "platform1.jpg", 5000, 325, 1));
+  platforms.add (new Platform (this, "platform1.jpg", 4600, 325, 1));
+  platforms.add (new Platform (this, "platform1.jpg", 4280, 450, 1));
+  platforms.add (new Platform (this, "platform1.jpg", 4160, 575, 1));
   platforms.add (new Platform (this, "ArtisanPlaform.jpg", 665, 790, 1));
   platforms.add (new Platform (this, "ArtisanPlatform2.png", 4175, 790, 1));
 
