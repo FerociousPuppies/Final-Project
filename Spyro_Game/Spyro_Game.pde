@@ -103,7 +103,7 @@ void setup()
   by8 = random(0, 800);
 
 
-
+  //defined all sprites
   start = new Sprite(this, "Spyro Start.jpg", 1);
   start.setXY(width/2, height/2);
   start.setScale(1);
@@ -588,6 +588,10 @@ void keyPressed()
           spyro.flyUp ();
           down = true;
         }
+        if (up == false)
+        {
+          spyro.getSprite().setVelY (0);
+        }
         break;
       }
     case DOWN:
@@ -597,6 +601,10 @@ void keyPressed()
         {
           spyro.flyDown ();
           up = true;
+        }
+        if (down == false)
+        {
+          spyro.getSprite().setVelY (0);
         }
         break;
       }
