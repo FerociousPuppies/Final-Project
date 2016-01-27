@@ -1,7 +1,8 @@
+//import of libraries
 import sprites.*;
 import sprites.maths.*;
 import sprites.utils.*;
-
+//stated sprites
 Sprite logo, logo2, logo3, logo4, backgroundPicture;
 enum State {
   TITLE, GAME, BONUS, GAMEOVER, WIN
@@ -10,6 +11,7 @@ enum State {
 StopWatch sw;
 PImage bg;
 Spyro spyro;
+//defined variables, arraylists and booleans
 int x;
 ArrayList remove;
 ArrayList <Gem> gems;
@@ -55,6 +57,7 @@ int loc;
 
 void setup()
 {
+  //game all the variables values
   size(1200, 800);
   gameState = State.TITLE;
   background (0);
@@ -105,8 +108,11 @@ void setup()
   logo3.setScale(2);
   logo4 = new Sprite (this, "Click.png", 1);
   logo4.setXY (width/2, height/2 + 290);
-  
 
+
+  heart1 = loadImage ("heart.png");
+  heart2 = loadImage ("heart.png");
+  heart3 = loadImage ("heart.png");
 
 
 
@@ -117,17 +123,10 @@ void setup()
   //backgroundPicture = new Sprite (this, "Peacekeepers.png", 1);
   //backgroundPicture = new Sprite (this, "magicCrafters.jpg", 1);
 
+
+  //defined all araylists 
   background = new ArrayList <Background> ();
   background.add(new Background (this, xb, 400));
-
-
-
-
-
-
-  heart1 = loadImage ("heart.png");
-  heart2 = loadImage ("heart.png");
-  heart3 = loadImage ("heart.png");
 
 
 
@@ -136,18 +135,7 @@ void setup()
   e.add(new Enemy(this, "Line 68 Tran.gif", 2800, 700, 3));
   e.add(new Enemy(this, "Line 28 Trans.gif", 3400, 700, 3));
   e.add(new Enemy(this, "Line 66 Tran.gif", 4000, 700, 3));
-  //e.add(new Enemy(this, "Line 63 Tran.gif", 2280, 250, 3));
 
-
-  /*e.add(new Enemy(this, "Hooded Guy Tran.gif", 2400, 100, 3));
-   e.add(new Enemy(this, "Line 1 Tran.gif", 3400, 700, 3));
-   
-   
-   
-   e.add(new Enemy(this, "Line 67 Tran.gif", 2200, 700, 3));
-   e.add(new Enemy(this, "Line 69 Tran.gif", 2800, 700, 3));
-   e.add(new Enemy(this, "Musroom Trans.gif", 1200, 100, 3));
-   */
 
 
   bird = new ArrayList <Bird> ();
@@ -244,6 +232,7 @@ Drawing is done here
  */
 void draw()
 {
+  //if game state then draw the main game with platforms
   if (gameState == State.GAME)
   {
     logo.setVisible(false);
@@ -264,12 +253,16 @@ void draw()
       e.get(i).show();
     }
   }
+  //have the fireballs get the x of spyro so that when its fired it comes froms spyro
   for (Fireball f : fireballs)
   {
     f.getSprite().getX();
   }
+  
+  //draws the sprites
   S4P.drawSprites();
 
+//if the enemy is in a certain distance within then spyro then have the enemies run at spyro
   for (Enemy i : e)
   {
     if (i.getSprite().getX() < spyro.getSprite().getY() + 400)
@@ -288,10 +281,9 @@ void draw()
     }
   }
 
-  println (spyro.getSprite().getY());
 
-  ;
-
+  
+//directions 
   textSize (32);
   text ("How to play:", textX, 100);
   text ("Right key moves Spyro right", textX, 150);
@@ -307,6 +299,8 @@ void draw()
   textSize (72);
   text ("Score", width/2 - 200, 100, 3);
   text (score, width/2, 100, 1);
+  
+  //show the hearts 
   if (showHeart)
   {
     if (heartCounter == 3)
@@ -329,6 +323,8 @@ void draw()
       gameState = State.GAMEOVER;
     }
   }
+  
+  //game over screen
   if (gameState == State.GAMEOVER) {
     background (0);
     fill (255);
@@ -340,9 +336,10 @@ void draw()
       gameState = State.GAME;
     }
   }
+  
+  //if the fireball gets too afr away fro spyro have it disapprear and reset at spyro
   for (Fireball f : fireballs)
   {
-
     if (f.getSprite().getX() > spyro.getSprite().getX() + 600 || f.getSprite().getX() < spyro.getSprite().getX() - 600)
     {
       f.invisible();
@@ -356,7 +353,7 @@ void draw()
   }
 
 
-
+//if bonus get rid of the platforms amd change the backgorund and gravity is not ineffect and added birds and chicks
   if (gameState == State.BONUS)
   {
     gameoversw ++;
@@ -388,6 +385,7 @@ void draw()
     gameState = State.WIN;
   }
 
+//if win then show win screen
   if (gameState == State.WIN)
   {
     background (0);
@@ -411,6 +409,7 @@ The keyPressed method processes keyboard input to control Spyro's
  */
 void keyPressed()
 {
+  //if game these are the controls
   if (gameState == State.GAME)
   {
 
@@ -418,11 +417,13 @@ void keyPressed()
     {
     case RIGHT:
       {
+        //movethe screem to the right
         spyro.moveRight ();
         loc +=1; 
         x -= 10;
         textX -= 10;
         left = false;
+        //have all the enemies move with the background
         for (Enemy i : e)
         {
           i.getSprite().setX(i.getSprite().getX () - 10);
@@ -443,10 +444,6 @@ void keyPressed()
         {
           d.getSprite().setX(d.getSprite().getX () - 10);
         }
-        /*for (Tree t : tree)
-         {
-         t.getSprite().setX(t.getSprite().getX () - 10);
-         }*/
         for (Dragon d : dragon)
         {
           d.getSprite().setX(d.getSprite().getX () - 10);
@@ -456,13 +453,15 @@ void keyPressed()
       }
     case LEFT:
       {
+        //constain so spyro can't walk off the sceen
+        //move the backgorund to the left
         if (loc > 0) {
           spyro.moveLeft();
           loc -= 1; 
           x += 10;
           textX += 10;
           left = true;
-
+//move the enemies with the background
           for (Enemy i : e)
           {
             i.getSprite().setX(i.getSprite().getX () + 10);
@@ -483,10 +482,6 @@ void keyPressed()
           {
             d.getSprite().setX(d.getSprite().getX () + 10);
           }
-          /*for (Tree t : tree)
-           {
-           t.getSprite().setX(t.getSprite().getX () + 10);
-           }*/
           for (Dragon d : dragon)
           {
             d.getSprite().setX(d.getSprite().getX () + 10);
@@ -497,6 +492,7 @@ void keyPressed()
       }
     case UP:
       {
+        //have spyro jump
         if (jump == false)
         {
           spyro.jumpUp();
@@ -514,6 +510,7 @@ void keyPressed()
       }
     case ' ':
       {
+        //if the spacebar is ppressed the fireball is set to visible and fired from spyro
         if (fireReady)
         {
           for (Fireball f : fireballs)
@@ -543,44 +540,28 @@ void keyPressed()
       }
     }
   }
+  
+  //if bonus these are thr controls
   if (gameState == State.BONUS)
   {
     switch(keyCode)
     {
     case UP:
       {
+        //spyro flies upward 
         if (spyro.getSprite().getY() - spyro.getSprite().getHeight()/2 > 0)
         {
-        spyro.flyUp ();
+          spyro.flyUp ();
         }
         break;
-        
       }
     case DOWN:
       {
+        //spyro flies down
         if (spyro.getSprite().getY() + spyro.getSprite().getHeight()/2 < height)
         {
-        spyro.flyDown ();
+          spyro.flyDown ();
         }
-        break;
-      
-      }
-    }
-  }
-  if (gameState == State.BONUS)
-  {
-    switch(keyCode)
-    {
-    case UP:
-      {
-        spyro.flyUp();
-        break;
-      }
-
-    case DOWN:
-      {
-        spyro.flyDown();
-
         break;
       }
     }
@@ -588,6 +569,7 @@ void keyPressed()
 }
 void keyReleased()
 {
+  //if the key released spyro stops moving
   if (keyCode == RIGHT  && gameState == State.GAME)
   {
     spyro.stopMovingRight();
@@ -719,7 +701,7 @@ void processCollisions()
   }
   remove.clear();
 
-
+//if game state
   if (gameState == State.GAME)
   {
     // if spyro is in contact with a platform, have him stop falling
