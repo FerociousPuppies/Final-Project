@@ -7,7 +7,7 @@ import sprites.utils.*;
 //stated sprites
 
 
-Sprite start, backgroundPicture, over;
+Sprite start, backgroundPicture, over, click;
 
 enum State {
   TITLE, GAME, BONUS, GAMEOVER, WIN
@@ -116,13 +116,16 @@ void setup()
   over = new Sprite (this, "spyro-gameover.png", 1);
   over.setXY(width/2 + 100, height/2);
   over.setVisible(false);
+  
+  click = new Sprite (this, "Click.png", 2);
+  click.setXY(width/2 - 270, height/2 + 200);
 
   instructions = new ArrayList <Instructions> ();
   instructions.add(new Instructions (this, "Instructions.png"));
 
 
 
-  //defined all araylists 
+  //defined all arraylists 
   background = new ArrayList <Background> ();
   background.add(new Background (this, xb, 400));
 
@@ -242,6 +245,7 @@ void draw()
   {
     start.setVisible(false);
     backgroundPicture.setVisible (true);
+    click.setVisible(false);
     spyro.visible();
     for (Platform p : platforms)
     {
@@ -328,9 +332,10 @@ void draw()
     text ("GAME OVER", width/2 - 200, height/2);
     text ("Final Score", width/2 - 200, height/2 + 200);
     text (score, width/2 -100, height/2+ 300);
-    if (mousePressed)
+    showHeart = false;
+    for (Gem g : gems)
     {
-      gameState = State.GAME;
+       g.invisible();
     }
     for (Fireball f : fireballs)
     {
