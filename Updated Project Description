@@ -3,50 +3,62 @@
 	The instructions are presented at the start of the game.
 	The platform game's main character is the PlayStation character Spyro the Dragon.
 	The background moves as a result of Spyro's movements and so it gives the illusion that Spyro is actually traveling
-	when he is staying in one place. There is a pit of mud that is not fully functional. 
-	Spyro can walk over the first part of it, jump onto the platform, and drop safely to the other side.
-	If he falls into the second half of the pit, he sinks and dies.
+	when he is staying in one place. 
+	There is a pit of mud that is not fully functional. 
+	Spyro can walk over it as long as his body is not entirely over it.
+	However in that case, he sinks and dies. 
+	Similiarly for the platform, Spyro does not need to be entirely on the platform to land or remain on it.
 	Spyro himself is a sprite, created using the Sprites library and his own sprite sheet.
-	He has the ability to walk, jump, and spit fire. Walking is controlled by key press and key release commands for LEFT and RIGHT.
-	Similarly, his ability to jump is controlled by the UP key (key press and release).
+	He has the ability to walk, jump, and spit fire. 
+	Walking is controlled by key press and key release commands for LEFT and RIGHT.
+	His ability to jump is controlled by the UP key (key press and release).
 	The only frustrating thing about these controls is the keyboard's inability to recognize two key presses at once. 
 	Therefore, one has to be diligent in timing when tapping up for jumping and then holding the left or 
 	right key to travel instead of dropping down in place. 
 	Gravity (via downward velocity) has been programmed for to keep Spyro on the ground
 	as well as for his landings on platforms. 
-	A boolean determines whether Spyro is on a platform or not. 
+	A boolean determines whether Spyro is on a platform or not.
 	Spyro spits fire via space bar (key press), a sprite programmed with a certain 
 	velocity to travel away from Spyro and only disappear when in contact with enemies. 
 	It does have a slight bug as to the fire visually traveling backward should Spyro spit to the left, 
-	but that is only a matter of adjusting the sprite sheet. 
+	but that is only a matter of redoing the sprite sheet and reprogramming the sprite slightly. 
 	Fire eliminates enemies. Enemies function the same throughout the game, 
 	generating in one place and simply moving back and forth in a certain spot. 
 	They are sprites, each with their own sprite sheets. Should Spyro come within range, 
 	the enemies charge towards him. 
 	Because enemies always appear from the right, if Spyro dodges the enemy instead of firing a fireball at it, 
-	the enemy cannot turn back to chase him but rather gets stuck at the end of the screen and waits for its demise. 
+	the enemy cannot turn back to chase him but either gets stuck at the end of the screen and waits for its demise,
+	or leaves the screen entirely and returns to haunt the player later at the edge of the screen. 
 	That is a bug. 
 	Contact with an enemy loses one of three lives as symbolized by the ruby hearts in the far right corner. 
-	At loss of all lives, an end screen will show and a key or mouse press should lead back to title screen. 
+	At loss of all lives, an end screen will show, and the player must exit the game via ESC key. 
 	Defeating enemies and collecting gems (simply touch gems to collect them) earns Spyro points to his score. 
 	There was to be six worlds (of the Dragon Kingdom) in this game: Artisan World, Peace Keepers' World, 
 	Magic Crafters, Beast Makers, Dream Weavers, and Gnasty Gnorc's Realm. However, that had to be cut down to one (Artisans). 
-	To incorporate the sprites already designed for the other worlds into the game, there are a variety of enemies in Artisans. 
-	At the end of the world, Spyro "meets" a dragon as he does in the original game by simply walking up to it. 
+	To incorporate the sprites already designed for the other worlds into the game, there are 
+	four different styles of enemies in Artisans. 
+	At the end of the world, Spyro "finds" a dragon by simply walking up to it. 
 	There is a transition to a flying mini game where you must avoid enemies (bird sprites) and objects (eggs). 
-	If hit with either, fifty points are deduced from the current score for each enemy/object. 
-	After a certain distance, the game shows the winning screen and a key or mouse press should lead back to start screen.
+	If hit with either, fifty points are subtracted from the current score for each enemy/object. 
+	After a certain distance, the game shows the winning screen, and the player must hit the ESC key to 
+	exit the game.
+	At the opening of the game, there may or may not be a dead bird stuck on the end of the screen.
+	That is a bug.
+	
+	Well, it's a bird, but it's a bug.
+	Don't mind it.
+	...
+	(Birds may have been harmed in the making of this video game.)
 	
 	The inspiration for Spyro came from the idea of choosing a nostalgic platformer. 
-	Sophia recalled the little Spyro and Sonic hand held games with black and white screens and pixilated graphics 
+	I recalled the little Spyro and Sonic hand held games with black and white screens and pixelated graphics 
 	that used to come as Happy Meal toys from McDonalds. 
 	Understanding the Sprite library was one of the largest hurdles to jump over when making this game. 
-	With help from sources ranging from Youtube and Yahoo Answers to the informative references like 
-	Processing.org and Amanda's brother, the group managed to understand the basics. 
-	As the main programmer, Amanda was charged with the burden of trying to teach Sophia what meant
-	what so that the later could make changes. The code evolved tremendously from beginning to end.
+	With help from sources ranging from Youtube and Yahoo Answers to informative references like 
+	Processing.org and Amanda's older sibling, the group managed to understand the basics. 
+	The code evolved tremendously from beginning to end.
 	At the start, the group only had Spyro floating in midair, only able to move forward at a painstaking 
 	one millimeter per hour and with a turning animation that showed the "past" Spyro's tail in the "present" 
 	Spyro's frame. Later, Amanda was able to program enemies using her same knowledge of Spryo's code. 
 	Collision detection was also one of the greatest nuisances when creating the game. 
-	We acknowledge the existence of several bugs in the code that went unsolved due to time constraints. 
+	We acknowledge the existence of bugs/glitches in the code that went unsolved due to time constraints. 
