@@ -2,11 +2,12 @@
 import sprites.*;
 import sprites.maths.*;
 import sprites.utils.*;
+//import processing.music.*;
 
 //stated sprites
 
 
-Sprite start, backgroundPicture;
+Sprite start, backgroundPicture, instructions;
 
 enum State {
   TITLE, GAME, BONUS, GAMEOVER, WIN
@@ -109,6 +110,9 @@ void setup()
   backgroundPicture = new Sprite (this, "Artisans.png", 1);
   backgroundPicture.setVisible (false);
 
+  instructions = new Sprite (this, "Instructions.png", 2);
+  instructions.setXY (600, 500);
+  instructions.setVisible(false);
 
 
   //defined all araylists 
@@ -221,7 +225,7 @@ void draw()
   //if game state then draw the main game with platforms
   if (gameState == State.GAME)
   {
-
+    instructions.setVisible(true);
     start.setVisible(false);
     backgroundPicture.setVisible (true);
     spyro.visible();
@@ -267,18 +271,7 @@ void draw()
 
 
   
-//directions 
-  textSize (32);
-  text ("How to play:", textX, 100);
-  text ("Right key moves Spyro right", textX, 150);
-  text ("Left key moves Spyro left", textX, 200);
-  text ("Up key makes Spyro jump", textX, 250);
-  text ("Spacebar shoots fireball", textX, 300);
-  text ("Objective:", textX, 350);
-  text ("Find the dragon", textX, 400);
-  text ("He'll help you fly to the finish", textX, 450);
-  text ("Beware of the enemies", textX, 500);
-  text ("Collect Gems for Points", textX, 550);
+//score
   fill(0);
   textSize (72);
   text ("Score", width/2 - 200, 100, 3);
