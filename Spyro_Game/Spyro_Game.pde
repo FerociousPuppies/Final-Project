@@ -2,7 +2,6 @@
 import sprites.*;
 import sprites.maths.*;
 import sprites.utils.*;
-//import processing.music.*;
 
 //stated sprites
 
@@ -327,6 +326,7 @@ void draw()
 
   //game over screen
   if (gameState == State.GAMEOVER) {
+    backgroundPicture.setVisible(false);
     over.setVisible(true);
     fill (255);
     text ("GAME OVER", width/2 - 200, height/2);
