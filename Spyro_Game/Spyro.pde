@@ -68,26 +68,7 @@ class Spyro
   {
    sprite.setVelY (-900);
 }
-//spyro stop moving up
-void stopMovingUp () 
-{
- sprite.setVelY (0); 
-}
-//spyro stop moving down
-void stopMovingDown ()
-{
-  sprite.setVelY(0);
-}
-//have spyro jump up
-  void flyUp ()
-  {
-   sprite.setVelY (-300); 
-  }
- //have spyro come back down 
-  void flyDown ()
-  {
-   sprite.setVelY(300); 
-  }
+
   //be able to get the sprite's location and scale and velocity
     Sprite getSprite()
     {

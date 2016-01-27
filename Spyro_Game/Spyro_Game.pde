@@ -16,6 +16,7 @@ enum State {
 StopWatch sw;
 PImage bg;
 Spyro spyro;
+SpyroFlying sfly;
 //defined variables, arraylists and booleans
 int x;
 ArrayList remove;
@@ -170,6 +171,9 @@ void setup()
 
 
   spyro = new Spyro(this, y);
+  
+  sfly = new SpyroFlying(this, y);
+  sfly.invisible();
 
 
 
@@ -370,6 +374,9 @@ for (Fireball f : fireballs)
 //if bonus get rid of the platforms amd change the backgorund and gravity is not ineffect and added birds and chicks
 if (gameState == State.BONUS)
 {
+  println (down);
+  sfly.visible();
+  spyro.invisible();
   gameoversw ++;
   for (Background b : background)
   {
@@ -392,15 +399,14 @@ if (gameState == State.BONUS)
   {
     g.getSprite().setX(g.getSprite().getX () - 10);
   }
-  if (spyro.getSprite().getY() - spyro.getSprite().getHeight()/2 < 0 )
+  if (sfly.getSprite().getY() - sfly.getSprite().getHeight()/2 < 0 )
   {
     up = false;
   }
-  if (spyro.getSprite().getY() + spyro.getSprite().getHeight()/2 > height)
+  if (sfly.getSprite().getY() + sfly.getSprite().getHeight()/2 > height)
   {
     down = false;
   }
-  println (up);
 }
 
 if (gameoversw > 500)
@@ -585,12 +591,12 @@ void keyPressed()
         //spyro flies upward 
         if (up == true)
         {
-          spyro.flyUp ();
+          sfly.flyUp ();
           down = true;
         }
         if (up == false)
         {
-          spyro.getSprite().setVelY (0);
+          sfly.getSprite().setVelY (0);
         }
         break;
       }
@@ -599,12 +605,12 @@ void keyPressed()
         //spyro flies down
         if (down == true)
         {
-          spyro.flyDown ();
+          sfly.flyDown ();
           up = true;
         }
         if (down == false)
         {
-          spyro.getSprite().setVelY (0);
+          sfly.getSprite().setVelY (0);
         }
         break;
       }
@@ -630,19 +636,11 @@ void keyReleased()
 
   if (keyCode == UP  && gameState == State.BONUS)
   {
-    spyro.stopMovingUp();
+    sfly.stopMovingUp();
   }
   if (keyCode == DOWN  && gameState == State.BONUS)
   {
-    spyro.stopMovingDown();
-  }
-  if (keyCode == UP && gameState == State.BONUS)
-  {
-    spyro.stopMovingUp ();
-  }
-  if (keyCode == DOWN && gameState == State.BONUS)
-  {
-    spyro.stopMovingDown ();
+    sfly.stopMovingDown();
   }
 }
 
@@ -676,7 +674,7 @@ void processCollisions()
   //if spyro and the bird collide, score decreases
   for (Bird b : bird)
   {
-    if (b.getSprite().pp_collision(spyro.getSprite()))
+    if (b.getSprite().pp_collision(sfly.getSprite()))
     {
       b.getSprite().setVisible(false);
       score -= 50;
@@ -688,10 +686,10 @@ void processCollisions()
     bird.remove(b);
   }
   remove.clear();
-  //if spyro and the bird collide, score decreases
+  //if spyro and the chick collide, score decreases
   for (Chick c : chick)
   {
-    if (c.getSprite().pp_collision(spyro.getSprite()))
+    if (c.getSprite().pp_collision(sfly.getSprite()))
     {
       c.getSprite().setVisible(false);
       score -= 50;
